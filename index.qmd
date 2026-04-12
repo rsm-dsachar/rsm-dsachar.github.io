@@ -1,0 +1,53 @@
+---
+title: "Devansh Sachar"
+image: "files/profile.jpg"
+about:
+  template: jolla
+  links:
+    - icon: envelope
+      href: mailto:your_email@gmail.com
+    - icon: linkedin
+      href: https://linkedin.com/in/yourprofile
+    - icon: github
+      href: https://github.com/yourusername
+---
+
+## 👋 Hi, I'm Devansh
+
+I’m a **Business Analytics graduate student at UC San Diego** with experience in:
+
+- Data Analysis & Visualization
+- Workflow Automation (Alteryx, SQL)
+- Predictive Modeling
+
+---
+
+## 🚀 What I Do
+
+I build **data-driven solutions** that improve efficiency and decision-making.
+
+- Automated workflows saving **hours daily across teams**
+- Built dashboards used by **multiple business units**
+- Applied machine learning to real-world datasets
+
+---
+
+## 📊 Tools & Technologies
+
+**Languages:** Python, SQL, R
+**Tools:** Power BI, Tableau, Alteryx
+**Cloud:** GCP
+**Other:** Excel, Data Modeling, ETL
+
+---
+
+## 📌 What You’ll Find Here
+
+- 📁 Projects with real-world impact
+- 📄 My professional resume
+- 🧠 Blog-style case studies
+
+---
+
+### 🔥 Currently Seeking
+Data Analyst / Business Analyst / Data Science Intern roles

@@ -1,0 +1,104 @@
+/* Global */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  color: #2c3e50;
+  line-height: 1.7;
+}
+
+/* Layout width */
+.page-columns {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #0f2a3d !important;
+  font-weight: 600;
+}
+
+/* HERO SECTION (FIXED CONTRAST) */
+.quarto-about-jolla {
+  background: linear-gradient(135deg, #0f2a3d, #1f4e6b);
+  color: #ffffff;
+  padding: 70px 40px;
+  text-align: center;
+  border-radius: 0;
+}
+
+/* Name */
+.quarto-about-jolla h1 {
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+/* Force ALL hero text to be visible */
+.quarto-about-jolla p,
+.quarto-about-jolla li,
+.quarto-about-jolla h2,
+.quarto-about-jolla h3 {
+  color: #ffffff;
+}
+
+/* Accent text inside hero */
+.quarto-about-jolla strong {
+  color: #1abc9c;  /* teal pop */
+}
+
+/* Profile image */
+.quarto-about-jolla img {
+  border: 4px solid #ffffff;
+}
+
+/* SECTION STYLE (clean, not boxed) */
+section {
+  background: transparent;
+  padding: 25px 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Headings outside hero */
+h2 {
+  color: #1f2d3d;
+  font-weight: 700;
+}
+
+h3 {
+  color: #34495e;
+}
+
+/* Links */
+a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #16a085;
+}
+
+/* Lists */
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Highlight block */
+blockquote {
+  background: #e8f8f5;
+  border-left: 5px solid #1abc9c;
+  padding: 15px;
+  border-radius: 6px;
+  color: #2c3e50;
+}
+
+/* Smooth UI */
+* {
+  transition: all 0.2s ease-in-out;
+}

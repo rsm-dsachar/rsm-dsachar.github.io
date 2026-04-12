@@ -1,0 +1,14 @@
+---
+title: "Customer Segmentation Analysis"
+author: Devansh Sachar
+date: today
+---
+
+## Problem
+Businesses struggle to identify high-value customers.
+
+## Approach
+Used clustering techniques to segment customers.
+
+## Result
+Improved targeting and potential revenue growth.
