@@ -4,63 +4,84 @@
     "href": "index.html",
     "title": "Devansh Sachar",
     "section": "",
-    "text": "I’m a Business Analytics graduate student at UC San Diego with experience in:\n\nData Analysis & Visualization\nWorkflow Automation (Alteryx, SQL)\nPredictive Modeling"
+    "text": "I’m a Business Analytics graduate student at UC San Diego and a former Data Analyst at Bank of America, specializing in building scalable data-driven solutions."
   },
   {
     "objectID": "index.html#hi-im-devansh",
     "href": "index.html#hi-im-devansh",
     "title": "Devansh Sachar",
     "section": "",
-    "text": "I’m a Business Analytics graduate student at UC San Diego with experience in:\n\nData Analysis & Visualization\nWorkflow Automation (Alteryx, SQL)\nPredictive Modeling"
+    "text": "I’m a Business Analytics graduate student at UC San Diego and a former Data Analyst at Bank of America, specializing in building scalable data-driven solutions."
   },
   {
-    "objectID": "index.html#what-i-do",
-    "href": "index.html#what-i-do",
+    "objectID": "index.html#impact-highlights",
+    "href": "index.html#impact-highlights",
     "title": "Devansh Sachar",
-    "section": "🚀 What I Do",
-    "text": "🚀 What I Do\nI build data-driven solutions that improve efficiency and decision-making.\n\nAutomated workflows saving hours daily across teams\nBuilt dashboards used by multiple business units\nApplied machine learning to real-world datasets"
+    "section": "🚀 Impact Highlights",
+    "text": "🚀 Impact Highlights\n\n⏱️ Saved 3+ hours daily across 7 departments and 250+ employees\n📊 Built data systems supporting 60M+ global clients\n⚡ Reduced data latency by 60% using cloud-based ETL pipelines\n🎯 Improved prediction accuracy by 9% using NLP + ML models"
+  },
+  {
+    "objectID": "index.html#professional-experience",
+    "href": "index.html#professional-experience",
+    "title": "Devansh Sachar",
+    "section": "💼 Professional Experience",
+    "text": "💼 Professional Experience\n\nBank of America — Data Analyst\n\nBuilt sentiment-aware fault prediction system using VADER + BERT, improving accuracy by 9% and reducing response time by 20%\nAutomated workflows using Alteryx, Python, and SQL, saving hours daily across multiple teams\nDesigned cloud-native ETL pipelines (Informatica + GCP) reducing latency by 60%\nAchieved 99.7% reconciliation accuracy in financial workflows\n\n\n\nEricsson — Data Analytics Intern\n\nImproved global network performance by 8% using Python and Grafana dashboards\nProcessed 1.5 TB/day data using Apache Spark for real-time anomaly detection\n\n\n\nEvalueserve — Business Analytics Intern\n\nPerformed customer segmentation on 2M+ records, increasing campaign ROI by 15%\nImproved lead conversion by 12% and reduced acquisition cost by 9%"
+  },
+  {
+    "objectID": "index.html#featured-projects",
+    "href": "index.html#featured-projects",
+    "title": "Devansh Sachar",
+    "section": "📊 Featured Projects",
+    "text": "📊 Featured Projects\n\n🔹 Customer Segmentation\n\nBuilt clustering models on large datasets\nImproved targeting and marketing efficiency\n\n\n\n🔹 Sentiment Analysis on Financial News\n\nDeveloped NLP pipeline (NLTK, TF-IDF, ML models)\nAchieved 87% accuracy in sentiment prediction\n\n\n\n🔹 Sneakeronomics\n\nApplied XGBoost + regression on resale data\nIdentified drivers of price appreciation"
   },
   {
     "objectID": "index.html#tools-technologies",
     "href": "index.html#tools-technologies",
     "title": "Devansh Sachar",
-    "section": "📊 Tools & Technologies",
-    "text": "📊 Tools & Technologies\nLanguages: Python, SQL, R Tools: Power BI, Tableau, Alteryx Cloud: GCP Other: Excel, Data Modeling, ETL"
+    "section": "🛠 Tools & Technologies",
+    "text": "🛠 Tools & Technologies\nLanguages: Python, SQL ML & AI: NLP, Machine Learning, Generative AI Tools: Alteryx, Tableau, Power BI, Snowflake Big Data: Apache Spark, Kafka Other: Excel, VBA, ETL Pipelines"
   },
   {
-    "objectID": "index.html#what-youll-find-here",
-    "href": "index.html#what-youll-find-here",
+    "objectID": "index.html#lets-connect",
+    "href": "index.html#lets-connect",
     "title": "Devansh Sachar",
-    "section": "📌 What You’ll Find Here",
-    "text": "📌 What You’ll Find Here\n\n📁 Projects with real-world impact\n📄 My professional resume\n🧠 Blog-style case studies\n\n\n\n🔥 Currently Seeking\nData Analyst / Business Analyst / Data Science Intern roles"
+    "section": "📬 Let’s Connect",
+    "text": "📬 Let’s Connect\n\n📧 dsachar@ucsd.edu\n💻 GitHub: rsm-dsachar\n🔗 LinkedIn"
   },
   {
     "objectID": "projects/project1/index.html",
     "href": "projects/project1/index.html",
-    "title": "Customer Segmentation Analysis",
+    "title": "Customer Segmentation using Machine Learning",
     "section": "",
-    "text": "Businesses struggle to identify high-value customers."
+    "text": "Businesses struggle to identify high-value customers for targeted marketing."
   },
   {
     "objectID": "projects/project1/index.html#problem",
     "href": "projects/project1/index.html#problem",
-    "title": "Customer Segmentation Analysis",
+    "title": "Customer Segmentation using Machine Learning",
     "section": "",
-    "text": "Businesses struggle to identify high-value customers."
+    "text": "Businesses struggle to identify high-value customers for targeted marketing."
   },
   {
     "objectID": "projects/project1/index.html#approach",
     "href": "projects/project1/index.html#approach",
-    "title": "Customer Segmentation Analysis",
-    "section": "Approach",
-    "text": "Approach\nUsed clustering techniques to segment customers."
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "⚙️ Approach",
+    "text": "⚙️ Approach\n\nProcessed large-scale transaction datasets\nApplied K-Means clustering and regression\nBuilt data pipelines using Python and SQL"
   },
   {
-    "objectID": "projects/project1/index.html#result",
-    "href": "projects/project1/index.html#result",
-    "title": "Customer Segmentation Analysis",
-    "section": "Result",
-    "text": "Result\nImproved targeting and potential revenue growth."
+    "objectID": "projects/project1/index.html#results",
+    "href": "projects/project1/index.html#results",
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "📊 Results",
+    "text": "📊 Results\n\nIdentified key behavioral segments\nImproved marketing efficiency and ROI\nEnabled data-driven decision-making"
+  },
+  {
+    "objectID": "projects/project1/index.html#tools",
+    "href": "projects/project1/index.html#tools",
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "🛠 Tools",
+    "text": "🛠 Tools\nPython, Pandas, Scikit-learn, SQL"
   },
   {
     "objectID": "resume.html",
@@ -74,6 +95,6 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Customer Segmentation Analysis\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 12, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Customer Segmentation using Machine Learning\n\n\nClustering-based segmentation on large-scale customer data\n\n\n\n\n\n\nApr 12, 2026\n\n\n\n\n\n\nNo matching items"
   }
 ]

@@ -5,49 +5,74 @@ about:
   template: jolla
   links:
     - icon: envelope
-      href: mailto:your_email@gmail.com
+      href: mailto:dsachar@ucsd.edu
     - icon: linkedin
-      href: https://linkedin.com/in/yourprofile
+      href: https://linkedin.com
     - icon: github
-      href: https://github.com/yourusername
+      href: https://github.com/rsm-dsachar
 ---
 
 ## 👋 Hi, I'm Devansh
 
-I’m a **Business Analytics graduate student at UC San Diego** with experience in:
-
-- Data Analysis & Visualization
-- Workflow Automation (Alteryx, SQL)
-- Predictive Modeling
+I’m a **Business Analytics graduate student at UC San Diego** and a former **Data Analyst at Bank of America**, specializing in building scalable data-driven solutions.
 
 ---
 
-## 🚀 What I Do
+## 🚀 Impact Highlights
 
-I build **data-driven solutions** that improve efficiency and decision-making.
-
-- Automated workflows saving **hours daily across teams**
-- Built dashboards used by **multiple business units**
-- Applied machine learning to real-world datasets
-
----
-
-## 📊 Tools & Technologies
-
-**Languages:** Python, SQL, R
-**Tools:** Power BI, Tableau, Alteryx
-**Cloud:** GCP
-**Other:** Excel, Data Modeling, ETL
+- ⏱️ Saved **3+ hours daily** across 7 departments and 250+ employees
+- 📊 Built data systems supporting **60M+ global clients**
+- ⚡ Reduced data latency by **60%** using cloud-based ETL pipelines
+- 🎯 Improved prediction accuracy by **9%** using NLP + ML models
 
 ---
 
-## 📌 What You’ll Find Here
+## 💼 Professional Experience
 
-- 📁 Projects with real-world impact
-- 📄 My professional resume
-- 🧠 Blog-style case studies
+### Bank of America — Data Analyst
+- Built **sentiment-aware fault prediction system** using VADER + BERT, improving accuracy by 9% and reducing response time by 20%
+- Automated workflows using **Alteryx, Python, and SQL**, saving hours daily across multiple teams
+- Designed **cloud-native ETL pipelines (Informatica + GCP)** reducing latency by 60%
+- Achieved **99.7% reconciliation accuracy** in financial workflows
+
+### Ericsson — Data Analytics Intern
+- Improved global network performance by **8%** using Python and Grafana dashboards
+- Processed **1.5 TB/day data** using Apache Spark for real-time anomaly detection
+
+### Evalueserve — Business Analytics Intern
+- Performed **customer segmentation on 2M+ records**, increasing campaign ROI by 15%
+- Improved lead conversion by 12% and reduced acquisition cost by 9%
 
 ---
 
-### 🔥 Currently Seeking
-Data Analyst / Business Analyst / Data Science Intern roles
+## 📊 Featured Projects
+
+### 🔹 Customer Segmentation
+- Built clustering models on large datasets
+- Improved targeting and marketing efficiency
+
+### 🔹 Sentiment Analysis on Financial News
+- Developed NLP pipeline (NLTK, TF-IDF, ML models)
+- Achieved **87% accuracy** in sentiment prediction
+
+### 🔹 Sneakeronomics
+- Applied XGBoost + regression on resale data
+- Identified drivers of price appreciation
+
+---
+
+## 🛠 Tools & Technologies
+
+**Languages:** Python, SQL
+**ML & AI:** NLP, Machine Learning, Generative AI
+**Tools:** Alteryx, Tableau, Power BI, Snowflake
+**Big Data:** Apache Spark, Kafka
+**Other:** Excel, VBA, ETL Pipelines
+
+---
+
+## 📬 Let’s Connect
+
+- 📧 dsachar@ucsd.edu
+- 💻 GitHub: rsm-dsachar
+- 🔗 LinkedIn

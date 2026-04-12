@@ -1,14 +1,21 @@
 ---
-title: "Customer Segmentation Analysis"
-author: Devansh Sachar
+title: "Customer Segmentation using Machine Learning"
+description: "Clustering-based segmentation on large-scale customer data"
 date: today
 ---
 
-## Problem
-Businesses struggle to identify high-value customers.
+## 📌 Problem
+Businesses struggle to identify high-value customers for targeted marketing.
 
-## Approach
-Used clustering techniques to segment customers.
+## ⚙️ Approach
+- Processed large-scale transaction datasets
+- Applied K-Means clustering and regression
+- Built data pipelines using Python and SQL
 
-## Result
-Improved targeting and potential revenue growth.
+## 📊 Results
+- Identified key behavioral segments
+- Improved marketing efficiency and ROI
+- Enabled data-driven decision-making
+
+## 🛠 Tools
+Python, Pandas, Scikit-learn, SQL
