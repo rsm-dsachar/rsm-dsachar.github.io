@@ -1,5 +1,138 @@
 [
   {
+    "objectID": "blogs.html",
+    "href": "blogs.html",
+    "title": "Blogs",
+    "section": "",
+    "text": "A/B Testing a Call to Action\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 13, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Customer Segmentation using Machine Learning\n\n\nClustering-based segmentation on large-scale customer data\n\n\n\n\n\n\nApr 13, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "Download PDF file."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html",
+    "href": "blogs/ab-testing/index.html",
+    "title": "A/B Testing a Call to Action",
+    "section": "",
+    "text": "Modern websites rely heavily on user engagement, and small changes in messaging can significantly impact behavior. In this analysis, we compare two call-to-action (CTA) messages:\n\nCTA A: “Sign up for our newsletter here!”\nCTA B: “Stay up to date by signing up!”\n\nWe evaluate these using an A/B test, where users are randomly assigned to one version and we compare sign-up rates."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#introduction",
+    "href": "blogs/ab-testing/index.html#introduction",
+    "title": "A/B Testing a Call to Action",
+    "section": "",
+    "text": "Modern websites rely heavily on user engagement, and small changes in messaging can significantly impact behavior. In this analysis, we compare two call-to-action (CTA) messages:\n\nCTA A: “Sign up for our newsletter here!”\nCTA B: “Stay up to date by signing up!”\n\nWe evaluate these using an A/B test, where users are randomly assigned to one version and we compare sign-up rates."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#the-ab-test-as-a-statistical-problem",
+    "href": "blogs/ab-testing/index.html#the-ab-test-as-a-statistical-problem",
+    "title": "A/B Testing a Call to Action",
+    "section": "The A/B Test as a Statistical Problem",
+    "text": "The A/B Test as a Statistical Problem\nEach user either signs up (1) or not (0), so outcomes follow a Bernoulli distribution.\nWe define:\n\n\\(\\pi_A\\): conversion rate for CTA A\n\\(\\pi_B\\): conversion rate for CTA B\n\nThe parameter of interest is:\n\\[\n\\theta = \\pi_A - \\pi_B\n\\]\nEstimated using:\n\\[\n\\hat{\\theta} = \\bar{X}_A - \\bar{X}_B\n\\]"
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#simulating-data",
+    "href": "blogs/ab-testing/index.html#simulating-data",
+    "title": "A/B Testing a Call to Action",
+    "section": "Simulating Data",
+    "text": "Simulating Data\nWe assume:\n\n\\(\\pi_A = 0.22\\)\n\\(\\pi_B = 0.18\\)\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(42)\n\nn = 1000\np_A = 0.22\np_B = 0.18\n\nA = np.random.binomial(1, p_A, n)\nB = np.random.binomial(1, p_B, n)"
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#the-law-of-large-numbers",
+    "href": "blogs/ab-testing/index.html#the-law-of-large-numbers",
+    "title": "A/B Testing a Call to Action",
+    "section": "The Law of Large Numbers",
+    "text": "The Law of Large Numbers\n\n\n\n\n\n\n\n\n\nAs sample size increases, the estimate stabilizes around the true value, demonstrating convergence."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#bootstrap-standard-errors",
+    "href": "blogs/ab-testing/index.html#bootstrap-standard-errors",
+    "title": "A/B Testing a Call to Action",
+    "section": "Bootstrap Standard Errors",
+    "text": "Bootstrap Standard Errors\n\n\n\n\n\n\n\n\n\nBootstrapping helps estimate uncertainty without relying on formulas."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#the-central-limit-theorem",
+    "href": "blogs/ab-testing/index.html#the-central-limit-theorem",
+    "title": "A/B Testing a Call to Action",
+    "section": "The Central Limit Theorem",
+    "text": "The Central Limit Theorem\n\n\n\n\n\n\n\n\n\nAs sample size increases, the distribution becomes more Normal."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#hypothesis-testing",
+    "href": "blogs/ab-testing/index.html#hypothesis-testing",
+    "title": "A/B Testing a Call to Action",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing\n\ntheta_hat = np.mean(A) - np.mean(B)\nse = np.sqrt((np.var(A)/n) + (np.var(B)/n))\nz = theta_hat / se\n\nprint(\"Estimate:\", theta_hat)\nprint(\"Z-stat:\", z)\n\nEstimate: 0.038000000000000006\nZ-stat: 2.1388179513414762\n\n\nWe test whether the difference is statistically significant."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#the-t-test-as-a-regression",
+    "href": "blogs/ab-testing/index.html#the-t-test-as-a-regression",
+    "title": "A/B Testing a Call to Action",
+    "section": "The T-Test as a Regression",
+    "text": "The T-Test as a Regression\n\nimport statsmodels.api as sm\n\nY = np.concatenate([A, B])\nD = np.concatenate([np.ones(n), np.zeros(n)])\n\nX = sm.add_constant(D)\nmodel = sm.OLS(Y, X).fit()\n\nprint(model.summary())\n\n                            OLS Regression Results                            \n==============================================================================\nDep. Variable:                      y   R-squared:                       0.002\nModel:                            OLS   Adj. R-squared:                  0.002\nMethod:                 Least Squares   F-statistic:                     4.570\nDate:                Mon, 13 Apr 2026   Prob (F-statistic):             0.0327\nTime:                        18:44:02   Log-Likelihood:                -991.64\nNo. Observations:                2000   AIC:                             1987.\nDf Residuals:                    1998   BIC:                             1998.\nDf Model:                           1                                         \nCovariance Type:            nonrobust                                         \n==============================================================================\n                 coef    std err          t      P&gt;|t|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          0.1780      0.013     14.161      0.000       0.153       0.203\nx1             0.0380      0.018      2.138      0.033       0.003       0.073\n==============================================================================\nOmnibus:                      434.378   Durbin-Watson:                   1.932\nProb(Omnibus):                  0.000   Jarque-Bera (JB):              777.046\nSkew:                           1.518   Prob(JB):                    1.85e-169\nKurtosis:                       3.320   Cond. No.                         2.62\n==============================================================================\n\nNotes:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nRegression gives the same result as the A/B test."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#the-problem-with-peeking",
+    "href": "blogs/ab-testing/index.html#the-problem-with-peeking",
+    "title": "A/B Testing a Call to Action",
+    "section": "The Problem with Peeking",
+    "text": "The Problem with Peeking\n\n\nFalse Positive Rate: 0.205\n\n\nRepeated testing inflates false positives beyond 5%."
+  },
+  {
+    "objectID": "blogs/ab-testing/index.html#conclusion",
+    "href": "blogs/ab-testing/index.html#conclusion",
+    "title": "A/B Testing a Call to Action",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis analysis demonstrates how A/B testing relies on statistical principles such as the Law of Large Numbers, the Central Limit Theorem, and hypothesis testing.\nWe also see how improper practices like peeking can lead to misleading conclusions. These tools provide a framework for making reliable, data-driven decisions."
+  },
+  {
+    "objectID": "projects/project1/index.html",
+    "href": "projects/project1/index.html",
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "",
+    "text": "Businesses struggle to identify high-value customers for targeted marketing."
+  },
+  {
+    "objectID": "projects/project1/index.html#problem",
+    "href": "projects/project1/index.html#problem",
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "",
+    "text": "Businesses struggle to identify high-value customers for targeted marketing."
+  },
+  {
+    "objectID": "projects/project1/index.html#approach",
+    "href": "projects/project1/index.html#approach",
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "⚙️ Approach",
+    "text": "⚙️ Approach\n\nProcessed large-scale transaction datasets\nApplied K-Means clustering and regression\nBuilt data pipelines using Python and SQL"
+  },
+  {
+    "objectID": "projects/project1/index.html#results",
+    "href": "projects/project1/index.html#results",
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "📊 Results",
+    "text": "📊 Results\n\nIdentified key behavioral segments\nImproved marketing efficiency and ROI\nEnabled data-driven decision-making"
+  },
+  {
+    "objectID": "projects/project1/index.html#tools",
+    "href": "projects/project1/index.html#tools",
+    "title": "Customer Segmentation using Machine Learning",
+    "section": "🛠 Tools",
+    "text": "🛠 Tools\nPython, Pandas, Scikit-learn, SQL"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Devansh Sachar",
@@ -47,54 +180,5 @@
     "title": "Devansh Sachar",
     "section": "📬 Let’s Connect",
     "text": "📬 Let’s Connect\n\n📧 dsachar@ucsd.edu\n💻 GitHub: rsm-dsachar\n🔗 LinkedIn"
-  },
-  {
-    "objectID": "projects/project1/index.html",
-    "href": "projects/project1/index.html",
-    "title": "Customer Segmentation using Machine Learning",
-    "section": "",
-    "text": "Businesses struggle to identify high-value customers for targeted marketing."
-  },
-  {
-    "objectID": "projects/project1/index.html#problem",
-    "href": "projects/project1/index.html#problem",
-    "title": "Customer Segmentation using Machine Learning",
-    "section": "",
-    "text": "Businesses struggle to identify high-value customers for targeted marketing."
-  },
-  {
-    "objectID": "projects/project1/index.html#approach",
-    "href": "projects/project1/index.html#approach",
-    "title": "Customer Segmentation using Machine Learning",
-    "section": "⚙️ Approach",
-    "text": "⚙️ Approach\n\nProcessed large-scale transaction datasets\nApplied K-Means clustering and regression\nBuilt data pipelines using Python and SQL"
-  },
-  {
-    "objectID": "projects/project1/index.html#results",
-    "href": "projects/project1/index.html#results",
-    "title": "Customer Segmentation using Machine Learning",
-    "section": "📊 Results",
-    "text": "📊 Results\n\nIdentified key behavioral segments\nImproved marketing efficiency and ROI\nEnabled data-driven decision-making"
-  },
-  {
-    "objectID": "projects/project1/index.html#tools",
-    "href": "projects/project1/index.html#tools",
-    "title": "Customer Segmentation using Machine Learning",
-    "section": "🛠 Tools",
-    "text": "🛠 Tools\nPython, Pandas, Scikit-learn, SQL"
-  },
-  {
-    "objectID": "resume.html",
-    "href": "resume.html",
-    "title": "Resume",
-    "section": "",
-    "text": "Download PDF file."
-  },
-  {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
-    "section": "",
-    "text": "Customer Segmentation using Machine Learning\n\n\nClustering-based segmentation on large-scale customer data\n\n\n\n\n\n\nApr 12, 2026\n\n\n\n\n\n\nNo matching items"
   }
 ]

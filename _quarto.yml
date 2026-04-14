@@ -8,13 +8,15 @@ website:
     left:
       - href: index.qmd
         text: About
-      - href: resume.qmd
-        text: Resume
       - href: projects.qmd
         text: Projects
+      - href: blogs.qmd
+        text: Blogs
+      - href: resume.qmd
+        text: Resume
     right:
       - icon: github
-        href: https://github.com/yourusername
+        href: https://github.com/rsm-dsachar
       - icon: linkedin
         href: https://linkedin.com/in/yourprofile
 

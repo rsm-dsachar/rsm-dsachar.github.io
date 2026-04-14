@@ -1,0 +1,209 @@
+---
+title: "A/B Testing a Call to Action"
+subtitle: "Simulating Key Ideas from Classical Frequentist Statistics"
+author: "Devansh Sachar"
+date: "2026-04-13"
+---
+
+
+## Introduction
+
+Modern websites rely heavily on user engagement, and small changes in messaging can significantly impact behavior. In this analysis, we compare two call-to-action (CTA) messages:
+
+* CTA A: "Sign up for our newsletter here!"
+* CTA B: "Stay up to date by signing up!"
+
+We evaluate these using an A/B test, where users are randomly assigned to one version and we compare sign-up rates.
+
+---
+
+## The A/B Test as a Statistical Problem
+
+Each user either signs up (1) or not (0), so outcomes follow a Bernoulli distribution.
+
+We define:
+
+* $\pi_A$: conversion rate for CTA A
+* $\pi_B$: conversion rate for CTA B
+
+The parameter of interest is:
+
+$$
+\theta = \pi_A - \pi_B
+$$
+
+Estimated using:
+
+$$
+\hat{\theta} = \bar{X}_A - \bar{X}_B
+$$
+
+---
+
+## Simulating Data
+
+We assume:
+
+* $\pi_A = 0.22$
+* $\pi_B = 0.18$
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+
+n = 1000
+p_A = 0.22
+p_B = 0.18
+
+A = np.random.binomial(1, p_A, n)
+B = np.random.binomial(1, p_B, n)
+```
+
+---
+
+## The Law of Large Numbers
+
+```{python}
+#| echo: false
+diff = A - B
+cum_avg = np.cumsum(diff) / np.arange(1, n+1)
+
+plt.figure()
+plt.plot(cum_avg)
+plt.axhline(y=0.04)
+plt.title("Convergence of Estimated Difference (LLN)")
+plt.xlabel("Number of Observations")
+plt.ylabel("Estimated Difference")
+plt.show()
+```
+
+As sample size increases, the estimate stabilizes around the true value, demonstrating convergence.
+
+---
+
+## Bootstrap Standard Errors
+
+```{python}
+#| echo: false
+boot_estimates = []
+
+for _ in range(1000):
+    A_sample = np.random.choice(A, size=n, replace=True)
+    B_sample = np.random.choice(B, size=n, replace=True)
+    boot_estimates.append(np.mean(A_sample) - np.mean(B_sample))
+
+plt.figure()
+plt.hist(boot_estimates)
+plt.title("Bootstrap Distribution")
+plt.xlabel("Estimated Difference")
+plt.ylabel("Frequency")
+plt.show()
+```
+
+Bootstrapping helps estimate uncertainty without relying on formulas.
+
+---
+
+## The Central Limit Theorem
+
+```{python}
+#| echo: false
+sample_sizes = [25, 50, 100, 500]
+
+plt.figure(figsize=(10,8))
+
+for i, n_s in enumerate(sample_sizes):
+    estimates = []
+    for _ in range(1000):
+        A_sim = np.random.binomial(1, p_A, n_s)
+        B_sim = np.random.binomial(1, p_B, n_s)
+        estimates.append(np.mean(A_sim) - np.mean(B_sim))
+
+    plt.subplot(2,2,i+1)
+    plt.hist(estimates)
+    plt.title(f"n = {n_s}")
+
+plt.tight_layout()
+plt.show()
+```
+
+As sample size increases, the distribution becomes more Normal.
+
+---
+
+## Hypothesis Testing
+
+```{python}
+theta_hat = np.mean(A) - np.mean(B)
+se = np.sqrt((np.var(A)/n) + (np.var(B)/n))
+z = theta_hat / se
+
+print("Estimate:", theta_hat)
+print("Z-stat:", z)
+```
+
+We test whether the difference is statistically significant.
+
+---
+
+## The T-Test as a Regression
+
+```{python}
+import statsmodels.api as sm
+
+Y = np.concatenate([A, B])
+D = np.concatenate([np.ones(n), np.zeros(n)])
+
+X = sm.add_constant(D)
+model = sm.OLS(Y, X).fit()
+
+print(model.summary())
+```
+
+Regression gives the same result as the A/B test.
+
+---
+
+## The Problem with Peeking
+
+```{python}
+#| echo: false
+false_positive = 0
+simulations = 1000
+
+for _ in range(simulations):
+    A_sim = np.random.binomial(1, 0.20, 1000)
+    B_sim = np.random.binomial(1, 0.20, 1000)
+
+    significant = False
+
+    for k in range(100, 1001, 100):
+        A_k = A_sim[:k]
+        B_k = B_sim[:k]
+
+        theta_hat = np.mean(A_k) - np.mean(B_k)
+        se = np.sqrt((np.var(A_k)/k) + (np.var(B_k)/k))
+
+        if se > 0:
+            z = theta_hat / se
+            if abs(z) > 1.96:
+                significant = True
+                break
+
+    if significant:
+        false_positive += 1
+
+print("False Positive Rate:", false_positive / simulations)
+```
+
+Repeated testing inflates false positives beyond 5%.
+
+---
+
+## Conclusion
+
+This analysis demonstrates how A/B testing relies on statistical principles such as the Law of Large Numbers, the Central Limit Theorem, and hypothesis testing.
+
+We also see how improper practices like peeking can lead to misleading conclusions. These tools provide a framework for making reliable, data-driven decisions.
