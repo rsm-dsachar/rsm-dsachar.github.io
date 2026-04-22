@@ -1,0 +1,131 @@
+---
+
+Title: "Replication of Card and Krueger (1994)"
+Subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industry"
+Author: "Devansh Sachar"
+Date: "2026-04-21"
+
+---
+
+## Introduction
+
+Card and Krueger (1994) examine the impact of minimum wage increases on employment in the fast-food industry. Their study focuses on a policy change in New Jersey, where the minimum wage increased, while neighboring Pennsylvania did not.
+
+This creates a natural experiment that allows us to estimate the causal effect of minimum wage changes using a Difference-in-Differences (DiD) approach. The key idea is to compare how employment changes over time in New Jersey relative to Pennsylvania.
+
+In this replication, we aim to reproduce the main finding of the paper: that the increase in minimum wage did not lead to a reduction in employment.
+
+---
+
+## Main Analysis
+
+```{python}
+#| echo: true
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Column structure for fixed-width file
+colspecs = [
+    (0,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),
+    (22,24),(25,30),(31,36),(37,42),(43,48),(49,54),(55,60),(61,62),(63,68),
+    (69,70),(71,76),(77,82),(83,88),(89,94),(95,100),(101,103),(104,106),
+    (107,108),(109,110),(111,117),(118,120),(121,126),(127,132),(133,138),
+    (139,144),(145,150),(151,156),(157,158),(159,160),(161,166),(167,172),
+    (173,178),(179,184),(185,190),(191,193),(194,196)
+]
+
+cols = [
+    "sheet","chain","co_owned","state","southj","centralj","northj","pa1","pa2","shore",
+    "ncalls","empft","emppt","nmgrs","wage_st","inctime","firstinc","bonus","pctaff",
+    "meals","open","hrsopen","psoda","pfry","pentree","nregs","nregs11","type2",
+    "status2","date2","ncalls2","empft2","emppt2","nmgrs2","wage_st2","inctime2",
+    "firstin2","special2","meals2","open2r","hrsopen2","psoda2","pfry2","pentree2",
+    "nregs2","nregs112"
+]
+
+# Load data (FIXED PATH)
+df = pd.read_fwf("../../data/public.dat", colspecs=colspecs, names=cols, dtype=str)
+
+# Convert to numeric
+for c in cols:
+    df[c] = pd.to_numeric(df[c].replace(".", np.nan), errors="coerce")
+
+# Construct employment
+df["emptot"] = df["empft"] + 0.5 * df["emppt"] + df["nmgrs"]
+df["emptot2"] = df["empft2"] + 0.5 * df["emppt2"] + df["nmgrs2"]
+
+# Closed stores
+df["closed"] = (df["status2"] == 3)
+df["emptot2_table"] = df["emptot2"]
+df.loc[df["closed"], "emptot2_table"] = 0
+
+# Change in employment
+df["demp"] = df["emptot2_table"] - df["emptot"]
+
+# Treatment (NJ)
+df["nj"] = df["state"]
+
+# Balanced sample
+balanced = df[df["emptot"].notna() & df["emptot2_table"].notna()].copy()
+
+# Summary table
+summary = (
+    balanced
+    .groupby("nj")[["emptot", "emptot2_table", "demp"]]
+    .mean()
+    .rename(index={0: "Pennsylvania", 1: "New Jersey"})
+)
+
+summary
+```
+
+```{python}
+did = summary.loc["New Jersey", "demp"] - summary.loc["Pennsylvania", "demp"]
+did
+```
+
+The difference-in-differences estimate is approximately **2.7–2.8**, which closely matches the paper’s reported value (~2.76). This suggests that employment increased in New Jersey relative to Pennsylvania after the minimum wage increase.
+
+---
+
+## Something Additional
+
+```{python}
+#| echo: false
+plot_df = (
+    balanced
+    .assign(state_name=np.where(balanced["nj"] == 1, "New Jersey", "Pennsylvania"))
+    .groupby("state_name")[["emptot", "emptot2_table"]]
+    .mean()
+    .reset_index()
+    .melt(id_vars="state_name", value_vars=["emptot", "emptot2_table"],
+          var_name="period", value_name="fte")
+)
+
+plot_df["period"] = plot_df["period"].map({
+    "emptot": "Before",
+    "emptot2_table": "After"
+})
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+for state_name, sub in plot_df.groupby("state_name"):
+    sub = sub.sort_values("period")
+    ax.plot(sub["period"], sub["fte"], marker="o", linewidth=2, label=state_name)
+
+ax.set_title("Employment Before vs After Minimum Wage Change")
+ax.set_ylabel("Full-Time Equivalent Employment")
+ax.legend()
+plt.show()
+```
+
+The graph clearly shows the logic of the Difference-in-Differences approach. Employment decreases in Pennsylvania but slightly increases in New Jersey, creating a positive gap between trends.
+
+---
+
+## Conclusion
+
+This replication closely matches the findings of Card and Krueger (1994). The results suggest that the increase in minimum wage did not reduce employment in the fast-food sector.
+
+More broadly, this demonstrates how Difference-in-Differences can be used to estimate causal effects in real-world policy settings.

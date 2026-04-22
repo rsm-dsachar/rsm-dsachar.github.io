@@ -2,6 +2,7 @@
   {
     "listing": "/blogs.html",
     "items": [
+      "/blogs/card-krueger/index.html",
       "/blogs/ab-testing/index.html"
     ]
   },

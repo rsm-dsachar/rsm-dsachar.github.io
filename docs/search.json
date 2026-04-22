@@ -4,14 +4,14 @@
     "href": "blogs.html",
     "title": "Blogs",
     "section": "",
-    "text": "A/B Testing a Call to Action\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 13, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Introduction\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA/B Testing a Call to Action\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 13, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Customer Segmentation using Machine Learning\n\n\nClustering-based segmentation on large-scale customer data\n\n\n\n\n\n\nApr 13, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Customer Segmentation using Machine Learning\n\n\nClustering-based segmentation on large-scale customer data\n\n\n\n\n\n\nApr 22, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "resume.html",
@@ -81,7 +81,7 @@
     "href": "blogs/ab-testing/index.html#the-t-test-as-a-regression",
     "title": "A/B Testing a Call to Action",
     "section": "The T-Test as a Regression",
-    "text": "The T-Test as a Regression\n\nimport statsmodels.api as sm\n\nY = np.concatenate([A, B])\nD = np.concatenate([np.ones(n), np.zeros(n)])\n\nX = sm.add_constant(D)\nmodel = sm.OLS(Y, X).fit()\n\nprint(model.summary())\n\n                            OLS Regression Results                            \n==============================================================================\nDep. Variable:                      y   R-squared:                       0.002\nModel:                            OLS   Adj. R-squared:                  0.002\nMethod:                 Least Squares   F-statistic:                     4.570\nDate:                Mon, 13 Apr 2026   Prob (F-statistic):             0.0327\nTime:                        18:44:02   Log-Likelihood:                -991.64\nNo. Observations:                2000   AIC:                             1987.\nDf Residuals:                    1998   BIC:                             1998.\nDf Model:                           1                                         \nCovariance Type:            nonrobust                                         \n==============================================================================\n                 coef    std err          t      P&gt;|t|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          0.1780      0.013     14.161      0.000       0.153       0.203\nx1             0.0380      0.018      2.138      0.033       0.003       0.073\n==============================================================================\nOmnibus:                      434.378   Durbin-Watson:                   1.932\nProb(Omnibus):                  0.000   Jarque-Bera (JB):              777.046\nSkew:                           1.518   Prob(JB):                    1.85e-169\nKurtosis:                       3.320   Cond. No.                         2.62\n==============================================================================\n\nNotes:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nRegression gives the same result as the A/B test."
+    "text": "The T-Test as a Regression\n\nimport statsmodels.api as sm\n\nY = np.concatenate([A, B])\nD = np.concatenate([np.ones(n), np.zeros(n)])\n\nX = sm.add_constant(D)\nmodel = sm.OLS(Y, X).fit()\n\nprint(model.summary())\n\n                            OLS Regression Results                            \n==============================================================================\nDep. Variable:                      y   R-squared:                       0.002\nModel:                            OLS   Adj. R-squared:                  0.002\nMethod:                 Least Squares   F-statistic:                     4.570\nDate:                Wed, 22 Apr 2026   Prob (F-statistic):             0.0327\nTime:                        14:38:13   Log-Likelihood:                -991.64\nNo. Observations:                2000   AIC:                             1987.\nDf Residuals:                    1998   BIC:                             1998.\nDf Model:                           1                                         \nCovariance Type:            nonrobust                                         \n==============================================================================\n                 coef    std err          t      P&gt;|t|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          0.1780      0.013     14.161      0.000       0.153       0.203\nx1             0.0380      0.018      2.138      0.033       0.003       0.073\n==============================================================================\nOmnibus:                      434.378   Durbin-Watson:                   1.932\nProb(Omnibus):                  0.000   Jarque-Bera (JB):              777.046\nSkew:                           1.518   Prob(JB):                    1.85e-169\nKurtosis:                       3.320   Cond. No.                         2.62\n==============================================================================\n\nNotes:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nRegression gives the same result as the A/B test."
   },
   {
     "objectID": "blogs/ab-testing/index.html#the-problem-with-peeking",
@@ -96,6 +96,41 @@
     "title": "A/B Testing a Call to Action",
     "section": "Conclusion",
     "text": "Conclusion\nThis analysis demonstrates how A/B testing relies on statistical principles such as the Law of Large Numbers, the Central Limit Theorem, and hypothesis testing.\nWe also see how improper practices like peeking can lead to misleading conclusions. These tools provide a framework for making reliable, data-driven decisions."
+  },
+  {
+    "objectID": "blogs/card-krueger/index.html",
+    "href": "blogs/card-krueger/index.html",
+    "title": "Devansh Sachar",
+    "section": "",
+    "text": "Title: “Replication of Card and Krueger (1994)” Subtitle: “Minimum Wages and Employment: A Case Study of the Fast-Food Industry” Author: “Devansh Sachar” Date: “2026-04-21”"
+  },
+  {
+    "objectID": "blogs/card-krueger/index.html#introduction",
+    "href": "blogs/card-krueger/index.html#introduction",
+    "title": "Devansh Sachar",
+    "section": "Introduction",
+    "text": "Introduction\nCard and Krueger (1994) examine the impact of minimum wage increases on employment in the fast-food industry. Their study focuses on a policy change in New Jersey, where the minimum wage increased, while neighboring Pennsylvania did not.\nThis creates a natural experiment that allows us to estimate the causal effect of minimum wage changes using a Difference-in-Differences (DiD) approach. The key idea is to compare how employment changes over time in New Jersey relative to Pennsylvania.\nIn this replication, we aim to reproduce the main finding of the paper: that the increase in minimum wage did not lead to a reduction in employment."
+  },
+  {
+    "objectID": "blogs/card-krueger/index.html#main-analysis",
+    "href": "blogs/card-krueger/index.html#main-analysis",
+    "title": "Devansh Sachar",
+    "section": "Main Analysis",
+    "text": "Main Analysis\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Column structure for fixed-width file\ncolspecs = [\n    (0,3),(4,5),(6,7),(8,9),(10,11),(12,13),(14,15),(16,17),(18,19),(20,21),\n    (22,24),(25,30),(31,36),(37,42),(43,48),(49,54),(55,60),(61,62),(63,68),\n    (69,70),(71,76),(77,82),(83,88),(89,94),(95,100),(101,103),(104,106),\n    (107,108),(109,110),(111,117),(118,120),(121,126),(127,132),(133,138),\n    (139,144),(145,150),(151,156),(157,158),(159,160),(161,166),(167,172),\n    (173,178),(179,184),(185,190),(191,193),(194,196)\n]\n\ncols = [\n    \"sheet\",\"chain\",\"co_owned\",\"state\",\"southj\",\"centralj\",\"northj\",\"pa1\",\"pa2\",\"shore\",\n    \"ncalls\",\"empft\",\"emppt\",\"nmgrs\",\"wage_st\",\"inctime\",\"firstinc\",\"bonus\",\"pctaff\",\n    \"meals\",\"open\",\"hrsopen\",\"psoda\",\"pfry\",\"pentree\",\"nregs\",\"nregs11\",\"type2\",\n    \"status2\",\"date2\",\"ncalls2\",\"empft2\",\"emppt2\",\"nmgrs2\",\"wage_st2\",\"inctime2\",\n    \"firstin2\",\"special2\",\"meals2\",\"open2r\",\"hrsopen2\",\"psoda2\",\"pfry2\",\"pentree2\",\n    \"nregs2\",\"nregs112\"\n]\n\n# Load data (FIXED PATH)\ndf = pd.read_fwf(\"../../data/public.dat\", colspecs=colspecs, names=cols, dtype=str)\n\n# Convert to numeric\nfor c in cols:\n    df[c] = pd.to_numeric(df[c].replace(\".\", np.nan), errors=\"coerce\")\n\n# Construct employment\ndf[\"emptot\"] = df[\"empft\"] + 0.5 * df[\"emppt\"] + df[\"nmgrs\"]\ndf[\"emptot2\"] = df[\"empft2\"] + 0.5 * df[\"emppt2\"] + df[\"nmgrs2\"]\n\n# Closed stores\ndf[\"closed\"] = (df[\"status2\"] == 3)\ndf[\"emptot2_table\"] = df[\"emptot2\"]\ndf.loc[df[\"closed\"], \"emptot2_table\"] = 0\n\n# Change in employment\ndf[\"demp\"] = df[\"emptot2_table\"] - df[\"emptot\"]\n\n# Treatment (NJ)\ndf[\"nj\"] = df[\"state\"]\n\n# Balanced sample\nbalanced = df[df[\"emptot\"].notna() & df[\"emptot2_table\"].notna()].copy()\n\n# Summary table\nsummary = (\n    balanced\n    .groupby(\"nj\")[[\"emptot\", \"emptot2_table\", \"demp\"]]\n    .mean()\n    .rename(index={0: \"Pennsylvania\", 1: \"New Jersey\"})\n)\n\nsummary\n\n\n\n\n\n\n\n\nemptot\nemptot2_table\ndemp\n\n\nnj\n\n\n\n\n\n\n\nPennsylvania\n23.380000\n21.096667\n-2.283333\n\n\nNew Jersey\n20.430583\n20.897249\n0.466667\n\n\n\n\n\n\n\n\ndid = summary.loc[\"New Jersey\", \"demp\"] - summary.loc[\"Pennsylvania\", \"demp\"]\ndid\n\nnp.float64(2.75)\n\n\nThe difference-in-differences estimate is approximately 2.7–2.8, which closely matches the paper’s reported value (~2.76). This suggests that employment increased in New Jersey relative to Pennsylvania after the minimum wage increase."
+  },
+  {
+    "objectID": "blogs/card-krueger/index.html#something-additional",
+    "href": "blogs/card-krueger/index.html#something-additional",
+    "title": "Devansh Sachar",
+    "section": "Something Additional",
+    "text": "Something Additional\n\n\n\n\n\n\n\n\n\nThe graph clearly shows the logic of the Difference-in-Differences approach. Employment decreases in Pennsylvania but slightly increases in New Jersey, creating a positive gap between trends."
+  },
+  {
+    "objectID": "blogs/card-krueger/index.html#conclusion",
+    "href": "blogs/card-krueger/index.html#conclusion",
+    "title": "Devansh Sachar",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis replication closely matches the findings of Card and Krueger (1994). The results suggest that the increase in minimum wage did not reduce employment in the fast-food sector.\nMore broadly, this demonstrates how Difference-in-Differences can be used to estimate causal effects in real-world policy settings."
   },
   {
     "objectID": "projects/project1/index.html",

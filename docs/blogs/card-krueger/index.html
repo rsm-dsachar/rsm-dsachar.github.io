@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-04-22">
-<meta name="description" content="Clustering-based segmentation on large-scale customer data">
 
-<title>Customer Segmentation using Machine Learning – Devansh Sachar</title>
+<title>index – Devansh Sachar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,10 +20,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -70,6 +103,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -136,69 +172,155 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#problem" id="toc-problem" class="nav-link active" data-scroll-target="#problem">📌 Problem</a></li>
-  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">⚙️ Approach</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">📊 Results</a></li>
-  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">🛠 Tools</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#main-analysis" id="toc-main-analysis" class="nav-link" data-scroll-target="#main-analysis">Main Analysis</a></li>
+  <li><a href="#something-additional" id="toc-something-additional" class="nav-link" data-scroll-target="#something-additional">Something Additional</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Customer Segmentation using Machine Learning</h1>
-</div>
 
+
+
+<hr>
+<p>Title: “Replication of Card and Krueger (1994)” Subtitle: “Minimum Wages and Employment: A Case Study of the Fast-Food Industry” Author: “Devansh Sachar” Date: “2026-04-21”</p>
+<hr>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Card and Krueger (1994) examine the impact of minimum wage increases on employment in the fast-food industry. Their study focuses on a policy change in New Jersey, where the minimum wage increased, while neighboring Pennsylvania did not.</p>
+<p>This creates a natural experiment that allows us to estimate the causal effect of minimum wage changes using a Difference-in-Differences (DiD) approach. The key idea is to compare how employment changes over time in New Jersey relative to Pennsylvania.</p>
+<p>In this replication, we aim to reproduce the main finding of the paper: that the increase in minimum wage did not lead to a reduction in employment.</p>
+<hr>
+</section>
+<section id="main-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="main-analysis">Main Analysis</h2>
+<div id="caf72136" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Column structure for fixed-width file</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>colspecs <span class="op">=</span> [</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">0</span>,<span class="dv">3</span>),(<span class="dv">4</span>,<span class="dv">5</span>),(<span class="dv">6</span>,<span class="dv">7</span>),(<span class="dv">8</span>,<span class="dv">9</span>),(<span class="dv">10</span>,<span class="dv">11</span>),(<span class="dv">12</span>,<span class="dv">13</span>),(<span class="dv">14</span>,<span class="dv">15</span>),(<span class="dv">16</span>,<span class="dv">17</span>),(<span class="dv">18</span>,<span class="dv">19</span>),(<span class="dv">20</span>,<span class="dv">21</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">22</span>,<span class="dv">24</span>),(<span class="dv">25</span>,<span class="dv">30</span>),(<span class="dv">31</span>,<span class="dv">36</span>),(<span class="dv">37</span>,<span class="dv">42</span>),(<span class="dv">43</span>,<span class="dv">48</span>),(<span class="dv">49</span>,<span class="dv">54</span>),(<span class="dv">55</span>,<span class="dv">60</span>),(<span class="dv">61</span>,<span class="dv">62</span>),(<span class="dv">63</span>,<span class="dv">68</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">69</span>,<span class="dv">70</span>),(<span class="dv">71</span>,<span class="dv">76</span>),(<span class="dv">77</span>,<span class="dv">82</span>),(<span class="dv">83</span>,<span class="dv">88</span>),(<span class="dv">89</span>,<span class="dv">94</span>),(<span class="dv">95</span>,<span class="dv">100</span>),(<span class="dv">101</span>,<span class="dv">103</span>),(<span class="dv">104</span>,<span class="dv">106</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">107</span>,<span class="dv">108</span>),(<span class="dv">109</span>,<span class="dv">110</span>),(<span class="dv">111</span>,<span class="dv">117</span>),(<span class="dv">118</span>,<span class="dv">120</span>),(<span class="dv">121</span>,<span class="dv">126</span>),(<span class="dv">127</span>,<span class="dv">132</span>),(<span class="dv">133</span>,<span class="dv">138</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">139</span>,<span class="dv">144</span>),(<span class="dv">145</span>,<span class="dv">150</span>),(<span class="dv">151</span>,<span class="dv">156</span>),(<span class="dv">157</span>,<span class="dv">158</span>),(<span class="dv">159</span>,<span class="dv">160</span>),(<span class="dv">161</span>,<span class="dv">166</span>),(<span class="dv">167</span>,<span class="dv">172</span>),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">173</span>,<span class="dv">178</span>),(<span class="dv">179</span>,<span class="dv">184</span>),(<span class="dv">185</span>,<span class="dv">190</span>),(<span class="dv">191</span>,<span class="dv">193</span>),(<span class="dv">194</span>,<span class="dv">196</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sheet"</span>,<span class="st">"chain"</span>,<span class="st">"co_owned"</span>,<span class="st">"state"</span>,<span class="st">"southj"</span>,<span class="st">"centralj"</span>,<span class="st">"northj"</span>,<span class="st">"pa1"</span>,<span class="st">"pa2"</span>,<span class="st">"shore"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ncalls"</span>,<span class="st">"empft"</span>,<span class="st">"emppt"</span>,<span class="st">"nmgrs"</span>,<span class="st">"wage_st"</span>,<span class="st">"inctime"</span>,<span class="st">"firstinc"</span>,<span class="st">"bonus"</span>,<span class="st">"pctaff"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"meals"</span>,<span class="st">"open"</span>,<span class="st">"hrsopen"</span>,<span class="st">"psoda"</span>,<span class="st">"pfry"</span>,<span class="st">"pentree"</span>,<span class="st">"nregs"</span>,<span class="st">"nregs11"</span>,<span class="st">"type2"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"status2"</span>,<span class="st">"date2"</span>,<span class="st">"ncalls2"</span>,<span class="st">"empft2"</span>,<span class="st">"emppt2"</span>,<span class="st">"nmgrs2"</span>,<span class="st">"wage_st2"</span>,<span class="st">"inctime2"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"firstin2"</span>,<span class="st">"special2"</span>,<span class="st">"meals2"</span>,<span class="st">"open2r"</span>,<span class="st">"hrsopen2"</span>,<span class="st">"psoda2"</span>,<span class="st">"pfry2"</span>,<span class="st">"pentree2"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nregs2"</span>,<span class="st">"nregs112"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data (FIXED PATH)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_fwf(<span class="st">"../../data/public.dat"</span>, colspecs<span class="op">=</span>colspecs, names<span class="op">=</span>cols, dtype<span class="op">=</span><span class="bu">str</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to numeric</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> cols:</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    df[c] <span class="op">=</span> pd.to_numeric(df[c].replace(<span class="st">"."</span>, np.nan), errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct employment</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot"</span>] <span class="op">=</span> df[<span class="st">"empft"</span>] <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> df[<span class="st">"emppt"</span>] <span class="op">+</span> df[<span class="st">"nmgrs"</span>]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot2"</span>] <span class="op">=</span> df[<span class="st">"empft2"</span>] <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> df[<span class="st">"emppt2"</span>] <span class="op">+</span> df[<span class="st">"nmgrs2"</span>]</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Closed stores</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"closed"</span>] <span class="op">=</span> (df[<span class="st">"status2"</span>] <span class="op">==</span> <span class="dv">3</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot2_table"</span>] <span class="op">=</span> df[<span class="st">"emptot2"</span>]</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">"closed"</span>], <span class="st">"emptot2_table"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Change in employment</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"demp"</span>] <span class="op">=</span> df[<span class="st">"emptot2_table"</span>] <span class="op">-</span> df[<span class="st">"emptot"</span>]</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment (NJ)</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"nj"</span>] <span class="op">=</span> df[<span class="st">"state"</span>]</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Balanced sample</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>balanced <span class="op">=</span> df[df[<span class="st">"emptot"</span>].notna() <span class="op">&amp;</span> df[<span class="st">"emptot2_table"</span>].notna()].copy()</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary table</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> (</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    balanced</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"nj"</span>)[[<span class="st">"emptot"</span>, <span class="st">"emptot2_table"</span>, <span class="st">"demp"</span>]]</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    .rename(index<span class="op">=</span>{<span class="dv">0</span>: <span class="st">"Pennsylvania"</span>, <span class="dv">1</span>: <span class="st">"New Jersey"</span>})</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
-  <div class="description">
-    Clustering-based segmentation on large-scale customer data
-  </div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">emptot</th>
+<th data-quarto-table-cell-role="th">emptot2_table</th>
+<th data-quarto-table-cell-role="th">demp</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">nj</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Pennsylvania</th>
+<td>23.380000</td>
+<td>21.096667</td>
+<td>-2.283333</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">New Jersey</th>
+<td>20.430583</td>
+<td>20.897249</td>
+<td>0.466667</td>
+</tr>
+</tbody>
+</table>
+
 </div>
-
-
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 22, 2026</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="problem" class="level2">
-<h2 class="anchored" data-anchor-id="problem">📌 Problem</h2>
-<p>Businesses struggle to identify high-value customers for targeted marketing.</p>
+</div>
+</div>
+<div id="453dfa35" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>did <span class="op">=</span> summary.loc[<span class="st">"New Jersey"</span>, <span class="st">"demp"</span>] <span class="op">-</span> summary.loc[<span class="st">"Pennsylvania"</span>, <span class="st">"demp"</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>did</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>np.float64(2.75)</code></pre>
+</div>
+</div>
+<p>The difference-in-differences estimate is approximately <strong>2.7–2.8</strong>, which closely matches the paper’s reported value (~2.76). This suggests that employment increased in New Jersey relative to Pennsylvania after the minimum wage increase.</p>
+<hr>
 </section>
-<section id="approach" class="level2">
-<h2 class="anchored" data-anchor-id="approach">⚙️ Approach</h2>
-<ul>
-<li>Processed large-scale transaction datasets</li>
-<li>Applied K-Means clustering and regression</li>
-<li>Built data pipelines using Python and SQL</li>
-</ul>
+<section id="something-additional" class="level2">
+<h2 class="anchored" data-anchor-id="something-additional">Something Additional</h2>
+<div id="78f03896" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" width="672" height="431" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph clearly shows the logic of the Difference-in-Differences approach. Employment decreases in Pennsylvania but slightly increases in New Jersey, creating a positive gap between trends.</p>
+<hr>
 </section>
-<section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">📊 Results</h2>
-<ul>
-<li>Identified key behavioral segments</li>
-<li>Improved marketing efficiency and ROI</li>
-<li>Enabled data-driven decision-making</li>
-</ul>
-</section>
-<section id="tools" class="level2">
-<h2 class="anchored" data-anchor-id="tools">🛠 Tools</h2>
-<p>Python, Pandas, Scikit-learn, SQL</p>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This replication closely matches the findings of Card and Krueger (1994). The results suggest that the increase in minimum wage did not reduce employment in the fast-food sector.</p>
+<p>More broadly, this demonstrates how Difference-in-Differences can be used to estimate causal effects in real-world policy settings.</p>
 
 
 </section>
