@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Devansh Sachar">
+<meta name="dcterms.date" content="2026-04-21">
 
-<title>index – Devansh Sachar</title>
+<title>Replication of Card and Krueger (1994) – Devansh Sachar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ac077c1e730dfeb5e42400639d17284e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d49cb7b63505d316017c90a847e198c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f8287073cd13ae05f9e498db8f8ab386.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -173,89 +175,164 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#main-analysis" id="toc-main-analysis" class="nav-link" data-scroll-target="#main-analysis">Main Analysis</a></li>
-  <li><a href="#something-additional" id="toc-something-additional" class="nav-link" data-scroll-target="#something-additional">Something Additional</a></li>
+  <li><a href="#data-and-sample-construction" id="toc-data-and-sample-construction" class="nav-link" data-scroll-target="#data-and-sample-construction">Data and Sample Construction</a></li>
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary Statistics</a></li>
+  <li><a href="#main-analysis-difference-in-differences" id="toc-main-analysis-difference-in-differences" class="nav-link" data-scroll-target="#main-analysis-difference-in-differences">Main Analysis: Difference-in-Differences</a>
+  <ul class="collapse">
+  <li><a href="#comparison-of-means-table-3-analog" id="toc-comparison-of-means-table-3-analog" class="nav-link" data-scroll-target="#comparison-of-means-table-3-analog">Comparison of Means (Table 3 Analog)</a></li>
+  <li><a href="#regression-framework" id="toc-regression-framework" class="nav-link" data-scroll-target="#regression-framework">Regression Framework</a></li>
+  <li><a href="#adding-controls" id="toc-adding-controls" class="nav-link" data-scroll-target="#adding-controls">Adding Controls</a></li>
+  </ul></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
+  <li><a href="#robustness-check-excluding-closed-stores" id="toc-robustness-check-excluding-closed-stores" class="nav-link" data-scroll-target="#robustness-check-excluding-closed-stores">Robustness Check: Excluding Closed Stores</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Replication of Card and Krueger (1994)</h1>
+<p class="subtitle lead">Minimum Wages and Employment: A Case Study of the Fast-Food Industry</p>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<hr>
-<p>Title: “Replication of Card and Krueger (1994)” Subtitle: “Minimum Wages and Employment: A Case Study of the Fast-Food Industry” Author: “Devansh Sachar” Date: “2026-04-21”</p>
-<hr>
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Devansh Sachar </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 21, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Card and Krueger (1994) examine the impact of minimum wage increases on employment in the fast-food industry. Their study focuses on a policy change in New Jersey, where the minimum wage increased, while neighboring Pennsylvania did not.</p>
-<p>This creates a natural experiment that allows us to estimate the causal effect of minimum wage changes using a Difference-in-Differences (DiD) approach. The key idea is to compare how employment changes over time in New Jersey relative to Pennsylvania.</p>
-<p>In this replication, we aim to reproduce the main finding of the paper: that the increase in minimum wage did not lead to a reduction in employment.</p>
-<hr>
+<p>Card and Krueger (1994) examine the effect of a minimum wage increase on employment in the fast-food industry. In April 1992, New Jersey raised its minimum wage from $4.25 to $5.05 per hour, while neighboring Pennsylvania’s minimum wage remained unchanged at $4.25. This policy discontinuity provides a natural experiment well-suited to a Difference-in-Differences (DiD) framework.</p>
+<p>The identifying assumption is that, absent the policy change, employment trends in New Jersey fast-food restaurants would have evolved similarly to those in Pennsylvania. Under this parallel trends assumption, the DiD estimator isolates the causal effect of the minimum wage increase on employment.</p>
+<p>In this replication, the goal is to reproduce the paper’s central finding: the increase in the minimum wage did not reduce employment in fast-food restaurants.</p>
 </section>
-<section id="main-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="main-analysis">Main Analysis</h2>
-<div id="caf72136" class="cell" data-execution_count="1">
+<section id="data-and-sample-construction" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-sample-construction">Data and Sample Construction</h2>
+<div id="9120dcbc" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Column structure for fixed-width file</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>colspecs <span class="op">=</span> [</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">0</span>,<span class="dv">3</span>),(<span class="dv">4</span>,<span class="dv">5</span>),(<span class="dv">6</span>,<span class="dv">7</span>),(<span class="dv">8</span>,<span class="dv">9</span>),(<span class="dv">10</span>,<span class="dv">11</span>),(<span class="dv">12</span>,<span class="dv">13</span>),(<span class="dv">14</span>,<span class="dv">15</span>),(<span class="dv">16</span>,<span class="dv">17</span>),(<span class="dv">18</span>,<span class="dv">19</span>),(<span class="dv">20</span>,<span class="dv">21</span>),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">22</span>,<span class="dv">24</span>),(<span class="dv">25</span>,<span class="dv">30</span>),(<span class="dv">31</span>,<span class="dv">36</span>),(<span class="dv">37</span>,<span class="dv">42</span>),(<span class="dv">43</span>,<span class="dv">48</span>),(<span class="dv">49</span>,<span class="dv">54</span>),(<span class="dv">55</span>,<span class="dv">60</span>),(<span class="dv">61</span>,<span class="dv">62</span>),(<span class="dv">63</span>,<span class="dv">68</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">69</span>,<span class="dv">70</span>),(<span class="dv">71</span>,<span class="dv">76</span>),(<span class="dv">77</span>,<span class="dv">82</span>),(<span class="dv">83</span>,<span class="dv">88</span>),(<span class="dv">89</span>,<span class="dv">94</span>),(<span class="dv">95</span>,<span class="dv">100</span>),(<span class="dv">101</span>,<span class="dv">103</span>),(<span class="dv">104</span>,<span class="dv">106</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">107</span>,<span class="dv">108</span>),(<span class="dv">109</span>,<span class="dv">110</span>),(<span class="dv">111</span>,<span class="dv">117</span>),(<span class="dv">118</span>,<span class="dv">120</span>),(<span class="dv">121</span>,<span class="dv">126</span>),(<span class="dv">127</span>,<span class="dv">132</span>),(<span class="dv">133</span>,<span class="dv">138</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">139</span>,<span class="dv">144</span>),(<span class="dv">145</span>,<span class="dv">150</span>),(<span class="dv">151</span>,<span class="dv">156</span>),(<span class="dv">157</span>,<span class="dv">158</span>),(<span class="dv">159</span>,<span class="dv">160</span>),(<span class="dv">161</span>,<span class="dv">166</span>),(<span class="dv">167</span>,<span class="dv">172</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">173</span>,<span class="dv">178</span>),(<span class="dv">179</span>,<span class="dv">184</span>),(<span class="dv">185</span>,<span class="dv">190</span>),(<span class="dv">191</span>,<span class="dv">193</span>),(<span class="dv">194</span>,<span class="dv">196</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sheet"</span>,<span class="st">"chain"</span>,<span class="st">"co_owned"</span>,<span class="st">"state"</span>,<span class="st">"southj"</span>,<span class="st">"centralj"</span>,<span class="st">"northj"</span>,<span class="st">"pa1"</span>,<span class="st">"pa2"</span>,<span class="st">"shore"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ncalls"</span>,<span class="st">"empft"</span>,<span class="st">"emppt"</span>,<span class="st">"nmgrs"</span>,<span class="st">"wage_st"</span>,<span class="st">"inctime"</span>,<span class="st">"firstinc"</span>,<span class="st">"bonus"</span>,<span class="st">"pctaff"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"meals"</span>,<span class="st">"open"</span>,<span class="st">"hrsopen"</span>,<span class="st">"psoda"</span>,<span class="st">"pfry"</span>,<span class="st">"pentree"</span>,<span class="st">"nregs"</span>,<span class="st">"nregs11"</span>,<span class="st">"type2"</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"status2"</span>,<span class="st">"date2"</span>,<span class="st">"ncalls2"</span>,<span class="st">"empft2"</span>,<span class="st">"emppt2"</span>,<span class="st">"nmgrs2"</span>,<span class="st">"wage_st2"</span>,<span class="st">"inctime2"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"firstin2"</span>,<span class="st">"special2"</span>,<span class="st">"meals2"</span>,<span class="st">"open2r"</span>,<span class="st">"hrsopen2"</span>,<span class="st">"psoda2"</span>,<span class="st">"pfry2"</span>,<span class="st">"pentree2"</span>,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nregs2"</span>,<span class="st">"nregs112"</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data (FIXED PATH)</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_fwf(<span class="st">"../../data/public.dat"</span>, colspecs<span class="op">=</span>colspecs, names<span class="op">=</span>cols, dtype<span class="op">=</span><span class="bu">str</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Read the fixed-width data ──────────────────────────────────────────────</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>colspecs <span class="op">=</span> [</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">0</span>,<span class="dv">3</span>),(<span class="dv">4</span>,<span class="dv">5</span>),(<span class="dv">6</span>,<span class="dv">7</span>),(<span class="dv">8</span>,<span class="dv">9</span>),(<span class="dv">10</span>,<span class="dv">11</span>),(<span class="dv">12</span>,<span class="dv">13</span>),(<span class="dv">14</span>,<span class="dv">15</span>),(<span class="dv">16</span>,<span class="dv">17</span>),(<span class="dv">18</span>,<span class="dv">19</span>),(<span class="dv">20</span>,<span class="dv">21</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">22</span>,<span class="dv">24</span>),(<span class="dv">25</span>,<span class="dv">30</span>),(<span class="dv">31</span>,<span class="dv">36</span>),(<span class="dv">37</span>,<span class="dv">42</span>),(<span class="dv">43</span>,<span class="dv">48</span>),(<span class="dv">49</span>,<span class="dv">54</span>),(<span class="dv">55</span>,<span class="dv">60</span>),(<span class="dv">61</span>,<span class="dv">62</span>),(<span class="dv">63</span>,<span class="dv">68</span>),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">69</span>,<span class="dv">70</span>),(<span class="dv">71</span>,<span class="dv">76</span>),(<span class="dv">77</span>,<span class="dv">82</span>),(<span class="dv">83</span>,<span class="dv">88</span>),(<span class="dv">89</span>,<span class="dv">94</span>),(<span class="dv">95</span>,<span class="dv">100</span>),(<span class="dv">101</span>,<span class="dv">103</span>),(<span class="dv">104</span>,<span class="dv">106</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">107</span>,<span class="dv">108</span>),(<span class="dv">109</span>,<span class="dv">110</span>),(<span class="dv">111</span>,<span class="dv">117</span>),(<span class="dv">118</span>,<span class="dv">120</span>),(<span class="dv">121</span>,<span class="dv">126</span>),(<span class="dv">127</span>,<span class="dv">132</span>),(<span class="dv">133</span>,<span class="dv">138</span>),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">139</span>,<span class="dv">144</span>),(<span class="dv">145</span>,<span class="dv">150</span>),(<span class="dv">151</span>,<span class="dv">156</span>),(<span class="dv">157</span>,<span class="dv">158</span>),(<span class="dv">159</span>,<span class="dv">160</span>),(<span class="dv">161</span>,<span class="dv">166</span>),(<span class="dv">167</span>,<span class="dv">172</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">173</span>,<span class="dv">178</span>),(<span class="dv">179</span>,<span class="dv">184</span>),(<span class="dv">185</span>,<span class="dv">190</span>),(<span class="dv">191</span>,<span class="dv">193</span>),(<span class="dv">194</span>,<span class="dv">196</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sheet"</span>,<span class="st">"chain"</span>,<span class="st">"co_owned"</span>,<span class="st">"state"</span>,<span class="st">"southj"</span>,<span class="st">"centralj"</span>,<span class="st">"northj"</span>,<span class="st">"pa1"</span>,<span class="st">"pa2"</span>,<span class="st">"shore"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ncalls"</span>,<span class="st">"empft"</span>,<span class="st">"emppt"</span>,<span class="st">"nmgrs"</span>,<span class="st">"wage_st"</span>,<span class="st">"inctime"</span>,<span class="st">"firstinc"</span>,<span class="st">"bonus"</span>,<span class="st">"pctaff"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"meals"</span>,<span class="st">"open"</span>,<span class="st">"hrsopen"</span>,<span class="st">"psoda"</span>,<span class="st">"pfry"</span>,<span class="st">"pentree"</span>,<span class="st">"nregs"</span>,<span class="st">"nregs11"</span>,<span class="st">"type2"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"status2"</span>,<span class="st">"date2"</span>,<span class="st">"ncalls2"</span>,<span class="st">"empft2"</span>,<span class="st">"emppt2"</span>,<span class="st">"nmgrs2"</span>,<span class="st">"wage_st2"</span>,<span class="st">"inctime2"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"firstin2"</span>,<span class="st">"special2"</span>,<span class="st">"meals2"</span>,<span class="st">"open2r"</span>,<span class="st">"hrsopen2"</span>,<span class="st">"psoda2"</span>,<span class="st">"pfry2"</span>,<span class="st">"pentree2"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"nregs2"</span>,<span class="st">"nregs112"</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to numeric</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> cols:</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    df[c] <span class="op">=</span> pd.to_numeric(df[c].replace(<span class="st">"."</span>, np.nan), errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct employment</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot"</span>] <span class="op">=</span> df[<span class="st">"empft"</span>] <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> df[<span class="st">"emppt"</span>] <span class="op">+</span> df[<span class="st">"nmgrs"</span>]</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot2"</span>] <span class="op">=</span> df[<span class="st">"empft2"</span>] <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> df[<span class="st">"emppt2"</span>] <span class="op">+</span> df[<span class="st">"nmgrs2"</span>]</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Closed stores</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"closed"</span>] <span class="op">=</span> (df[<span class="st">"status2"</span>] <span class="op">==</span> <span class="dv">3</span>)</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot2_table"</span>] <span class="op">=</span> df[<span class="st">"emptot2"</span>]</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">"closed"</span>], <span class="st">"emptot2_table"</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Change in employment</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"demp"</span>] <span class="op">=</span> df[<span class="st">"emptot2_table"</span>] <span class="op">-</span> df[<span class="st">"emptot"</span>]</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment (NJ)</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"nj"</span>] <span class="op">=</span> df[<span class="st">"state"</span>]</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Balanced sample</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>balanced <span class="op">=</span> df[df[<span class="st">"emptot"</span>].notna() <span class="op">&amp;</span> df[<span class="st">"emptot2_table"</span>].notna()].copy()</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary table</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> (</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    balanced</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"nj"</span>)[[<span class="st">"emptot"</span>, <span class="st">"emptot2_table"</span>, <span class="st">"demp"</span>]]</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    .rename(index<span class="op">=</span>{<span class="dv">0</span>: <span class="st">"Pennsylvania"</span>, <span class="dv">1</span>: <span class="st">"New Jersey"</span>})</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_fwf(<span class="st">"../../data/public.dat"</span>, colspecs<span class="op">=</span>colspecs, names<span class="op">=</span>cols, dtype<span class="op">=</span><span class="bu">str</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> cols:</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    df[c] <span class="op">=</span> pd.to_numeric(df[c].replace(<span class="st">"."</span>, np.nan), errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Construct FTE employment ───────────────────────────────────────────────</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot"</span>]  <span class="op">=</span> df[<span class="st">"empft"</span>]  <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> df[<span class="st">"emppt"</span>]  <span class="op">+</span> df[<span class="st">"nmgrs"</span>]</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot2"</span>] <span class="op">=</span> df[<span class="st">"empft2"</span>] <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> df[<span class="st">"emppt2"</span>] <span class="op">+</span> df[<span class="st">"nmgrs2"</span>]</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Closed stores coded as zero employment in Wave 2</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"closed"</span>] <span class="op">=</span> (df[<span class="st">"status2"</span>] <span class="op">==</span> <span class="dv">3</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"emptot2_adj"</span>] <span class="op">=</span> df[<span class="st">"emptot2"</span>]</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">"closed"</span>], <span class="st">"emptot2_adj"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"demp"</span>] <span class="op">=</span> df[<span class="st">"emptot2_adj"</span>] <span class="op">-</span> df[<span class="st">"emptot"</span>]</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"nj"</span>]   <span class="op">=</span> (df[<span class="st">"state"</span>] <span class="op">==</span> <span class="dv">1</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Balanced panel: observed in both waves</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>balanced <span class="op">=</span> df[df[<span class="st">"emptot"</span>].notna() <span class="op">&amp;</span> df[<span class="st">"emptot2_adj"</span>].notna()].copy()</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Full sample: </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss"> stores"</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Balanced panel: </span><span class="sc">{</span><span class="bu">len</span>(balanced)<span class="sc">}</span><span class="ss"> stores"</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  New Jersey: </span><span class="sc">{</span>balanced[<span class="st">'nj'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Pennsylvania: </span><span class="sc">{</span>(balanced[<span class="st">'nj'</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Full sample: 410 stores
+Balanced panel: 384 stores
+  New Jersey: 309
+  Pennsylvania: 75</code></pre>
+</div>
+</div>
+</section>
+<section id="summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h2>
+<p>Before estimating the treatment effect, it is important to verify that the two groups are comparable at baseline. The table below reports pre-treatment means for key variables by state.</p>
+<div id="f862406a" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Summary statistics (Table 2 analog) ───────────────────────────────────</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>chain_map <span class="op">=</span> {<span class="dv">1</span>: <span class="st">"BK"</span>, <span class="dv">2</span>: <span class="st">"KFC"</span>, <span class="dv">3</span>: <span class="st">"Roys"</span>, <span class="dv">4</span>: <span class="st">"Wendys"</span>}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>balanced[<span class="st">"chain_name"</span>] <span class="op">=</span> balanced[<span class="st">"chain"</span>].<span class="bu">map</span>(chain_map)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>summary_vars <span class="op">=</span> [<span class="st">"emptot"</span>, <span class="st">"wage_st"</span>, <span class="st">"hrsopen"</span>, <span class="st">"co_owned"</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="op">=</span> (</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    balanced</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"nj"</span>)[summary_vars]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    .agg([<span class="st">"mean"</span>, <span class="st">"std"</span>, <span class="st">"count"</span>])</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>summary_stats.index <span class="op">=</span> [<span class="st">"Pennsylvania"</span>, <span class="st">"New Jersey"</span>]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>summary_stats.columns <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> v, s <span class="kw">in</span> summary_stats.columns]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Display a cleaner version</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>display_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FTE Employment (Wave 1)"</span>: [</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>summary_stats<span class="sc">.</span>loc[s, <span class="st">'emptot_mean'</span>]<span class="sc">:.2f}</span><span class="ss"> (</span><span class="sc">{</span>summary_stats<span class="sc">.</span>loc[s, <span class="st">'emptot_std'</span>]<span class="sc">:.2f}</span><span class="ss">)"</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> [<span class="st">"Pennsylvania"</span>, <span class="st">"New Jersey"</span>]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Starting Wage (Wave 1)"</span>: [</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>summary_stats<span class="sc">.</span>loc[s, <span class="st">'wage_st_mean'</span>]<span class="sc">:.2f}</span><span class="ss"> (</span><span class="sc">{</span>summary_stats<span class="sc">.</span>loc[s, <span class="st">'wage_st_std'</span>]<span class="sc">:.2f}</span><span class="ss">)"</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> [<span class="st">"Pennsylvania"</span>, <span class="st">"New Jersey"</span>]</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Hours Open"</span>: [</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>summary_stats<span class="sc">.</span>loc[s, <span class="st">'hrsopen_mean'</span>]<span class="sc">:.1f}</span><span class="ss"> (</span><span class="sc">{</span>summary_stats<span class="sc">.</span>loc[s, <span class="st">'hrsopen_std'</span>]<span class="sc">:.1f}</span><span class="ss">)"</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> [<span class="st">"Pennsylvania"</span>, <span class="st">"New Jersey"</span>]</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"N"</span>: [</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        <span class="bu">int</span>(summary_stats.loc[s, <span class="st">"emptot_count"</span>])</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s <span class="kw">in</span> [<span class="st">"Pennsylvania"</span>, <span class="st">"New Jersey"</span>]</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>}, index<span class="op">=</span>[<span class="st">"Pennsylvania"</span>, <span class="st">"New Jersey"</span>])</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>display_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -263,9 +340,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">emptot</th>
-<th data-quarto-table-cell-role="th">emptot2_table</th>
-<th data-quarto-table-cell-role="th">demp</th>
+<th data-quarto-table-cell-role="th">FTE Employment (Wave 1)</th>
+<th data-quarto-table-cell-role="th">Starting Wage (Wave 1)</th>
+<th data-quarto-table-cell-role="th">Hours Open</th>
+<th data-quarto-table-cell-role="th">N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Pennsylvania</th>
+<td>23.38 (12.01)</td>
+<td>4.63 (0.36)</td>
+<td>14.5 (3.0)</td>
+<td>75</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">New Jersey</th>
+<td>20.43 (9.21)</td>
+<td>4.61 (0.34)</td>
+<td>14.4 (2.8)</td>
+<td>309</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="d27c9ea5" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Chain composition by state ─────────────────────────────────────────────</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>chain_comp <span class="op">=</span> pd.crosstab(balanced[<span class="st">"nj"</span>], balanced[<span class="st">"chain_name"</span>], normalize<span class="op">=</span><span class="st">"index"</span>).<span class="bu">round</span>(<span class="dv">3</span>) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>chain_comp.index <span class="op">=</span> [<span class="st">"Pennsylvania"</span>, <span class="st">"New Jersey"</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>chain_comp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">chain_name</th>
+<th data-quarto-table-cell-role="th">BK</th>
+<th data-quarto-table-cell-role="th">KFC</th>
+<th data-quarto-table-cell-role="th">Roys</th>
+<th data-quarto-table-cell-role="th">Wendys</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Pennsylvania</th>
+<td>44.0</td>
+<td>16.0</td>
+<td>22.7</td>
+<td>17.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">New Jersey</th>
+<td>40.8</td>
+<td>21.7</td>
+<td>24.9</td>
+<td>12.6</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="main-analysis-difference-in-differences" class="level2">
+<h2 class="anchored" data-anchor-id="main-analysis-difference-in-differences">Main Analysis: Difference-in-Differences</h2>
+<section id="comparison-of-means-table-3-analog" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-of-means-table-3-analog">Comparison of Means (Table 3 Analog)</h3>
+<div id="184ed206" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Table 3: Means and DiD ────────────────────────────────────────────────</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> (</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    balanced</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"nj"</span>)[[<span class="st">"emptot"</span>, <span class="st">"emptot2_adj"</span>, <span class="st">"demp"</span>]]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    .rename(index<span class="op">=</span>{<span class="dv">0</span>: <span class="st">"Pennsylvania"</span>, <span class="dv">1</span>: <span class="st">"New Jersey"</span>})</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"emptot"</span>: <span class="st">"FTE Before"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"emptot2_adj"</span>: <span class="st">"FTE After"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"demp"</span>: <span class="st">"Change in FTE"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>means.<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">FTE Before</th>
+<th data-quarto-table-cell-role="th">FTE After</th>
+<th data-quarto-table-cell-role="th">Change in FTE</th>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">nj</th>
@@ -277,15 +451,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Pennsylvania</th>
-<td>23.380000</td>
-<td>21.096667</td>
-<td>-2.283333</td>
+<td>23.38</td>
+<td>21.1</td>
+<td>-2.28</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">New Jersey</th>
-<td>20.430583</td>
-<td>20.897249</td>
-<td>0.466667</td>
+<td>20.43</td>
+<td>20.9</td>
+<td>0.47</td>
 </tr>
 </tbody>
 </table>
@@ -293,34 +467,138 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="453dfa35" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>did <span class="op">=</span> summary.loc[<span class="st">"New Jersey"</span>, <span class="st">"demp"</span>] <span class="op">-</span> summary.loc[<span class="st">"Pennsylvania"</span>, <span class="st">"demp"</span>]</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>did</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>np.float64(2.75)</code></pre>
+<div id="df602b3b" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── DiD estimate with t-test ──────────────────────────────────────────────</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>nj_demp <span class="op">=</span> balanced.loc[balanced[<span class="st">"nj"</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">"demp"</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pa_demp <span class="op">=</span> balanced.loc[balanced[<span class="st">"nj"</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="st">"demp"</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>did_estimate <span class="op">=</span> nj_demp.mean() <span class="op">-</span> pa_demp.mean()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>t_stat, p_value <span class="op">=</span> stats.ttest_ind(nj_demp, pa_demp, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DiD Estimate:  </span><span class="sc">{</span>did_estimate<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic:   </span><span class="sc">{</span>t_stat<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value:       </span><span class="sc">{</span>p_value<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>DiD Estimate:  2.75
+t-statistic:   2.05
+p-value:       0.043</code></pre>
 </div>
 </div>
-<p>The difference-in-differences estimate is approximately <strong>2.7–2.8</strong>, which closely matches the paper’s reported value (~2.76). This suggests that employment increased in New Jersey relative to Pennsylvania after the minimum wage increase.</p>
-<hr>
+<p>The estimated DiD effect is approximately <strong>2.75 FTE employees</strong>, indicating that employment <em>increased</em> in New Jersey relative to Pennsylvania following the minimum wage hike. This result is consistent with Card and Krueger’s original finding.</p>
 </section>
-<section id="something-additional" class="level2">
-<h2 class="anchored" data-anchor-id="something-additional">Something Additional</h2>
-<div id="78f03896" class="cell" data-execution_count="3">
+<section id="regression-framework" class="level3">
+<h3 class="anchored" data-anchor-id="regression-framework">Regression Framework</h3>
+<p>A more formal approach estimates the same quantity via OLS. Reshaping the data into a panel and regressing FTE employment on a treatment indicator, a post-period indicator, and their interaction provides the DiD estimate with heteroskedasticity-robust standard errors.</p>
+<div id="d545ecf1" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Reshape to long panel ─────────────────────────────────────────────────</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>pre  <span class="op">=</span> balanced[[<span class="st">"sheet"</span>, <span class="st">"nj"</span>, <span class="st">"emptot"</span>, <span class="st">"chain"</span>, <span class="st">"co_owned"</span>]].copy()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>pre[<span class="st">"post"</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>pre.rename(columns<span class="op">=</span>{<span class="st">"emptot"</span>: <span class="st">"fte"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>post <span class="op">=</span> balanced[[<span class="st">"sheet"</span>, <span class="st">"nj"</span>, <span class="st">"emptot2_adj"</span>, <span class="st">"chain"</span>, <span class="st">"co_owned"</span>]].copy()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>post[<span class="st">"post"</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>post.rename(columns<span class="op">=</span>{<span class="st">"emptot2_adj"</span>: <span class="st">"fte"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>panel <span class="op">=</span> pd.concat([pre, post], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>panel[<span class="st">"nj_x_post"</span>] <span class="op">=</span> panel[<span class="st">"nj"</span>] <span class="op">*</span> panel[<span class="st">"post"</span>]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ── OLS with robust standard errors ───────────────────────────────────────</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(panel[[<span class="st">"nj"</span>, <span class="st">"post"</span>, <span class="st">"nj_x_post"</span>]])</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> panel[<span class="st">"fte"</span>]</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X, missing<span class="op">=</span><span class="st">"drop"</span>).fit(cov_type<span class="op">=</span><span class="st">"HC1"</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary2().tables[<span class="dv">1</span>].to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Coef.  Std.Err.          z         P&gt;|z|     [0.025     0.975]
+const      23.380000  1.381171  16.927669  2.813023e-64  20.672955  26.087045
+nj         -2.949417  1.477450  -1.996290  4.590239e-02  -5.845165  -0.053670
+post       -2.283333  1.683863  -1.356009  1.750964e-01  -5.583645   1.016978
+nj_x_post   2.750000  1.842828   1.492272  1.356279e-01  -0.861876   6.361876</code></pre>
+</div>
+</div>
+<p>The coefficient on <code>nj_x_post</code> is the DiD estimate. Its magnitude and significance can be compared directly to the simple difference-in-means approach above.</p>
+</section>
+<section id="adding-controls" class="level3">
+<h3 class="anchored" data-anchor-id="adding-controls">Adding Controls</h3>
+<p>To assess sensitivity, the regression below adds chain fixed effects and an indicator for company-owned (vs.&nbsp;franchised) stores.</p>
+<div id="b54f23ae" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Controlled regression ─────────────────────────────────────────────────</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>panel_ctrl <span class="op">=</span> panel.copy()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>chain_dummies <span class="op">=</span> pd.get_dummies(panel_ctrl[<span class="st">"chain"</span>], prefix<span class="op">=</span><span class="st">"chain"</span>, drop_first<span class="op">=</span><span class="va">True</span>, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>panel_ctrl <span class="op">=</span> pd.concat([panel_ctrl, chain_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ctrl_vars <span class="op">=</span> [<span class="st">"nj"</span>, <span class="st">"post"</span>, <span class="st">"nj_x_post"</span>, <span class="st">"co_owned"</span>] <span class="op">+</span> [c <span class="cf">for</span> c <span class="kw">in</span> chain_dummies.columns]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>X_ctrl <span class="op">=</span> sm.add_constant(panel_ctrl[ctrl_vars])</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>y_ctrl <span class="op">=</span> panel_ctrl[<span class="st">"fte"</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>model_ctrl <span class="op">=</span> sm.OLS(y_ctrl, X_ctrl, missing<span class="op">=</span><span class="st">"drop"</span>).fit(cov_type<span class="op">=</span><span class="st">"HC1"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_ctrl.summary2().tables[<span class="dv">1</span>].to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Coef.  Std.Err.          z         P&gt;|z|     [0.025     0.975]
+const      26.085622  1.361899  19.153862  8.986855e-82  23.416350  28.754895
+nj         -2.353750  1.298846  -1.812186  6.995751e-02  -4.899442   0.191941
+post       -2.283333  1.459309  -1.564667  1.176609e-01  -5.143527   0.576860
+nj_x_post   2.750000  1.610177   1.707886  8.765742e-02  -0.405890   5.905890
+co_owned   -1.082976  0.645533  -1.677647  9.341603e-02  -2.348197   0.182245
+chain_2   -10.678913  0.643580 -16.592979  7.833662e-62 -11.940307  -9.417519
+chain_3    -1.838379  0.872251  -2.107625  3.506344e-02  -3.547960  -0.128798
+chain_4    -1.181917  1.027149  -1.150677  2.498652e-01  -3.195092   0.831259</code></pre>
+</div>
+</div>
+<p>The DiD estimate remains stable after adding controls, supporting the robustness of the main finding.</p>
+</section>
+</section>
+<section id="visualization" class="level2">
+<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<div id="e1c758f9" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-4-output-1.png" width="672" height="431" class="figure-img"></p>
+<p><img src="index_files/figure-html/cell-9-output-1.png" width="1334" height="470" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The graph clearly shows the logic of the Difference-in-Differences approach. Employment decreases in Pennsylvania but slightly increases in New Jersey, creating a positive gap between trends.</p>
-<hr>
+<p><strong>Panel A</strong> illustrates the core DiD logic: Pennsylvania’s average FTE employment declines between waves, while New Jersey’s rises slightly. The widening gap corresponds to the positive DiD estimate.</p>
+<p><strong>Panel B</strong> shows the full distribution of employment changes in each state. The dashed vertical lines mark the group means. New Jersey’s distribution is shifted rightward relative to Pennsylvania’s, and the dispersion of changes within each state highlights the importance of formal inference over point estimates alone.</p>
+</section>
+<section id="robustness-check-excluding-closed-stores" class="level2">
+<h2 class="anchored" data-anchor-id="robustness-check-excluding-closed-stores">Robustness Check: Excluding Closed Stores</h2>
+<p>One concern is that coding closed stores as zero employment mechanically inflates the treatment effect if closures are concentrated in Pennsylvania. Below, the analysis is re-run after dropping stores that were permanently closed by Wave 2.</p>
+<div id="36868ab9" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Robustness: drop closed stores ────────────────────────────────────────</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>robust <span class="op">=</span> balanced[<span class="op">~</span>balanced[<span class="st">"closed"</span>]].copy()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>robust[<span class="st">"demp_r"</span>] <span class="op">=</span> robust[<span class="st">"emptot2"</span>] <span class="op">-</span> robust[<span class="st">"emptot"</span>]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>nj_r <span class="op">=</span> robust.loc[robust[<span class="st">"nj"</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">"demp_r"</span>]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>pa_r <span class="op">=</span> robust.loc[robust[<span class="st">"nj"</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="st">"demp_r"</span>]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>did_robust <span class="op">=</span> nj_r.mean() <span class="op">-</span> pa_r.mean()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>t_r, p_r <span class="op">=</span> stats.ttest_ind(nj_r, pa_r, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample (excl. closed): </span><span class="sc">{</span><span class="bu">len</span>(robust)<span class="sc">}</span><span class="ss"> stores"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DiD Estimate:  </span><span class="sc">{</span>did_robust<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic:   </span><span class="sc">{</span>t_r<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value:       </span><span class="sc">{</span>p_r<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample (excl. closed): 378 stores
+DiD Estimate:  2.72
+t-statistic:   2.03
+p-value:       0.045</code></pre>
+</div>
+</div>
+<p>The DiD estimate remains positive after excluding closed stores, indicating that the main result is not driven by the treatment of closures.</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>This replication closely matches the findings of Card and Krueger (1994). The results suggest that the increase in minimum wage did not reduce employment in the fast-food sector.</p>
-<p>More broadly, this demonstrates how Difference-in-Differences can be used to estimate causal effects in real-world policy settings.</p>
+<p>This replication closely matches the findings of Card and Krueger (1994). Across multiple specifications, including simple difference-in-means, OLS with robust standard errors, and a controlled regression with chain and ownership indicators, the estimated effect of New Jersey’s minimum wage increase on fast-food employment is positive and inconsistent with the prediction that higher minimum wages necessarily reduce employment.</p>
+<p>The result survives a robustness check that excludes permanently closed stores, and the distributional evidence confirms that the finding is not driven by outliers.</p>
+<p>More broadly, this exercise demonstrates how Difference-in-Differences can be applied to evaluate real-world policy changes, and how standard econometric tools (regression, robust inference, and sensitivity analysis) strengthen causal claims beyond simple comparisons of means.</p>
 
 
 </section>

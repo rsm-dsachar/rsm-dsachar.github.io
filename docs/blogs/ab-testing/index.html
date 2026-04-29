@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ac077c1e730dfeb5e42400639d17284e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d49cb7b63505d316017c90a847e198c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f8287073cd13ae05f9e498db8f8ab386.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -283,7 +283,7 @@ window.Quarto = {
 <li><span class="math inline">\(\pi_A = 0.22\)</span></li>
 <li><span class="math inline">\(\pi_B = 0.18\)</span></li>
 </ul>
-<div id="0395ff7f" class="cell" data-execution_count="1">
+<div id="4af164e9" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -300,7 +300,7 @@ window.Quarto = {
 </section>
 <section id="the-law-of-large-numbers" class="level2">
 <h2 class="anchored" data-anchor-id="the-law-of-large-numbers">The Law of Large Numbers</h2>
-<div id="d1aa5e91" class="cell" data-execution_count="2">
+<div id="e5551836" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -314,7 +314,7 @@ window.Quarto = {
 </section>
 <section id="bootstrap-standard-errors" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap-standard-errors">Bootstrap Standard Errors</h2>
-<div id="31842008" class="cell" data-execution_count="3">
+<div id="c38b5fd4" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -328,7 +328,7 @@ window.Quarto = {
 </section>
 <section id="the-central-limit-theorem" class="level2">
 <h2 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h2>
-<div id="d597d2bb" class="cell" data-execution_count="4">
+<div id="704dd578" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -342,7 +342,7 @@ window.Quarto = {
 </section>
 <section id="hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
-<div id="dd6a4770" class="cell" data-execution_count="5">
+<div id="da97942f" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>theta_hat <span class="op">=</span> np.mean(A) <span class="op">-</span> np.mean(B)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>se <span class="op">=</span> np.sqrt((np.var(A)<span class="op">/</span>n) <span class="op">+</span> (np.var(B)<span class="op">/</span>n))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> theta_hat <span class="op">/</span> se</span>
@@ -359,7 +359,7 @@ Z-stat: 2.1388179513414762</code></pre>
 </section>
 <section id="the-t-test-as-a-regression" class="level2">
 <h2 class="anchored" data-anchor-id="the-t-test-as-a-regression">The T-Test as a Regression</h2>
-<div id="09b6a325" class="cell" data-execution_count="6">
+<div id="c042f95a" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.concatenate([A, B])</span>
@@ -375,8 +375,8 @@ Z-stat: 2.1388179513414762</code></pre>
 Dep. Variable:                      y   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     4.570
-Date:                Wed, 22 Apr 2026   Prob (F-statistic):             0.0327
-Time:                        14:38:13   Log-Likelihood:                -991.64
+Date:                Wed, 29 Apr 2026   Prob (F-statistic):             0.0327
+Time:                        16:39:48   Log-Likelihood:                -991.64
 No. Observations:                2000   AIC:                             1987.
 Df Residuals:                    1998   BIC:                             1998.
 Df Model:                           1                                         
@@ -402,7 +402,7 @@ Notes:
 </section>
 <section id="the-problem-with-peeking" class="level2">
 <h2 class="anchored" data-anchor-id="the-problem-with-peeking">The Problem with Peeking</h2>
-<div id="dcab0b2a" class="cell" data-execution_count="7">
+<div id="d23f8484" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>False Positive Rate: 0.205</code></pre>
 </div>
