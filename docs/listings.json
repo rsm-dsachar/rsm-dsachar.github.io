@@ -1,0 +1,17 @@
+[
+  {
+    "listing": "/blogs.html",
+    "items": [
+      "/blogs/mnl-conjoint/index.html",
+      "/blogs/blueprinty-poisson/index.html",
+      "/blogs/card-krueger/index.html",
+      "/blogs/ab-testing/index.html"
+    ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/project1/index.html"
+    ]
+  }
+]
