@@ -1,0 +1,332 @@
+---
+
+title: "What UCSD MSBA Students Actually Want to Learn"
+subtitle: "A Behavioral Preference Study Using MaxDiff and Multinomial Logit"
+author: "Devansh Sachar"
+
+date: "May 27, 2026"
+format:
+html:
+toc: true
+toc-depth: 3
+code-fold: false
+theme: flatly
+execute:
+warning: false
+message: false
+--------------
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize
+from scipy.special import logsumexp
+
+plt.rcParams['figure.figsize'] = (10,6)
+```
+
+# Introduction
+
+Instead of asking students to rate courses on a 1 to 10 scale, this study uses a *MaxDiff* survey design. In every question, respondents see four MSBA classes and choose the course they would most want to take and the course they would least want to take. This creates forced trade-offs that reveal stronger behavioral preference signals than standard ratings.
+
+One reason MaxDiff is valuable is that people are generally inconsistent when using numeric scales. Some respondents rate everything highly, while others avoid extreme ratings completely. MaxDiff avoids this issue because respondents must directly compare alternatives.
+
+This report compares three approaches:
+
+1. Simple counts analysis
+2. Maximum-likelihood estimation of a Multinomial Logit (MNL) model
+3. Bayesian estimation using a random-walk Metropolis sampler
+
+The goal is to understand which MSBA courses students perceive as the most valuable and how stable those preferences appear across estimation methods.
+
+# Load and Validate the Data
+
+```{python}
+choices = pd.read_csv('maxdiff_design_and_choices.csv')
+labels = pd.read_csv('maxdiff_item_labels.csv')
+
+labels = labels.iloc[:, :2]
+labels.columns = ['Item', 'Label']
+
+choices.head()
+```
+
+## Dataset Overview
+
+```{python}
+N = choices['Record ID'].nunique()
+T = choices['Task'].nunique()
+J = choices.groupby(['Record ID','Task']).size().unique()[0]
+K = choices['Item'].nunique()
+
+summary_df = pd.DataFrame({
+    'Metric':['Respondents','Tasks per Respondent','Items per Task','Total Items'],
+    'Value':[N,T,J,K]
+})
+
+summary_df
+```
+
+## Survey Structure Validation
+
+```{python}
+validation = choices.groupby(['Record ID','Task'])['Response'].agg([
+    lambda x: (x == 1).sum(),
+    lambda x: (x == -1).sum(),
+    lambda x: (x == 0).sum()
+])
+
+validation.columns = ['Best Picks','Worst Picks','Neutral']
+
+validation.head()
+```
+
+```{python}
+print('Every task has exactly one BEST choice:', (validation['Best Picks'] == 1).all())
+print('Every task has exactly one WORST choice:', (validation['Worst Picks'] == 1).all())
+```
+
+## Exposure Counts
+
+```{python}
+exposure = choices.groupby('Item').size().reset_index(name='Times_Shown')
+exposure = exposure.merge(labels, on='Item')
+exposure.sort_values('Times_Shown', ascending=False)
+```
+
+# Counts Analysis
+
+The counts approach measures how frequently each course was selected as the best versus the worst option.
+
+The score is defined as:
+
+$$
+Score_j = %Best_j - %Worst_j
+$$
+
+A positive value means a course is usually preferred. A strongly negative value indicates students consistently avoid the course when compared against alternatives.
+
+```{python}
+best_counts = choices[choices['Response'] == 1].groupby('Item').size()
+worst_counts = choices[choices['Response'] == -1].groupby('Item').size()
+shown_counts = choices.groupby('Item').size()
+
+counts = pd.DataFrame({
+    'Times_Shown': shown_counts,
+    'Times_Best': best_counts,
+    'Times_Worst': worst_counts
+}).fillna(0)
+
+counts['Pct_Best'] = counts['Times_Best'] / counts['Times_Shown']
+counts['Pct_Worst'] = counts['Times_Worst'] / counts['Times_Shown']
+counts['Score'] = counts['Pct_Best'] - counts['Pct_Worst']
+
+counts = counts.reset_index().merge(labels, on='Item')
+counts = counts.sort_values('Score', ascending=False)
+
+counts
+```
+
+## Preference Ranking Visualization
+
+```{python}
+plt.figure(figsize=(12,7))
+plt.barh(counts['Label'], counts['Score'])
+plt.xlabel('Preference Score')
+plt.ylabel('Course')
+plt.title('MaxDiff Preference Scores for MSBA Courses')
+plt.gca().invert_yaxis()
+plt.show()
+```
+
+## Interpretation
+
+The counts analysis reveals a clear separation between highly valued technical courses and less preferred courses. Classes involving AI, customer analytics, and business analytics tend to receive strong positive scores, suggesting students prioritize immediately marketable analytical skills.
+
+Courses with negative scores may still be important academically, but they appear less exciting relative to highly technical or applied analytics courses.
+
+# Multinomial Logit (MNL) Model
+
+The counts analysis ignores the competitive context of each survey screen. The MNL model improves on this by estimating a utility value for every course.
+
+The probability of choosing item $j$ from a set of alternatives is:
+
+genui{"math_block_widget_always_prefetch_v2":{"content":"P(j)=\frac{e^{\beta_j}}{\sum_{k \in C} e^{\beta_k}}"}}
+
+Higher utility values imply stronger preference.
+
+## Convert MaxDiff Data into Best Choices
+
+```{python}
+choice_tasks = []
+
+for (rid, task), grp in choices.groupby(['Record ID','Task']):
+    offered = grp['Item'].tolist()
+    chosen = grp.loc[grp['Response'] == 1, 'Item'].values[0]
+
+    choice_tasks.append({
+        'offered': offered,
+        'chosen': chosen
+    })
+```
+
+## Log-Likelihood Function
+
+```{python}
+def neg_log_likelihood(beta_free):
+    beta = np.concatenate(([0], beta_free))
+    ll = 0
+
+    for obs in choice_tasks:
+        offered = [i-1 for i in obs['offered']]
+        chosen = obs['chosen'] - 1
+
+        utilities = beta[offered]
+        denom = logsumexp(utilities)
+
+        chosen_utility = beta[chosen]
+
+        ll += chosen_utility - denom
+
+    return -ll
+```
+
+## Estimate Utilities with Maximum Likelihood
+
+```{python}
+initial = np.zeros(K-1)
+
+result = minimize(neg_log_likelihood, initial, method='BFGS')
+
+beta_hat = np.concatenate(([0], result.x))
+
+mnl_results = pd.DataFrame({
+    'Item': range(1, K+1),
+    'Utility': beta_hat
+})
+
+mnl_results = mnl_results.merge(labels, on='Item')
+mnl_results = mnl_results.sort_values('Utility', ascending=False)
+
+mnl_results
+```
+
+## MNL Utility Plot
+
+```{python}
+plt.figure(figsize=(12,7))
+plt.barh(mnl_results['Label'], mnl_results['Utility'])
+plt.xlabel('Estimated Utility')
+plt.ylabel('Course')
+plt.title('MNL Utility Estimates')
+plt.gca().invert_yaxis()
+plt.show()
+```
+
+# Bayesian Estimation
+
+The Bayesian approach treats utility values as random variables instead of fixed unknown parameters.
+
+A random-walk Metropolis algorithm generates draws from the posterior distribution.
+
+## Bayesian Log Posterior
+
+```{python}
+def log_posterior(beta_free):
+    prior = -0.5 * np.sum(beta_free**2)
+    return -neg_log_likelihood(beta_free) + prior
+```
+
+## Metropolis Sampler
+
+```{python}
+np.random.seed(42)
+
+iterations = 4000
+step_size = 0.08
+
+current = np.zeros(K-1)
+current_lp = log_posterior(current)
+
+samples = []
+accepted = 0
+
+for i in range(iterations):
+
+    proposal = current + np.random.normal(0, step_size, K-1)
+    proposal_lp = log_posterior(proposal)
+
+    accept_prob = np.exp(proposal_lp - current_lp)
+
+    if np.random.rand() < accept_prob:
+        current = proposal
+        current_lp = proposal_lp
+        accepted += 1
+
+    samples.append(current.copy())
+
+samples = np.array(samples)
+
+print('Acceptance Rate:', accepted / iterations)
+```
+
+## Posterior Mean Utilities
+
+```{python}
+burnin = 1000
+posterior_means = samples[burnin:].mean(axis=0)
+posterior_means = np.concatenate(([0], posterior_means))
+
+bayes_results = pd.DataFrame({
+    'Item': range(1, K+1),
+    'Posterior_Mean': posterior_means
+})
+
+bayes_results = bayes_results.merge(labels, on='Item')
+bayes_results = bayes_results.sort_values('Posterior_Mean', ascending=False)
+
+bayes_results
+```
+
+## Bayesian Preference Visualization
+
+```{python}
+plt.figure(figsize=(12,7))
+plt.barh(bayes_results['Label'], bayes_results['Posterior_Mean'])
+plt.xlabel('Posterior Mean Utility')
+plt.ylabel('Course')
+plt.title('Bayesian MNL Posterior Means')
+plt.gca().invert_yaxis()
+plt.show()
+```
+
+# Comparing the Three Methods
+
+```{python}
+comparison = counts[['Label','Score']].merge(
+    mnl_results[['Label','Utility']],
+    on='Label'
+).merge(
+    bayes_results[['Label','Posterior_Mean']],
+    on='Label'
+)
+
+comparison
+```
+
+## Discussion
+
+All three methods produce broadly similar rankings, which increases confidence in the underlying preference signal. However, the MNL and Bayesian approaches produce smoother utility estimates because they explicitly model competitive choice behavior.
+
+The Bayesian estimates are especially useful because they naturally incorporate uncertainty through posterior distributions. This becomes increasingly important when sample sizes are smaller or when preference differences between courses are subtle.
+
+One interesting finding is that highly technical and career-oriented courses dominate the rankings. This suggests that students strongly value classes tied directly to modern analytics workflows, machine learning, and business decision-making.
+
+# Conclusion
+
+This assignment demonstrates how MaxDiff surveys can transform simple best-worst choices into sophisticated preference models.
+
+The counts analysis provides a quick and intuitive ranking system. The MNL framework improves statistical rigor by modeling choice probabilities directly, while Bayesian estimation introduces uncertainty quantification and probabilistic inference.
+
+Although the three methods differ mathematically, they collectively tell a consistent story about student preferences within the UCSD MSBA curriculum.
