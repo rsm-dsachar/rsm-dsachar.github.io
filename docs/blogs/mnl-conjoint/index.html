@@ -255,7 +255,7 @@ window.Quarto = {
 </header>
 
 
-<div id="265d6732" class="cell" data-execution_count="1">
+<div id="cfa81207" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -282,7 +282,7 @@ window.Quarto = {
 </section>
 <section id="load-the-data" class="level1">
 <h1>Load the Data</h1>
-<div id="b45fba7f" class="cell" data-execution_count="2">
+<div id="7fd39bb5" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>choices <span class="op">=</span> pd.read_csv(<span class="st">'maxdiff_design_and_choices.csv'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> pd.read_csv(<span class="st">'maxdiff_item_labels.csv'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -355,7 +355,7 @@ window.Quarto = {
 </section>
 <section id="dataset-overview" class="level1">
 <h1>Dataset Overview</h1>
-<div id="216c3fd1" class="cell" data-execution_count="3">
+<div id="673a668d" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> choices[<span class="st">'Record ID'</span>].nunique()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> choices[<span class="st">'Task'</span>].nunique()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> choices[<span class="st">'Item'</span>].nunique()</span>
@@ -415,7 +415,7 @@ window.Quarto = {
 <p><span class="math display">\[
 Preference Score = \%Best - \%Worst
 \]</span></p>
-<div id="0d1f50e9" class="cell" data-execution_count="4">
+<div id="aa92f730" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>best_counts <span class="op">=</span> choices[</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    choices[<span class="st">'Response'</span>] <span class="op">==</span> <span class="dv">1</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>].groupby(<span class="st">'Item'</span>).size()</span>
@@ -595,7 +595,7 @@ Preference Score = \%Best - \%Worst
 </section>
 <section id="counts-visualization" class="level1">
 <h1>Counts Visualization</h1>
-<div id="7ebbc7e1" class="cell" data-execution_count="5">
+<div id="b6075be4" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">7</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.barh(</span>
@@ -622,7 +622,7 @@ Preference Score = \%Best - \%Worst
 <section id="multinomial-logit-mnl" class="level1">
 <h1>Multinomial Logit (MNL)</h1>
 <p>The MNL model estimates utility values for each course.</p>
-<div id="8995de17" class="cell" data-execution_count="6">
+<div id="debb7679" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>choice_tasks <span class="op">=</span> []</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (rid, task), grp <span class="kw">in</span> choices.groupby(</span>
@@ -644,7 +644,7 @@ Preference Score = \%Best - \%Worst
 </section>
 <section id="log-likelihood-function" class="level1">
 <h1>Log Likelihood Function</h1>
-<div id="0b4d5862" class="cell" data-execution_count="7">
+<div id="5ec6011c" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(beta_free):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    beta <span class="op">=</span> np.concatenate(([<span class="dv">0</span>], beta_free))</span>
@@ -670,7 +670,7 @@ Preference Score = \%Best - \%Worst
 </section>
 <section id="estimate-mnl-model" class="level1">
 <h1>Estimate MNL Model</h1>
-<div id="c9f287f7" class="cell" data-execution_count="8">
+<div id="18e1855b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>initial <span class="op">=</span> np.zeros(K<span class="op">-</span><span class="dv">1</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(</span>
@@ -780,7 +780,7 @@ Preference Score = \%Best - \%Worst
 </section>
 <section id="mnl-visualization" class="level1">
 <h1>MNL Visualization</h1>
-<div id="f6028847" class="cell" data-execution_count="9">
+<div id="c9d2ffb0" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">7</span>))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.barh(</span>
@@ -808,7 +808,7 @@ Preference Score = \%Best - \%Worst
 <section id="simple-bayesian-approximation" class="level1">
 <h1>Simple Bayesian Approximation</h1>
 <p>A lightweight simulation approach is used instead of a full Bayesian sampler.</p>
-<div id="de2a469a" class="cell" data-execution_count="10">
+<div id="e4ab31f1" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>simulations <span class="op">=</span> []</span>
@@ -926,7 +926,7 @@ Preference Score = \%Best - \%Worst
 </section>
 <section id="bayesian-visualization" class="level1">
 <h1>Bayesian Visualization</h1>
-<div id="cd999bc4" class="cell" data-execution_count="11">
+<div id="ab15f5b7" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">7</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.barh(</span>
@@ -953,7 +953,7 @@ Preference Score = \%Best - \%Worst
 </section>
 <section id="comparison-of-methods" class="level1">
 <h1>Comparison of Methods</h1>
-<div id="65715452" class="cell" data-execution_count="12">
+<div id="33ede61e" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>comparison <span class="op">=</span> counts[</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'Label'</span>,<span class="st">'Preference_Score'</span>]</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>].merge(</span>

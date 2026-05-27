@@ -283,7 +283,7 @@ window.Quarto = {
 <li><span class="math inline">\(\pi_A = 0.22\)</span></li>
 <li><span class="math inline">\(\pi_B = 0.18\)</span></li>
 </ul>
-<div id="d76a86e8" class="cell" data-execution_count="1">
+<div id="a4c6da18" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -300,7 +300,7 @@ window.Quarto = {
 </section>
 <section id="the-law-of-large-numbers" class="level2">
 <h2 class="anchored" data-anchor-id="the-law-of-large-numbers">The Law of Large Numbers</h2>
-<div id="482dd7f9" class="cell" data-execution_count="2">
+<div id="eb66bee2" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -314,7 +314,7 @@ window.Quarto = {
 </section>
 <section id="bootstrap-standard-errors" class="level2">
 <h2 class="anchored" data-anchor-id="bootstrap-standard-errors">Bootstrap Standard Errors</h2>
-<div id="7c82bfd8" class="cell" data-execution_count="3">
+<div id="115d2138" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -328,7 +328,7 @@ window.Quarto = {
 </section>
 <section id="the-central-limit-theorem" class="level2">
 <h2 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h2>
-<div id="745d5080" class="cell" data-execution_count="4">
+<div id="f8b78a84" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -342,7 +342,7 @@ window.Quarto = {
 </section>
 <section id="hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
-<div id="757c57a0" class="cell" data-execution_count="5">
+<div id="5b00463e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>theta_hat <span class="op">=</span> np.mean(A) <span class="op">-</span> np.mean(B)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>se <span class="op">=</span> np.sqrt((np.var(A)<span class="op">/</span>n) <span class="op">+</span> (np.var(B)<span class="op">/</span>n))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> theta_hat <span class="op">/</span> se</span>
@@ -359,7 +359,7 @@ Z-stat: 2.1388179513414762</code></pre>
 </section>
 <section id="the-t-test-as-a-regression" class="level2">
 <h2 class="anchored" data-anchor-id="the-t-test-as-a-regression">The T-Test as a Regression</h2>
-<div id="ac6e301a" class="cell" data-execution_count="6">
+<div id="e086af5f" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.concatenate([A, B])</span>
@@ -376,7 +376,7 @@ Dep. Variable:                      y   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     4.570
 Date:                Wed, 27 May 2026   Prob (F-statistic):             0.0327
-Time:                        14:53:34   Log-Likelihood:                -991.64
+Time:                        15:03:37   Log-Likelihood:                -991.64
 No. Observations:                2000   AIC:                             1987.
 Df Residuals:                    1998   BIC:                             1998.
 Df Model:                           1                                         
@@ -402,7 +402,7 @@ Notes:
 </section>
 <section id="the-problem-with-peeking" class="level2">
 <h2 class="anchored" data-anchor-id="the-problem-with-peeking">The Problem with Peeking</h2>
-<div id="a5f0588c" class="cell" data-execution_count="7">
+<div id="8ca2dfb2" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>False Positive Rate: 0.205</code></pre>
 </div>
