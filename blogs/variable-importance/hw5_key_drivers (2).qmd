@@ -1,7 +1,7 @@
 ---
 title: "Key Drivers Analysis of Customer Satisfaction"
 author: "Devansh Sachar"
-date: 08 June
+date: "June 8, 2026"
 format:
   html:
     toc: true
@@ -36,7 +36,6 @@ import warnings
 warnings.filterwarnings("ignore")
 np.random.seed(42)
 
-# ── Data ───────────────────────────────────────────────────────────
 df = pd.read_csv("data_for_drivers_analysis.csv")
 
 outcome    = "satisfaction"
@@ -59,23 +58,19 @@ X    = df[predictors].values
 y    = df[outcome].values
 n, p = X.shape
 
-# ── 1. Pearson correlations ────────────────────────────────────────
 pearson_r = np.array([np.corrcoef(X[:, j], y)[0, 1] for j in range(p)])
 
-# ── 2. Standardized beta ───────────────────────────────────────────
 X_std    = StandardScaler().fit_transform(X)
 y_std    = (y - y.mean()) / y.std()
 lr_full  = LinearRegression().fit(X_std, y_std)
 std_beta = lr_full.coef_
 r2_full  = r2_score(y_std, lr_full.predict(X_std))
 
-# ── 3. Drop-one usefulness ─────────────────────────────────────────
 drop_one = np.zeros(p)
 for j in range(p):
     Xd          = np.delete(X, j, axis=1)
     drop_one[j] = r2_full - r2_score(y, LinearRegression().fit(Xd, y).predict(Xd))
 
-# ── 4. Shapley values (linear, R²) ────────────────────────────────
 def r2_sub(X_arr, y_arr, idx):
     if not idx:
         return 0.0
@@ -92,19 +87,16 @@ for i in range(p):
             sv += w * (r2_sub(X, y, list(subset) + [i]) - r2_sub(X, y, list(subset)))
     shapley_vals[i] = sv
 
-# ── 5. Johnson's Relative Weights ─────────────────────────────────
 R_xx           = np.corrcoef(X_std.T)
 eigenvalues, V = np.linalg.eigh(R_xx)
 Z              = X_std @ V / np.sqrt(eigenvalues)
 beta_z         = Z.T @ y_std / n
 johnson_rw     = np.array([np.sum(V[j, :]**2 * beta_z**2) for j in range(p)])
 
-# ── 6. Random Forest Gini ─────────────────────────────────────────
 rf            = RandomForestRegressor(n_estimators=500, random_state=42, n_jobs=-1)
 rf.fit(X, y)
 rf_importance = rf.feature_importances_
 
-# ── Medium challenge: custom Shapley function ──────────────────────
 def shapley_linear_r2(X, y):
     n, p = X.shape
     def v(subset):
@@ -127,21 +119,20 @@ def shapley_linear_r2(X, y):
 
 phi_custom = shapley_linear_r2(X, y)
 
-# ── Hard challenge: Shapley for logit with BIC ────────────────────
 y_bin = (y >= 4).astype(float)
 
 def logit_bic(X_sub, y_b):
     nb = len(y_b)
     if X_sub.shape[1] == 0:
-        ph  = y_b.mean()
-        ll  = (y_b * np.log(ph + 1e-15) + (1 - y_b) * np.log(1 - ph + 1e-15)).sum()
-        k   = 1
+        ph = y_b.mean()
+        ll = (y_b * np.log(ph + 1e-15) + (1 - y_b) * np.log(1 - ph + 1e-15)).sum()
+        k  = 1
     else:
-        clf   = LogisticRegression(max_iter=500, solver="lbfgs", C=1e6)
+        clf = LogisticRegression(max_iter=500, solver="lbfgs", C=1e6)
         clf.fit(X_sub, y_b)
-        pr    = clf.predict_proba(X_sub)[:, 1]
-        ll    = (y_b * np.log(pr + 1e-15) + (1 - y_b) * np.log(1 - pr + 1e-15)).sum()
-        k     = X_sub.shape[1] + 1
+        pr  = clf.predict_proba(X_sub)[:, 1]
+        ll  = (y_b * np.log(pr + 1e-15) + (1 - y_b) * np.log(1 - pr + 1e-15)).sum()
+        k   = X_sub.shape[1] + 1
     return k * np.log(nb) - 2 * ll
 
 def shapley_logit_bic(X, y_b):
@@ -164,7 +155,6 @@ def shapley_logit_bic(X, y_b):
 
 phi_logit = shapley_logit_bic(X, y_bin)
 
-# ── Results table ──────────────────────────────────────────────────
 results = pd.DataFrame({
     "Attribute":     [labels[p_] for p_ in predictors],
     "Pearson r":     pearson_r,
@@ -186,9 +176,9 @@ pred_order          = [p_ for a in attr_order for p_, l in labels.items() if l =
 
 ## Introduction
 
-Understanding *which* brand attributes drive customer satisfaction is a central challenge in market research. When predictors are correlated — as brand perceptions typically are — a single metric can give a misleading picture. **Key drivers analysis** addresses this by applying multiple complementary methods, each of which handles shared variance differently.
+Understanding *which* brand attributes drive customer satisfaction is a central challenge in market research. When predictors are correlated — as brand perceptions typically are — a single metric can be misleading. **Key drivers analysis** addresses this by applying multiple complementary methods, each of which handles shared variance differently.
 
-This report analyses a customer satisfaction survey (`n = 2,553` respondents, 10 brands). The outcome is overall **satisfaction** (1–5 scale) and nine binary brand attributes serve as predictors.
+This report analyses a customer satisfaction survey with **2,553 respondents across 10 brands**. The outcome is overall **satisfaction** (1–5 scale) and nine binary brand attributes serve as predictors.
 
 | Attribute | Meaning |
 |-----------|---------|
@@ -237,11 +227,11 @@ plt.show()
 
 ## Variable Importance Methods
 
-Six methods are used. Each captures a different facet of the relationship between brand attributes and satisfaction:
+Six methods are used, each capturing a different facet of the predictor–outcome relationship:
 
 | Method | What it measures |
 |--------|-----------------|
-| **Pearson Correlation** | Raw bivariate association (ignores other predictors) |
+| **Pearson Correlation** | Raw bivariate association — ignores other predictors |
 | **Standardized β** | OLS coefficient after z-scoring all variables |
 | **Drop-one (Usefulness)** | Loss in R² when a predictor is removed |
 | **Shapley Values** | Average marginal R² contribution across all predictor coalitions |
@@ -277,17 +267,23 @@ display_cols = ["Attribute", "Pearson r", "Std. β", "Drop-one ΔR²",
      {"selector": "th", "props": [("text-align", "center"),
                                    ("background-color", "#4C72B0"),
                                    ("color", "white"),
-                                   ("font-weight", "bold")]},
+                                   ("font-weight", "bold"),
+                                   ("font-size", "13px"),
+                                   ("padding", "8px")]},
+     {"selector": "td", "props": [("padding", "7px"),
+                                   ("font-size", "13px")]},
      {"selector": "td:first-child", "props": [("text-align", "left"),
                                                ("font-weight", "bold")]},
+     {"selector": "tr:hover", "props": [("background-color", "#f0f4ff")]},
  ])
  .hide(axis="index"))
 ```
 
-> **Full-model R² = `{python} f"{r2_full:.3f}"`** — the nine attributes jointly explain `{python} f"{r2_full*100:.1f}"`% of the variance in satisfaction.
-> Shapley values and Johnson's Relative Weights each sum to this R².
+> **Full-model R² = `{python} f"{r2_full:.3f}"`** — the nine attributes jointly explain `{python} f"{r2_full*100:.1f}"`% of satisfaction variance. Shapley values and Johnson's Relative Weights each sum to this R².
 
-### Importance by Method (Normalized)
+---
+
+### Importance by Method
 
 ```{python}
 def minmax(arr):
@@ -379,105 +375,45 @@ Shapley values are grounded in cooperative game theory. Each predictor's importa
 
 $$\phi_j = \sum_{S \subseteq P \setminus \{j\}} \frac{|S|!\,(p-|S|-1)!}{p!}\bigl[v(S \cup \{j\}) - v(S)\bigr]$$
 
-The function below implements this from scratch — no external packages beyond NumPy.
-
-```{python}
-#| echo: true
-
-def shapley_linear_r2(X: np.ndarray, y: np.ndarray) -> np.ndarray:
-    """
-    Shapley values for OLS using R² as the value function.
-
-    Enumerates all 2^p predictor subsets exactly.
-    Sum of returned values equals the full-model R².
-    """
-    n, p = X.shape
-
-    def v(subset):
-        if not subset:
-            return 0.0
-        Xs    = X[:, list(subset)]
-        coef  = np.linalg.lstsq(np.column_stack([np.ones(n), Xs]), y, rcond=None)[0]
-        y_hat = np.column_stack([np.ones(n), Xs]) @ coef
-        return 1 - np.sum((y - y_hat)**2) / np.sum((y - y.mean())**2)
-
-    phi = np.zeros(p)
-    for i in range(p):
-        others = [j for j in range(p) if j != i]
-        sv = 0.0
-        for size in range(p):
-            w = factorial(size) * factorial(p - size - 1) / factorial(p)
-            for subset in combinations(others, size):
-                sv += w * (v(set(subset) | {i}) - v(set(subset)))
-        phi[i] = sv
-    return phi
-```
+The function below implements this entirely from scratch — no external packages beyond NumPy.
 
 ```{python}
 verify = pd.DataFrame({
     "Attribute":        [labels[p_] for p_ in predictors],
-    "Shapley (main)":   shapley_vals.round(6),
-    "Shapley (custom)": phi_custom.round(6),
+    "Shapley (main)":   shapley_vals,
+    "Shapley (custom)": phi_custom,
     "Difference":       np.abs(shapley_vals - phi_custom),
 })
-verify["Difference"] = np.abs(shapley_vals - phi_custom)
 (verify.style
  .format({"Shapley (main)": "{:.6f}", "Shapley (custom)": "{:.6f}", "Difference": "{:.2e}"})
+ .background_gradient(subset=["Shapley (main)", "Shapley (custom)"], cmap="Blues")
+ .set_properties(**{"text-align": "center"})
+ .set_table_styles([
+     {"selector": "th", "props": [("text-align", "center"),
+                                   ("background-color", "#4C72B0"),
+                                   ("color", "white"),
+                                   ("font-weight", "bold"),
+                                   ("padding", "8px")]},
+     {"selector": "td", "props": [("padding", "7px")]},
+     {"selector": "td:first-child", "props": [("text-align", "left"),
+                                               ("font-weight", "bold")]},
+ ])
  .hide(axis="index")
- .set_caption(f"Verification: max absolute difference = {np.abs(shapley_vals - phi_custom).max():.2e} | "
-              f"Sum of custom Shapley = {phi_custom.sum():.6f} (R² = {r2_full:.6f})"))
+ .set_caption(f"Max absolute difference = {np.abs(shapley_vals - phi_custom).max():.2e}  |  "
+              f"Sum of Shapley = {phi_custom.sum():.6f}  (R² = {r2_full:.6f})"))
 ```
+
+The two implementations match to within floating-point precision, and the values sum to the full-model R² — satisfying the **efficiency axiom** of Shapley values.
 
 ---
 
 ## Hard Challenge: Shapley Values for Logistic Regression (BIC)
 
-For binary satisfaction outcomes a **logistic regression** is more appropriate than OLS. We binarise satisfaction as *satisfied = rating ≥ 4* and use the **Bayesian Information Criterion** as the fit metric. Since lower BIC is better, the value function is $v(S) = \text{BIC}_{\text{null}} - \text{BIC}(S)$ — a positive value means the predictor subset improves over the null model.
-
-```{python}
-#| echo: true
-
-def logit_bic(X_sub: np.ndarray, y_b: np.ndarray) -> float:
-    """BIC of a logistic regression. Pass empty array for the null model."""
-    nb = len(y_b)
-    if X_sub.shape[1] == 0:
-        ph = y_b.mean()
-        ll = (y_b * np.log(ph + 1e-15) + (1 - y_b) * np.log(1 - ph + 1e-15)).sum()
-        k  = 1
-    else:
-        clf = LogisticRegression(max_iter=500, solver="lbfgs", C=1e6)
-        clf.fit(X_sub, y_b)
-        pr  = clf.predict_proba(X_sub)[:, 1]
-        ll  = (y_b * np.log(pr + 1e-15) + (1 - y_b) * np.log(1 - pr + 1e-15)).sum()
-        k   = X_sub.shape[1] + 1
-    return k * np.log(nb) - 2 * ll
-
-
-def shapley_logit_bic(X: np.ndarray, y_b: np.ndarray) -> np.ndarray:
-    """Shapley values for logistic regression using –ΔBIC as value function."""
-    n, p     = X.shape
-    bic_null = logit_bic(np.empty((n, 0)), y_b)
-
-    def v(subset):
-        if not subset:
-            return 0.0
-        return bic_null - logit_bic(X[:, list(subset)], y_b)
-
-    phi = np.zeros(p)
-    for i in range(p):
-        others = [j for j in range(p) if j != i]
-        sv = 0.0
-        for size in range(p):
-            w = factorial(size) * factorial(p - size - 1) / factorial(p)
-            for subset in combinations(others, size):
-                sv += w * (v(set(subset) | {i}) - v(set(subset)))
-        phi[i] = sv
-    return phi
-```
+For binary outcomes a **logistic regression** is more appropriate than OLS. Satisfaction is binarised as *satisfied = rating ≥ 4* and the **Bayesian Information Criterion** is used as the fit metric. Since lower BIC is better, the value function is $v(S) = \text{BIC}_{\text{null}} - \text{BIC}(S)$ — a positive value means the predictor subset improves over the null model.
 
 ```{python}
 bic_null = logit_bic(np.empty((n, 0)), y_bin)
-bic_full = logit_bic(X, y_bin)
+bic_full_logit = logit_bic(X, y_bin)
 
 logit_df = pd.DataFrame({
     "Attribute":        [labels[p_] for p_ in predictors],
@@ -488,10 +424,20 @@ logit_df = pd.DataFrame({
 (logit_df.style
  .format({"Shapley (–ΔBIC)": "{:.3f}", "% of ΔBIC": "{:.1f}%"})
  .background_gradient(subset=["Shapley (–ΔBIC)"], cmap="Blues")
+ .set_properties(**{"text-align": "center"})
+ .set_table_styles([
+     {"selector": "th", "props": [("text-align", "center"),
+                                   ("background-color", "#4C72B0"),
+                                   ("color", "white"),
+                                   ("font-weight", "bold"),
+                                   ("padding", "8px")]},
+     {"selector": "td", "props": [("padding", "7px")]},
+     {"selector": "td:first-child", "props": [("text-align", "left"),
+                                               ("font-weight", "bold")]},
+ ])
  .hide(axis="index")
- .set_caption(f"Logistic regression BIC-based Shapley values | "
-              f"Null BIC = {bic_null:.1f} | Full BIC = {bic_full:.1f} | "
-              f"ΔBIC = {bic_null - bic_full:.1f}"))
+ .set_caption(f"Null BIC = {bic_null:.1f}  |  Full BIC = {bic_full_logit:.1f}  |  "
+              f"ΔBIC = {bic_null - bic_full_logit:.1f}"))
 ```
 
 ```{python}
@@ -518,4 +464,4 @@ plt.show()
 
 ---
 
-*Analysis in Python · `scikit-learn` · `numpy` · `matplotlib` · Shapley values via exact enumeration (2⁹ = 512 coalitions) · Random Forest: 500 trees, `random_state=42`*
+*Analysis by Devansh Sachar · June 8, 2026 · Python: `scikit-learn`, `numpy`, `matplotlib` · Shapley values via exact enumeration (2⁹ = 512 coalitions) · Random Forest: 500 trees*
