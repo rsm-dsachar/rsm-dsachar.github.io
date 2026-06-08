@@ -1,0 +1,554 @@
+---
+title: "placeholder"
+jupyter: python3
+format:
+  revealjs:
+    embed-resources: true
+    width: 1400
+    height: 788
+    margin: 0.06
+    center: false
+    slide-number: c/t
+    transition: fade
+    transition-speed: fast
+    controls: true
+    progress: true
+    theme: simple
+    footer: "Devansh Sachar · MGTF 406 · Rady School of Management, UC San Diego"
+    include-in-header:
+      text: |
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        :root {
+          --teal:#0D9488; --teal2:#14B8A6; --teallt:#CCFBF1;
+          --navy:#1A3A5C; --dark:#0D1B2A;
+          --orange:#F97316; --amber:#FBBF24;
+          --green:#22C55E; --red:#EF4444;
+          --lgray:#F1F5F9; --mgray:#94A3B8; --dgray:#334155;
+        }
+
+        /* ── Base ── */
+        .reveal { font-family:'Inter','Calibri','Segoe UI',sans-serif; font-size:21px; color:var(--dgray); }
+        .reveal .slides section { text-align:left; padding:0 12px; box-sizing:border-box; }
+
+        /* ── Hide the default Quarto title slide ── */
+        .reveal .title-slide { display:none !important; }
+
+        /* ── Headings ── */
+        .reveal h2 {
+          font-family:'Inter','Calibri',sans-serif; color:var(--navy); font-weight:800;
+          font-size:1.5em; text-align:left; text-transform:none; letter-spacing:-0.02em;
+          border:none; text-shadow:none; border-bottom:3px solid var(--teal);
+          padding-bottom:6px; margin-bottom:16px;
+        }
+        .reveal h3 { color:var(--teal); font-weight:700; font-size:1.0em; margin-bottom:6px; text-transform:none; border:none; text-shadow:none; }
+
+        /* ── Body ── */
+        .reveal p  { line-height:1.65; margin-bottom:0.45em; }
+        .reveal ul,.reveal ol { margin-left:1.3em; line-height:1.9; }
+        .reveal li { margin-bottom:0.22em; }
+        .reveal strong { color:var(--navy); }
+
+        /* ── Progress & controls ── */
+        .reveal .progress span   { background:var(--teal) !important; }
+        .reveal .slide-number    { font-size:13px; color:var(--mgray); background:transparent; }
+        .reveal .footer          { font-size:12px; color:var(--mgray); }
+        .reveal .controls button { color:var(--teal) !important; }
+
+        /* ── Figures ── */
+        .reveal .cell-output img,.reveal .output img {
+          max-height:370px; max-width:100%; display:block; margin:4px auto;
+          border-radius:6px; box-shadow:0 2px 12px rgba(0,0,0,0.10);
+        }
+
+        /* ── Layout grids ── */
+        .two-col   { display:grid; grid-template-columns:1fr 1fr;     gap:18px; margin-top:10px; }
+        .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:10px; }
+
+        /* ── White card with coloured left accent ── */
+        .card { background:white; border:1px solid #E2E8F0; border-radius:8px; padding:14px 18px; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+        .card-teal   { border-left:5px solid var(--teal)   !important; }
+        .card-orange { border-left:5px solid var(--orange) !important; }
+        .card-green  { border-left:5px solid var(--green)  !important; }
+
+        /* ── Dark navy card ── */
+        .dcard { background:var(--navy); border:1px solid var(--teal); border-radius:8px; padding:16px 18px; }
+        .dcard h3   { color:var(--teal2) !important; margin-top:0; }
+        .dcard p,.dcard li { color:#CBD5E1 !important; font-size:0.88em; line-height:1.65; }
+
+        /* ── Callout boxes ── */
+        .info  { background:var(--teallt); border:1px solid var(--teal);   border-radius:6px; padding:10px 16px; margin-top:10px; font-size:0.88em; color:var(--navy); }
+        .warn  { background:#FEF3C7;       border:1px solid var(--orange); border-radius:6px; padding:10px 16px; margin-top:10px; font-size:0.88em; color:#92400E; }
+        .dark  { background:var(--navy);   border-radius:6px; padding:10px 18px; margin-top:10px; font-size:0.88em; color:white; }
+
+        /* ── Takeaway numbered cards ── */
+        .tk   { background:white; border:1px solid #E2E8F0; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+        .tk-h { padding:7px 14px; display:flex; align-items:center; gap:10px; }
+        .tk-n { font-size:1.4em; font-weight:900; color:var(--amber); }
+        .tk-t { font-weight:700; color:white; font-size:0.9em; }
+        .tk-b { padding:9px 14px; font-size:0.84em; color:var(--dgray); line-height:1.55; }
+
+        /* ── Colour utilities ── */
+        .teal   { color:var(--teal);   font-weight:700; }
+        .orange { color:var(--orange); font-weight:700; }
+        .green  { color:var(--green);  font-weight:700; }
+        .red    { color:var(--red);    font-weight:700; }
+        </style>
+
+execute:
+  echo: false
+  warning: false
+  message: false
+  enabled: true
+---
+
+```{python}
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams.update({
+    "figure.facecolor":"#F1F5F9","axes.facecolor":"#F1F5F9",
+    "axes.spines.top":False,"axes.spines.right":False,
+    "axes.edgecolor":"#CBD5E1","axes.labelcolor":"#334155",
+    "axes.labelsize":12,"xtick.labelsize":10,"ytick.labelsize":10,
+    "xtick.color":"#94A3B8","ytick.color":"#94A3B8",
+    "lines.linewidth":2.2,"font.family":"DejaVu Sans",
+    "grid.color":"#E2E8F0","grid.linewidth":0.7,
+    "legend.fontsize":10,"legend.framealpha":0.92,
+    "legend.edgecolor":"#E2E8F0","figure.dpi":130,
+})
+
+TEAL="#0D9488"; ORANGE="#F97316"; GREEN="#22C55E"
+NAVY="#1A3A5C"; RED="#EF4444"; GRAY="#94A3B8"
+
+# ── Dataset ───────────────────────────────────────────────────
+np.random.seed(42)
+dates = pd.date_range(start="2018-01-01", end="2022-12-31", freq="B")
+returns = []
+for d in dates:
+    if   d < pd.Timestamp("2020-03-01"):  returns.append(np.random.normal( 0.0004, 0.008))
+    elif d <= pd.Timestamp("2020-06-30"): returns.append(np.random.normal(-0.0008, 0.035))
+    else:                                  returns.append(np.random.normal( 0.0005, 0.014))
+
+df = pd.DataFrame({"Date": dates, "Return": returns})
+df["Price"]    = 100 * (1 + df["Return"]).cumprod()
+df["Trend"]    = df["Price"].rolling(90, center=True).mean()
+df["RolVol"]   = df["Return"].rolling(30).std()
+df["Period"]   = np.where(df["Date"] < "2020-03-01", "Pre-COVID",
+                 np.where(df["Date"] <= "2020-06-30", "COVID Shock", "Post-Shock"))
+
+SHOCK = pd.Timestamp("2020-03-01")
+mean_r = df["Return"].mean(); std_r = df["Return"].std()
+df["Anomaly"] = abs(df["Return"] - mean_r) > 3 * std_r
+anomalies = df[df["Anomaly"]]
+```
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 1 — CUSTOM TITLE  (fully hand-built, matches style)
+     ══════════════════════════════════════════════════════════ -->
+
+## {visibility="hidden"}
+
+<div style="
+  position:absolute; inset:0;
+  background: linear-gradient(135deg, #0D1B2A 60%, #1A3A5C 100%);
+  display:flex; flex-direction:column; justify-content:center;
+  padding: 0 70px;
+  box-sizing:border-box;
+">
+
+  <!-- top accent bar -->
+  <div style="position:absolute; top:0; left:0; width:100%; height:6px; background:var(--teal);"></div>
+
+  <!-- right decorative panel -->
+  <div style="
+    position:absolute; right:0; top:0; bottom:0; width:360px;
+    background:linear-gradient(180deg,#0D9488 0%,#1A3A5C 100%);
+    opacity:0.18;
+  "></div>
+
+  <!-- eyebrow label -->
+  <p style="color:var(--teal2); font-size:0.82em; font-weight:700; letter-spacing:3px; margin:0 0 16px; text-transform:uppercase;">
+    Market Analytics · Time Series
+  </p>
+
+  <!-- main title -->
+  <h1 style="
+    color:white; font-size:3.2em; font-weight:900;
+    line-height:1.1; margin:0 0 18px; letter-spacing:-0.03em;
+    border:none; text-shadow:none;
+  ">
+    Understanding<br>
+    <span style="color:var(--teal2);">Market Shocks</span>
+  </h1>
+
+  <!-- subtitle -->
+  <p style="color:#94A3B8; font-size:1.15em; margin:0 0 32px; line-height:1.5;">
+    A beginner's guide to Time Series Analysis<br>
+    using COVID-19 and the Stock Market as our example
+  </p>
+
+  <!-- divider line -->
+  <div style="width:80px; height:4px; background:var(--orange); border-radius:2px; margin-bottom:28px;"></div>
+
+  <!-- meta info -->
+  <p style="color:#64748B; font-size:0.88em; margin:0; line-height:1.8;">
+    <strong style="color:#94A3B8;">Devansh Sachar</strong> &nbsp;·&nbsp;
+    MGTF 406 – Behavioral Finance &nbsp;·&nbsp;
+    Rady School of Management, UC San Diego &nbsp;·&nbsp;
+    May 27, 2026
+  </p>
+
+  <!-- right-side stat callout -->
+  <div style="
+    position:absolute; right:60px; top:50%; transform:translateY(-50%);
+    text-align:center; width:240px;
+  ">
+    <div style="background:rgba(13,148,136,0.15); border:1px solid var(--teal); border-radius:12px; padding:28px 20px;">
+      <div style="font-size:3.4em; font-weight:900; color:var(--teal2); line-height:1;">4×</div>
+      <div style="color:#94A3B8; font-size:0.8em; margin-top:8px; line-height:1.5;">volatility spike<br>during COVID shock</div>
+      <div style="margin:16px 0; height:1px; background:#1A3A5C;"></div>
+      <div style="font-size:2.2em; font-weight:900; color:var(--orange); line-height:1;">−34%</div>
+      <div style="color:#94A3B8; font-size:0.8em; margin-top:8px; line-height:1.5;">S&P 500 drop<br>in 5 weeks</div>
+    </div>
+  </div>
+
+  <!-- bottom accent bar -->
+  <div style="position:absolute; bottom:0; left:0; width:100%; height:4px; background:linear-gradient(90deg, var(--teal), var(--orange));"></div>
+</div>
+
+---
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 2 — WHAT IS A TIME SERIES?
+     ══════════════════════════════════════════════════════════ -->
+
+## What Is a Time Series?
+
+::: {.two-col}
+::: {}
+
+A **time series** is simply a list of measurements collected one after another over time.
+
+What makes it special — the **order of rows matters.** Monday connects to Tuesday. You cannot shuffle the data like a survey without losing information.
+
+**Two ingredients every time series needs:**
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
+<div class="card card-teal" style="padding:12px 14px;">
+  <div style="font-size:1.4em; margin-bottom:4px;">📅</div>
+  <strong>Timestamp</strong><br>
+  <span style="font-size:0.85em; color:var(--dgray);">When was it measured? (date, hour…)</span>
+</div>
+<div class="card card-orange" style="padding:12px 14px;">
+  <div style="font-size:1.4em; margin-bottom:4px;">📏</div>
+  <strong>Value</strong><br>
+  <span style="font-size:0.85em; color:var(--dgray);">What was recorded at that time?</span>
+</div>
+</div>
+
+::: {.info}
+💡 **Our example:** Stock market daily returns, 2018–2022. The COVID shock creates a clear "before and after" — perfect for learning every concept.
+:::
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6, 4.4))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.13)
+ax.plot(df["Date"], df["Price"], color=TEAL, linewidth=2.0)
+ax.axvline(SHOCK, color=ORANGE, linewidth=2.0, linestyle="--")
+
+ax.annotate("① Calm — small\nregular changes",
+            xy=(pd.Timestamp("2019-01-01"), 116),
+            xytext=(pd.Timestamp("2018-03-01"), 128),
+            fontsize=9.5, color=TEAL, fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.3))
+ax.annotate("② COVID Shock\n— huge drop",
+            xy=(pd.Timestamp("2020-04-10"), 88),
+            xytext=(pd.Timestamp("2020-05-20"), 74),
+            fontsize=9.5, color=ORANGE, fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=ORANGE, lw=1.3))
+ax.annotate("③ Recovery\n— bouncing back",
+            xy=(pd.Timestamp("2021-07-01"), 152),
+            xytext=(pd.Timestamp("2021-09-01"), 130),
+            fontsize=9.5, color=GREEN, fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=GREEN, lw=1.3))
+
+ax.set_xlabel("Date"); ax.set_ylabel("Market Index (starts at 100)")
+ax.set_title("Stock Market Index — a classic time series", fontsize=11, fontweight="bold", color=NAVY)
+ax.grid(axis="y")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 3 — TREND + VOLATILITY
+     ══════════════════════════════════════════════════════════ -->
+
+## Two Key Concepts: Trend & Volatility
+
+::: {.two-col}
+::: {}
+### 📈 Trend — the Big-Picture Direction
+
+The trend is the **overall direction** of the series — ignoring the day-to-day noise. Found by taking a rolling mean (average of the last N days).
+
+```{python}
+fig, ax = plt.subplots(figsize=(6, 3.2))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.10)
+ax.plot(df["Date"], df["Price"], color=TEAL, linewidth=1.0, alpha=0.28, label="Daily (noisy)")
+ax.plot(df["Date"], df["Trend"], color=NAVY, linewidth=2.6, label="90-day trend line")
+ax.axvline(SHOCK, color=ORANGE, linewidth=1.8, linestyle="--", label="COVID shock")
+ax.set_ylabel("Index Value"); ax.set_xlabel("Date")
+ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.3)
+plt.show()
+```
+
+::: {.info}
+The navy line removes the noise — now the **up → crash → recover** story is obvious.
+:::
+:::
+
+::: {}
+### 📊 Volatility — How Wild Is It?
+
+Volatility = **standard deviation** of daily changes. High volatility means the series is jumping around a lot. Low = calm and predictable.
+
+```{python}
+fig, ax = plt.subplots(figsize=(6, 3.2))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.10)
+ax.plot(df["Date"], df["RolVol"]*100, color=RED, linewidth=2.2, label="30-day rolling volatility")
+ax.fill_between(df["Date"], df["RolVol"]*100, alpha=0.12, color=RED)
+ax.axvline(SHOCK, color=ORANGE, linewidth=1.8, linestyle="--")
+
+pv  = (df["RolVol"]*100).max()
+pdt = df.loc[(df["RolVol"]*100).idxmax(),"Date"]
+ax.annotate(f"Peak ≈ {pv:.1f}%\n(4× normal)",
+            xy=(pdt, pv), xytext=(pd.Timestamp("2021-01-01"), pv*0.82),
+            fontsize=9.5, color=RED, fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=RED, lw=1.4))
+ax.set_ylabel("Volatility (% / day)"); ax.set_xlabel("Date")
+ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.3)
+plt.show()
+```
+
+::: {.warn}
+⚡ COVID made the market **4× more volatile** — risk jumped overnight.
+:::
+:::
+:::
+
+---
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 4 — STATIONARITY + STRUCTURAL BREAK
+     ══════════════════════════════════════════════════════════ -->
+
+## Two More Concepts: Stationarity & Structural Break
+
+::: {.two-col}
+::: {}
+### 🔄 Stationarity — Does It Stay Consistent?
+
+A series is **stationary** when its average and spread stay roughly the same over time. Most analysis tools need this.
+
+The raw price keeps rising forever → **not stationary.**
+The daily % change bounces around zero → **stationary.**
+
+```{python}
+fig, axes = plt.subplots(2, 1, figsize=(6, 3.4), sharex=True)
+axes[0].plot(df["Date"], df["Price"], color=RED, linewidth=1.5)
+axes[0].set_title("❌ Price level — drifts, not stationary", fontsize=10, fontweight="bold", color=RED)
+axes[0].set_ylabel("Index"); axes[0].grid(axis="y")
+
+axes[1].plot(df["Date"], df["Return"]*100, color=TEAL, linewidth=0.85, alpha=0.85)
+axes[1].axhline(0, color=NAVY, linewidth=1.2, linestyle="--")
+axes[1].set_title("✅ Daily % change — bounces around zero, stationary", fontsize=10, fontweight="bold", color=TEAL)
+axes[1].set_ylabel("Change (%)"); axes[1].set_xlabel("Date"); axes[1].grid(axis="y")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+
+::: {}
+### 💥 Structural Break — When Everything Changes
+
+A structural break is a point where the series **permanently changes its behaviour.** Models trained before the break will fail after it.
+
+```{python}
+fig, ax = plt.subplots(figsize=(6, 3.4))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.12)
+ax.plot(df["Date"], df["RolVol"]*100, color=RED, linewidth=2.0)
+ax.axvline(SHOCK, color=ORANGE, linewidth=2.2, linestyle="--", label="Break point")
+
+pre_m  = df[df["Date"] < SHOCK]["RolVol"].mean() * 100
+post_m = df[df["Date"] > pd.Timestamp("2020-06-30")]["RolVol"].mean() * 100
+ax.axhline(pre_m,  xmax=0.47, color=TEAL,  linewidth=2.4, label=f"Before avg: {pre_m:.2f}%")
+ax.axhline(post_m, xmin=0.53, color=GREEN, linewidth=2.4, label=f"After avg: {post_m:.2f}%")
+
+ax.set_ylabel("30-day Volatility (%)"); ax.set_xlabel("Date")
+ax.legend(fontsize=9); ax.grid(axis="y")
+ax.set_title("Spread nearly doubled — and stayed there", fontsize=10, fontweight="bold", color=NAVY)
+fig.tight_layout(pad=0.3)
+plt.show()
+```
+
+::: {.dark}
+Volatility before COVID: **~0.8%/day.** After COVID: **~1.4%/day.** Old models stopped working. This is a structural break.
+:::
+:::
+:::
+
+---
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 5 — ANOMALY DETECTION
+     ══════════════════════════════════════════════════════════ -->
+
+## Anomaly Detection — Spotting the Unusual
+
+An **anomaly** is a data point so far from normal that it deserves attention. We use the simple **3-sigma rule** — flag anything more than 3 standard deviations from the mean.
+
+::: {.two-col}
+::: {}
+
+<div class="card card-teal" style="margin-bottom:12px; font-size:0.9em;">
+<strong>The Rule</strong><br>
+Flag a point if: &nbsp; |value − mean| &nbsp;>&nbsp; 3 × std dev<br>
+<span style="font-size:0.85em; color:var(--dgray);">In normal data only 0.3% of days would be flagged. So when the rule fires — something genuinely unusual happened.</span>
+</div>
+
+```{python}
+fig, ax = plt.subplots(figsize=(6, 3.5))
+
+counts = [len(anomalies[anomalies["Period"]==p])
+          for p in ["Pre-COVID","COVID Shock","Post-Shock"]]
+total  = [len(df[df["Period"]==p])
+          for p in ["Pre-COVID","COVID Shock","Post-Shock"]]
+pct    = [c/t*100 for c,t in zip(counts,total)]
+
+bars = ax.bar(["Before COVID","COVID Shock","After COVID"],
+              pct, color=[TEAL,RED,GREEN], edgecolor="white", width=0.5)
+ax.axhline(0.3, color=GRAY, linewidth=1.4, linestyle="--",
+           label="Expected in normal data: 0.3%")
+
+for bar, v, c in zip(bars, pct, counts):
+    ax.text(bar.get_x()+bar.get_width()/2, v+0.15,
+            f"{v:.1f}%\n({c} days)", ha="center",
+            fontsize=9.5, fontweight="bold", color=bar.get_facecolor())
+
+ax.set_title("% of Days Flagged as Anomaly", fontsize=11, fontweight="bold", color=NAVY)
+ax.set_ylabel("% of days"); ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.3)
+plt.show()
+```
+
+:::
+
+::: {}
+
+```{python}
+fig, ax = plt.subplots(figsize=(6, 4.4))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.10)
+normal_pts = df[~df["Anomaly"]]
+ax.plot(normal_pts["Date"], normal_pts["Return"]*100,
+        color=TEAL, linewidth=0.85, alpha=0.55, label="Normal day")
+ax.scatter(anomalies["Date"], anomalies["Return"]*100,
+           color=RED, s=55, zorder=5, edgecolors="white", linewidth=0.6,
+           label=f"Anomaly ({len(anomalies)} days)")
+ax.axhline((mean_r+3*std_r)*100, color=GRAY, linewidth=1.1,
+           linestyle=":", alpha=0.8, label="±3σ boundary")
+ax.axhline((mean_r-3*std_r)*100, color=GRAY, linewidth=1.1, linestyle=":", alpha=0.8)
+ax.axhline(0, color="#CBD5E1", linewidth=0.8)
+ax.axvline(SHOCK, color=ORANGE, linewidth=1.8, linestyle="--")
+ax.set_xlabel("Date"); ax.set_ylabel("Daily Change (%)")
+ax.set_title("Anomaly Map — red dots = flagged days", fontsize=11, fontweight="bold", color=NAVY)
+ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.warn}
+⚡ During the shock, **~9% of days were anomalies** — 30× the normal rate. The algorithm found the crisis automatically, using only mean and std dev.
+:::
+:::
+:::
+
+---
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 6 — TAKEAWAYS
+     ══════════════════════════════════════════════════════════ -->
+
+## Summary — 5 Things to Remember
+
+::: {.two-col}
+
+<div class="tk">
+<div class="tk-h" style="background:#1A3A5C;">
+  <span class="tk-n">01</span>
+  <span class="tk-t">Time Series = Data in Order</span>
+</div>
+<div class="tk-b">
+A time series is measurements over time — and <strong>order matters.</strong> Monday connects to Tuesday. Shuffle the rows and you destroy the information.
+</div>
+</div>
+
+<div class="tk">
+<div class="tk-h" style="background:#0D9488;">
+  <span class="tk-n">02</span>
+  <span class="tk-t">Trend = Long-Run Direction</span>
+</div>
+<div class="tk-b">
+Smooth out the noise with a <strong>rolling mean</strong> to reveal whether the series is going up, down, or sideways. COVID shows a clear crash then recovery.
+</div>
+</div>
+
+<div class="tk">
+<div class="tk-h" style="background:#1A3A5C;">
+  <span class="tk-n">03</span>
+  <span class="tk-t">Volatility = How Wild It Is</span>
+</div>
+<div class="tk-b">
+Standard deviation of daily changes measures <strong>how much the series jumps around.</strong> COVID pushed volatility 4× above normal — visible instantly in a rolling volatility chart.
+</div>
+</div>
+
+<div class="tk">
+<div class="tk-h" style="background:#0D9488;">
+  <span class="tk-n">04</span>
+  <span class="tk-t">Structural Break = Permanent Change</span>
+</div>
+<div class="tk-b">
+When the series changes behaviour and <strong>stays changed,</strong> that is a structural break. COVID doubled market volatility permanently. Models built on old data fail.
+</div>
+</div>
+
+<div class="tk">
+<div class="tk-h" style="background:#1A3A5C;">
+  <span class="tk-n">05</span>
+  <span class="tk-t">Anomaly Detection = Spot the Unusual</span>
+</div>
+<div class="tk-b">
+The <strong>3-sigma rule</strong> flags anything more than 3 standard deviations from the mean. No labels needed — the data finds its own extreme events automatically.
+</div>
+</div>
+
+<div style="background:linear-gradient(135deg,#0D1B2A,#1A3A5C); border:1px solid var(--teal); border-radius:8px; padding:16px 18px; display:flex; flex-direction:column; justify-content:center;">
+  <p style="color:var(--teal2); font-weight:700; font-size:0.82em; letter-spacing:2px; margin:0 0 8px;">THE BIG IDEA</p>
+  <p style="color:white; font-size:0.95em; line-height:1.7; margin:0;">
+    These tools work on <strong style="color:var(--teal2);">any data over time</strong> — temperature, sales, hospital admissions, energy use. COVID and the stock market are just our learning example.
+  </p>
+</div>
+
+:::

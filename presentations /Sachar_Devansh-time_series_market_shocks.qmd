@@ -1,0 +1,742 @@
+---
+title: "Market Shocks Through Time Series Analysis"
+subtitle: "COVID-19, Trend, Volatility, Structural Breaks, and Anomalies"
+author: "Devansh Sachar"
+date: "May 27, 2026"
+
+format:
+  revealjs:
+    embed-resources: true
+    width: 1400
+    height: 788
+    margin: 0.06
+    center: false
+    slide-number: c/t
+    transition: fade
+    transition-speed: fast
+    controls: true
+    progress: true
+    theme: simple
+    include-in-header:
+      text: |
+        <style>
+        :root {
+          --teal: #0D9488;
+          --teal2: #14B8A6;
+          --teallt: #CCFBF1;
+          --navy: #1A3A5C;
+          --dark: #0D1B2A;
+          --orange: #F97316;
+          --amber: #FBBF24;
+          --green: #22C55E;
+          --red: #EF4444;
+          --lgray: #F1F5F9;
+          --mgray: #94A3B8;
+          --dgray: #334155;
+        }
+
+        .reveal {
+          font-family: Calibri, Segoe UI, Arial, sans-serif;
+          font-size: 21px;
+          color: var(--dgray);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+          color: var(--navy);
+          font-weight: 800;
+          text-align: left;
+          text-transform: none;
+          letter-spacing: -0.02em;
+          border: none;
+          text-shadow: none;
+        }
+
+        .reveal h2 {
+          font-size: 1.55em;
+          border-bottom: 3px solid var(--teal);
+          padding-bottom: 6px;
+          margin-bottom: 18px;
+        }
+
+        .reveal h3 {
+          font-size: 1.1em;
+          color: var(--teal);
+          font-weight: 700;
+          margin-bottom: 8px;
+        }
+
+        .reveal p { line-height: 1.55; margin-bottom: 0.5em; }
+        .reveal ul, .reveal ol { margin-left: 1.25em; line-height: 1.65; }
+        .reveal li { margin-bottom: 0.15em; }
+        .reveal strong { color: var(--navy); }
+
+        .reveal .slides section {
+          text-align: left;
+          padding: 0 10px;
+          height: 100%;
+          box-sizing: border-box;
+        }
+
+        .reveal .progress span { background: var(--teal) !important; }
+        .reveal .slide-number { font-size: 13px; color: var(--mgray); background: transparent; }
+        .reveal .controls button { color: var(--teal) !important; }
+
+        .reveal .title-slide { background: var(--dark) !important; }
+        .reveal .title-slide h1 { color: #FFFFFF !important; font-size: 2.25em !important; border: none !important; }
+        .reveal .title-slide .subtitle { color: var(--teal2) !important; font-size: 1.05em !important; }
+        .reveal .title-slide .author, .reveal .title-slide .date { color: var(--mgray) !important; font-size: 0.9em !important; }
+
+        section[data-background-color="#0D1B2A"] h2 { color: #FFFFFF !important; border-bottom-color: var(--teal) !important; }
+        section[data-background-color="#0D1B2A"] p, section[data-background-color="#0D1B2A"] li { color: #CBD5E1 !important; }
+
+        .reveal table { font-size: 0.82em; width: 100%; border-collapse: collapse; }
+        .reveal table thead th { background: var(--navy); color: white; padding: 9px 14px; font-weight: 600; }
+        .reveal table tbody td { padding: 7px 14px; border-bottom: 1px solid #E2E8F0; }
+        .reveal table tbody tr:nth-child(even) { background: var(--lgray); }
+
+        .reveal .cell-output img, .reveal .output img {
+          max-height: 390px;
+          max-width: 100%;
+          display: block;
+          margin: 4px auto;
+          border-radius: 7px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+        }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 10px; }
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 10px; }
+        .four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-top: 10px; }
+
+        .card {
+          background: white;
+          border: 1px solid #E2E8F0;
+          border-radius: 9px;
+          padding: 14px 18px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .card-teal { border-left: 5px solid var(--teal) !important; }
+        .card-orange { border-left: 5px solid var(--orange) !important; }
+        .card-green { border-left: 5px solid var(--green) !important; }
+        .card-navy { border-left: 5px solid var(--navy) !important; }
+        .card h3 { margin-top: 0; }
+
+        .dcard {
+          background: var(--navy);
+          border: 1px solid var(--teal);
+          border-radius: 9px;
+          padding: 16px 20px;
+          color: #CBD5E1;
+        }
+        .dcard h3 { color: var(--teal2) !important; margin-top: 0; font-size: 0.95em; }
+        .dcard p, .dcard li { color: #CBD5E1 !important; font-size: 0.86em; line-height: 1.55; }
+
+        .info {
+          background: var(--teallt);
+          border: 1px solid var(--teal);
+          border-radius: 7px;
+          padding: 10px 16px;
+          margin-top: 10px;
+          font-size: 0.88em;
+          color: var(--navy);
+        }
+
+        .warn {
+          background: #FEF3C7;
+          border: 1px solid var(--orange);
+          border-radius: 7px;
+          padding: 10px 16px;
+          margin-top: 10px;
+          font-size: 0.88em;
+          color: #92400E;
+        }
+
+        .darkbar {
+          background: var(--navy);
+          border-radius: 7px;
+          padding: 10px 18px;
+          margin-top: 10px;
+          font-size: 0.88em;
+          color: white;
+        }
+
+        .formula {
+          background: var(--navy);
+          color: white;
+          border-radius: 7px;
+          padding: 10px 20px;
+          font-family: Courier New, monospace;
+          font-size: 1.05em;
+          text-align: center;
+          margin: 12px 0;
+        }
+
+        .step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+        .step-n {
+          background: var(--teal);
+          color: white;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          min-width: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 800;
+          font-size: 0.9em;
+        }
+        .step-b h4 { margin: 0 0 3px; font-size: 0.95em; color: var(--navy); }
+        .step-b p { margin: 0; font-size: 0.82em; color: var(--dgray); }
+
+        .teal { color: var(--teal); font-weight: 700; }
+        .orange { color: var(--orange); font-weight: 700; }
+        .red { color: var(--red); font-weight: 700; }
+        .green { color: var(--green); font-weight: 700; }
+        .muted { color: var(--mgray); font-size: 0.85em; }
+        </style>
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams.update({
+    "figure.facecolor": "#F1F5F9",
+    "axes.facecolor": "#F1F5F9",
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.edgecolor": "#CBD5E1",
+    "axes.labelsize": 12,
+    "axes.labelcolor": "#334155",
+    "xtick.labelsize": 10,
+    "ytick.labelsize": 10,
+    "xtick.color": "#64748B",
+    "ytick.color": "#64748B",
+    "lines.linewidth": 2.2,
+    "font.family": "DejaVu Sans",
+    "grid.color": "#E2E8F0",
+    "grid.linewidth": 0.7,
+    "legend.fontsize": 10,
+    "legend.framealpha": 0.92,
+    "legend.edgecolor": "#E2E8F0",
+    "figure.dpi": 130,
+})
+
+TEAL = "#0D9488"
+ORANGE = "#F97316"
+GREEN = "#22C55E"
+NAVY = "#1A3A5C"
+RED = "#EF4444"
+GRAY = "#94A3B8"
+AMBER = "#FBBF24"
+
+np.random.seed(42)
+dates = pd.date_range(start="2018-01-01", end="2022-12-31", freq="B")
+returns = []
+
+for d in dates:
+    if d < pd.Timestamp("2020-03-01"):
+        returns.append(np.random.normal(0.0004, 0.008))
+    elif d <= pd.Timestamp("2020-06-30"):
+        returns.append(np.random.normal(-0.0008, 0.035))
+    else:
+        returns.append(np.random.normal(0.0005, 0.014))
+
+df = pd.DataFrame({"Date": dates, "Return": returns})
+df["Price_Index"] = 100 * (1 + df["Return"]).cumprod()
+df["MA30"] = df["Price_Index"].rolling(30).mean()
+df["Rolling_Volatility"] = df["Return"].rolling(30).std()
+df["Period"] = np.where(
+    df["Date"] < "2020-03-01",
+    "Pre-COVID",
+    np.where(df["Date"] <= "2020-06-30", "COVID Shock", "Post-Shock")
+)
+
+COVID = pd.Timestamp("2020-03-01")
+P_COLORS = {"Pre-COVID": TEAL, "COVID Shock": ORANGE, "Post-Shock": GREEN}
+
+# Simple decomposition example for teaching time series concepts
+n = 240
+t = np.arange(n)
+trend = 50 + 0.06 * t
+seasonality = 2.8 * np.sin(2 * np.pi * t / 30)
+noise = np.random.normal(0, 0.9, n)
+series = trend + seasonality + noise
+components = pd.DataFrame({
+    "Time": t,
+    "Trend": trend,
+    "Seasonality": seasonality,
+    "Noise": noise,
+    "Observed_Series": series
+})
+
+mean_r = df["Return"].mean()
+std_r = df["Return"].std()
+df["Anomaly"] = abs(df["Return"] - mean_r) > 3 * std_r
+anomalies = df[df["Anomaly"]]
+```
+
+## Why This Topic Matters {background-color="#0D1B2A"}
+
+::: {.two-col}
+::: {}
+Financial data is naturally ordered through time.
+
+A time series approach helps us answer questions like:
+
+- Is there a long-term trend?
+- Is the series becoming more unstable?
+- Did a sudden shock change the pattern?
+- Are recent observations unusual?
+:::
+
+::: {}
+<div class="dcard" style="border-color:#F97316;">
+<h3 style="color:#FBBF24 !important;">Case Example: COVID-19</h3>
+<p>COVID-19 is used here only as the example event.</p>
+<p>The main focus is <strong style="color:white;">time series analysis</strong>: trend, smoothing, rolling statistics, structural breaks, and anomalies.</p>
+</div>
+:::
+:::
+
+::: {.info}
+Simple idea: Time series analysis helps us understand how a pattern changes before, during, and after an important event.
+:::
+
+---
+
+## Presentation Roadmap
+
+::: {.four-col}
+<div class="card card-teal"><h3>1. Time Series Basics</h3><p>What makes time-ordered data different from regular data?</p></div>
+<div class="card card-navy"><h3>2. Trend & Smoothing</h3><p>How do we see the bigger pattern behind daily noise?</p></div>
+<div class="card card-orange"><h3>3. Rolling Statistics</h3><p>How do we measure changing risk over time?</p></div>
+<div class="card card-green"><h3>4. Breaks & Anomalies</h3><p>How do we detect unusual market behavior?</p></div>
+:::
+
+::: {.darkbar}
+The presentation is intentionally light on finance formulas and heavier on time series concepts.
+:::
+
+---
+
+## What Is Time Series Analysis?
+
+A **time series** is data collected in time order.
+
+Examples:
+
+| Area | Example |
+|---|---|
+| Market analytics | Stock returns |
+| Marketing | Website traffic |
+| Retail | Daily sales |
+| Economics | Inflation |
+| Operations | Weekly demand |
+
+::: {.info}
+The important part is the timestamp. In time series analysis, the order of observations matters.
+:::
+
+---
+
+## Anatomy of a Time Series
+
+Most time series can be understood using four simple pieces:
+
+::: {.four-col}
+<div class="card card-teal"><h3>Trend</h3><p>The long-term direction of the series.</p></div>
+<div class="card card-orange"><h3>Seasonality</h3><p>A repeating pattern, such as weekly or monthly cycles.</p></div>
+<div class="card card-green"><h3>Cycles</h3><p>Longer ups and downs caused by business or economic conditions.</p></div>
+<div class="card card-navy"><h3>Noise</h3><p>Random movement that is hard to explain.</p></div>
+:::
+
+::: {.info}
+A good analyst tries to separate signal from noise.
+:::
+
+---
+
+## Example: Trend + Seasonality + Noise
+
+```{python}
+fig, ax = plt.subplots(figsize=(11, 4.2))
+ax.plot(components["Time"], components["Observed_Series"], color=TEAL, label="Observed Series")
+ax.plot(components["Time"], components["Trend"], color=ORANGE, linewidth=2.8, label="Trend")
+ax.set_title("A Simple Time Series: Trend + Seasonality + Noise", fontsize=13, fontweight="bold", color=NAVY)
+ax.set_xlabel("Time")
+ax.set_ylabel("Value")
+ax.grid(axis="y")
+ax.legend(loc="upper left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.info}
+This chart is not stock data. It is a teaching example showing how a time series can contain both a smooth trend and short-term fluctuations.
+:::
+
+---
+
+## Market Index Over Time
+
+```{python}
+fig, ax = plt.subplots(figsize=(11, 4.25))
+ax.axvspan(COVID, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.09, label="COVID Window")
+ax.plot(df["Date"], df["Price_Index"], color=TEAL, linewidth=2.4, label="Market Index")
+ax.axvline(COVID, color=ORANGE, linewidth=1.8, linestyle="--", label="Shock begins")
+ax.set_xlabel("Date")
+ax.set_ylabel("Index Value, Base = 100")
+ax.set_title("Illustrative Market Index, 2018 to 2022", fontsize=13, fontweight="bold", color=NAVY)
+ax.grid(axis="y")
+ax.legend(loc="upper left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.info}
+This example is simulated using Python. It is designed to make the time series concepts easy to see without needing external data files.
+:::
+
+---
+
+## Moving Average: Smoothing the Noise
+
+A **moving average** smooths short-term ups and downs.
+
+It helps us see the bigger direction of the series.
+
+```{python}
+fig, ax = plt.subplots(figsize=(11, 4.25))
+ax.axvspan(COVID, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.09)
+ax.plot(df["Date"], df["Price_Index"], color=GRAY, linewidth=1.2, alpha=0.8, label="Daily Index")
+ax.plot(df["Date"], df["MA30"], color=TEAL, linewidth=3.0, label="30-Day Moving Average")
+ax.axvline(COVID, color=ORANGE, linewidth=1.8, linestyle="--")
+ax.set_xlabel("Date")
+ax.set_ylabel("Index Value")
+ax.set_title("Moving Average Smooths Short-Term Noise", fontsize=13, fontweight="bold", color=NAVY)
+ax.grid(axis="y")
+ax.legend(loc="upper left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.darkbar}
+Easy explanation: the gray line is noisy daily movement. The teal line is the smoother underlying pattern.
+:::
+
+---
+
+## Prices vs Returns
+
+For time series analysis, prices and returns answer different questions.
+
+::: {.two-col}
+::: {}
+### Price Series
+<div class="card card-navy">
+<ul>
+<li>Shows the level of the market</li>
+<li>Often has a trend</li>
+<li>Good for visual storytelling</li>
+<li>Less useful for measuring daily risk</li>
+</ul>
+</div>
+:::
+
+::: {}
+### Return Series
+<div class="card card-teal">
+<ul>
+<li>Shows period-to-period change</li>
+<li>Easier to compare across time</li>
+<li>Useful for volatility and anomaly detection</li>
+<li>Common in time series modeling</li>
+</ul>
+</div>
+:::
+:::
+
+<div class="formula">
+Return<sub>t</sub> = (Price<sub>t</sub> - Price<sub>t-1</sub>) / Price<sub>t-1</sub>
+</div>
+
+---
+
+## Daily Returns Show the Shock More Clearly
+
+```{python}
+fig, ax = plt.subplots(figsize=(11, 4.1))
+for period, grp in df.groupby("Period"):
+    ax.plot(grp["Date"], grp["Return"], color=P_COLORS[period], linewidth=0.95, alpha=0.88, label=period)
+ax.axvline(COVID, color=ORANGE, linewidth=2.0, linestyle="--", alpha=0.9)
+ax.axhline(0, color="#CBD5E1", linewidth=0.8)
+ax.set_xlabel("Date")
+ax.set_ylabel("Daily Return")
+ax.set_title("Daily Returns Across Three Time Periods", fontsize=13, fontweight="bold", color=NAVY)
+ax.grid(axis="y")
+ax.legend(loc="lower right")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.info}
+The COVID period shows larger swings. This is the first sign that the time series has changed behavior.
+:::
+
+---
+
+## Rolling Statistics
+
+A rolling statistic recalculates a measure over a moving window.
+
+For example, a 30-day rolling average or 30-day rolling volatility.
+
+::: {.three-col}
+<div class="card card-teal"><h3>Rolling Mean</h3><p>Tracks the local average over time.</p></div>
+<div class="card card-orange"><h3>Rolling Volatility</h3><p>Tracks how unstable the series is over time.</p></div>
+<div class="card card-green"><h3>Rolling Window</h3><p>Uses the most recent observations, then moves forward one day.</p></div>
+:::
+
+::: {.darkbar}
+This is one of the most useful time series ideas because it shows that patterns are not constant.
+:::
+
+---
+
+## Rolling Volatility
+
+```{python}
+fig, ax = plt.subplots(figsize=(11, 4.1))
+ax.axvspan(COVID, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.10, label="COVID Window")
+ax.plot(df["Date"], df["Rolling_Volatility"], color=RED, linewidth=2.4, label="30-Day Rolling Volatility")
+ax.fill_between(df["Date"], df["Rolling_Volatility"], alpha=0.13, color=RED)
+ax.axvline(COVID, color=ORANGE, linewidth=1.8, linestyle="--")
+ax.set_xlabel("Date")
+ax.set_ylabel("Rolling Std Dev of Returns")
+ax.set_title("30-Day Rolling Volatility", fontsize=13, fontweight="bold", color=NAVY)
+ax.grid(axis="y")
+ax.legend(loc="upper left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.warn}
+This is the key slide: volatility jumps sharply during COVID, meaning the series entered a more unstable period.
+:::
+
+---
+
+## Comparing Time Periods
+
+```{python}
+period_order = ["Pre-COVID", "COVID Shock", "Post-Shock"]
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 3.9))
+
+avgs = [df[df["Period"] == p]["Return"].mean() * 100 for p in period_order]
+vols = [df[df["Period"] == p]["Return"].std() * 100 for p in period_order]
+
+bars1 = axes[0].bar(period_order, avgs, color=[TEAL, ORANGE, GREEN], edgecolor="white", width=0.55)
+axes[0].axhline(0, color="#CBD5E1", linewidth=1)
+axes[0].set_title("Average Daily Return (%)", fontsize=11, fontweight="bold", color=NAVY)
+axes[0].grid(axis="y")
+
+bars2 = axes[1].bar(period_order, vols, color=[TEAL, ORANGE, GREEN], edgecolor="white", width=0.55)
+axes[1].set_title("Volatility, Std Dev (%)", fontsize=11, fontweight="bold", color=NAVY)
+axes[1].grid(axis="y")
+
+for ax in axes:
+    ax.tick_params(axis="x", labelsize=9)
+
+for bar, v in zip(bars1, avgs):
+    axes[0].text(bar.get_x() + bar.get_width()/2, v + 0.004, f"{v:+.3f}%", ha="center", fontsize=9, fontweight="bold")
+
+for bar, v in zip(bars2, vols):
+    axes[1].text(bar.get_x() + bar.get_width()/2, v + 0.04, f"{v:.2f}%", ha="center", fontsize=9, fontweight="bold")
+
+fig.tight_layout(pad=0.6)
+plt.show()
+```
+
+::: {.info}
+The bigger difference is not the average return. The bigger difference is the increase in volatility.
+:::
+
+---
+
+## Structural Breaks
+
+A **structural break** happens when the behavior of a time series changes suddenly.
+
+In simple words:
+
+::: {.three-col}
+<div class="card card-teal"><h3>Before</h3><p>The series follows one pattern.</p></div>
+<div class="card card-orange"><h3>Shock</h3><p>A major event changes behavior.</p></div>
+<div class="card card-green"><h3>After</h3><p>The series may follow a new pattern.</p></div>
+:::
+
+::: {.darkbar}
+COVID can be viewed as a structural break because the volatility pattern changed suddenly around March 2020.
+:::
+
+---
+
+## Distribution of Returns
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(11, 3.9))
+
+for period in period_order:
+    axes[0].hist(df[df["Period"] == period]["Return"], bins=45, alpha=0.55, color=P_COLORS[period], label=period, edgecolor="white", linewidth=0.3)
+axes[0].set_title("Return Distribution by Period", fontsize=11, fontweight="bold", color=NAVY)
+axes[0].set_xlabel("Daily Return")
+axes[0].set_ylabel("Frequency")
+axes[0].axvline(0, color="#CBD5E1", linewidth=1)
+axes[0].legend()
+axes[0].grid(axis="y")
+
+data = [df[df["Period"] == p]["Return"].values for p in period_order]
+bp = axes[1].boxplot(data, patch_artist=True, medianprops=dict(color=NAVY, linewidth=2), flierprops=dict(marker=".", markersize=3, alpha=0.4))
+for patch, col in zip(bp["boxes"], [TEAL, ORANGE, GREEN]):
+    patch.set_facecolor(col)
+    patch.set_alpha(0.6)
+axes[1].set_xticklabels(["Pre-COVID", "COVID\nShock", "Post-Shock"], fontsize=10)
+axes[1].set_title("Box Plot: Spread of Returns", fontsize=11, fontweight="bold", color=NAVY)
+axes[1].set_ylabel("Daily Return")
+axes[1].grid(axis="y")
+
+fig.tight_layout(pad=0.6)
+plt.show()
+```
+
+::: {.info}
+The COVID distribution is wider, meaning extreme outcomes became more common.
+:::
+
+---
+
+## Anomaly Detection
+
+An anomaly is a data point that looks unusual compared with the normal pattern.
+
+Simple rule used here:
+
+<div class="formula">
+Anomaly if |Return - Mean Return| > 3 × Standard Deviation
+</div>
+
+::: {.info}
+This is called the 3-sigma rule. It is simple, easy to explain, and useful for flagging unusually large movements.
+:::
+
+---
+
+## Anomaly Map
+
+```{python}
+fig, ax = plt.subplots(figsize=(11, 4.1))
+ax.axvspan(COVID, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.09, label="COVID Window")
+ax.plot(df[~df["Anomaly"]]["Date"], df[~df["Anomaly"]]["Return"], color=TEAL, linewidth=0.85, alpha=0.65, label="Normal Return")
+ax.scatter(anomalies["Date"], anomalies["Return"], color=RED, s=55, zorder=5, alpha=0.9, edgecolors="white", linewidth=0.6, label=f"Anomaly, n = {len(anomalies)}")
+ax.axvline(COVID, color=ORANGE, linewidth=2.0, linestyle="--")
+ax.axhline(mean_r + 3 * std_r, color=GRAY, linewidth=1.0, linestyle=":", alpha=0.7, label="3-sigma boundary")
+ax.axhline(mean_r - 3 * std_r, color=GRAY, linewidth=1.0, linestyle=":", alpha=0.7)
+ax.axhline(0, color="#CBD5E1", linewidth=0.8)
+ax.set_xlabel("Date")
+ax.set_ylabel("Daily Return")
+ax.set_title("Simple Anomaly Detection in Market Returns", fontsize=13, fontweight="bold", color=NAVY)
+ax.grid(axis="y")
+ax.legend(loc="upper left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.warn}
+Most anomalies cluster around the shock period. This makes anomaly detection a useful early-warning tool.
+:::
+
+---
+
+## Time Series Concepts Used
+
+::: {.two-col}
+::: {}
+<div class="step"><div class="step-n">1</div><div class="step-b"><h4>Trend</h4><p>Long-term direction in the series.</p></div></div>
+<div class="step"><div class="step-n">2</div><div class="step-b"><h4>Moving Average</h4><p>Smooths short-term noise.</p></div></div>
+<div class="step"><div class="step-n">3</div><div class="step-b"><h4>Rolling Volatility</h4><p>Shows changing instability over time.</p></div></div>
+:::
+
+::: {}
+<div class="step"><div class="step-n">4</div><div class="step-b"><h4>Structural Break</h4><p>Detects a sudden change in behavior.</p></div></div>
+<div class="step"><div class="step-n">5</div><div class="step-b"><h4>Distribution Shift</h4><p>Compares how spread changes across periods.</p></div></div>
+<div class="step"><div class="step-n">6</div><div class="step-b"><h4>Anomaly Detection</h4><p>Flags unusually extreme observations.</p></div></div>
+:::
+:::
+
+---
+
+## Why This Matters
+
+Time series analysis helps decision-makers understand changing behavior.
+
+In this example, it helps answer:
+
+- Did the pattern change during COVID?
+- Did the series become more volatile?
+- Were there unusual observations?
+- Did the shock create a new regime?
+
+::: {.info}
+Main point: the value of time series analysis is not just making charts. It is understanding how behavior changes over time.
+:::
+
+---
+
+## Key Takeaways
+
+::: {.two-col}
+::: {}
+<div class="card card-teal"><h3>1. Time Order Matters</h3><p>A time series must be analyzed in sequence because yesterday influences today.</p></div>
+<div class="card card-navy"><h3>2. Smoothing Helps</h3><p>Moving averages reveal the underlying pattern behind daily noise.</p></div>
+:::
+
+::: {}
+<div class="card card-orange"><h3>3. Volatility Changes</h3><p>Rolling volatility shows when a series becomes more unstable.</p></div>
+<div class="card card-green"><h3>4. Shocks Are Detectable</h3><p>Structural breaks and anomalies help identify unusual periods.</p></div>
+:::
+:::
+
+---
+
+## Final Conclusion {background-color="#0D1B2A"}
+
+COVID-19 is a useful example because it shows how quickly a time series can change.
+
+The main lesson is simple:
+
+::: {.dcard style="border-color:#F97316;"}
+A time series is not just a line chart. It is a way to study trend, noise, instability, shocks, and unusual behavior over time.
+:::
+
+By using Python, we created a simple workflow:
+
+1. Generate a time series example
+2. Smooth the trend with moving averages
+3. Measure changing volatility
+4. Identify structural breaks
+5. Flag anomalies
+
+---
+
+# Thank You
+
+## Questions?

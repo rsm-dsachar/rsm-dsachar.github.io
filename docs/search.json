@@ -4,14 +4,357 @@
     "href": "blogs.html",
     "title": "Blogs",
     "section": "",
-    "text": "What UCSD MSBA Students Actually Want to Learn\n\n\n\n\n\n\nDevansh Sachar\n\n\nMay 27, 2026\n\n\n\n\n\n\n\n\n\n\n\nPoisson Regression and Maximum Likelihood Estimation\n\n\n\n\n\n\nDevansh Sachar\n\n\nMay 17, 2026\n\n\n\n\n\n\n\n\n\n\n\nReplication of Card and Krueger (1994)\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 21, 2026\n\n\n\n\n\n\n\n\n\n\n\nA/B Testing a Call to Action\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 13, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "What UCSD MSBA Students Actually Want to Learn\n\n\n\n\n\n\nDevansh Sachar\n\n\nMay 27, 2026\n\n\n\n\n\n\n\n\n\n\n\nPoisson Regression and Maximum Likelihood Estimation\n\n\n\n\n\n\nDevansh Sachar\n\n\nMay 17, 2026\n\n\n\n\n\n\n\n\n\n\n\nReplication of Card and Krueger (1994)\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 21, 2026\n\n\n\n\n\n\n\n\n\n\n\nA/B Testing a Call to Action\n\n\n\n\n\n\nDevansh Sachar\n\n\nApr 13, 2026\n\n\n\n\n\n\n\n\n\n\n\nKey Drivers Analysis of Customer Satisfaction\n\n\n\n\n\n\nDevansh Sachar\n\n\nJun 8, 2001\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#why-this-topic-matters",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#why-this-topic-matters",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Why This Topic Matters",
+    "text": "Why This Topic Matters\n\n\nFinancial data is naturally ordered through time.\nA time series approach helps us answer questions like:\n\nIs there a long-term trend?\nIs the series becoming more unstable?\nDid a sudden shock change the pattern?\nAre recent observations unusual?\n\n\n\n\n\nCase Example: COVID-19\n\n\nCOVID-19 is used here only as the example event.\n\n\nThe main focus is time series analysis: trend, smoothing, rolling statistics, structural breaks, and anomalies.\n\n\n\n\n\nSimple idea: Time series analysis helps us understand how a pattern changes before, during, and after an important event."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#presentation-roadmap",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#presentation-roadmap",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Presentation Roadmap",
+    "text": "Presentation Roadmap\n\n\n\n\nTime Series Basics\n\n\nWhat makes time-ordered data different from regular data?\n\n\n\n\n\nTrend & Smoothing\n\n\nHow do we see the bigger pattern behind daily noise?\n\n\n\n\n\nRolling Statistics\n\n\nHow do we measure changing risk over time?\n\n\n\n\n\nBreaks & Anomalies\n\n\nHow do we detect unusual market behavior?"
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#what-is-time-series-analysis",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#what-is-time-series-analysis",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "What Is Time Series Analysis?",
+    "text": "What Is Time Series Analysis?\nA time series is data collected in time order.\nExamples:\n\n\n\nArea\nExample\n\n\n\n\nMarket analytics\nStock returns\n\n\nMarketing\nWebsite traffic\n\n\nRetail\nDaily sales\n\n\nEconomics\nInflation\n\n\nOperations\nWeekly demand\n\n\n\n\nThe important part is the timestamp. In time series analysis, the order of observations matters."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#anatomy-of-a-time-series",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#anatomy-of-a-time-series",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Anatomy of a Time Series",
+    "text": "Anatomy of a Time Series\nMost time series can be understood using four simple pieces:\n\n\n\nTrend\n\n\nThe long-term direction of the series.\n\n\n\n\nSeasonality\n\n\nA repeating pattern, such as weekly or monthly cycles.\n\n\n\n\nCycles\n\n\nLonger ups and downs caused by business or economic conditions.\n\n\n\n\nNoise\n\n\nRandom movement that is hard to explain.\n\n\n\n\nA good analyst tries to separate signal from noise."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#example-trend-seasonality-noise",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#example-trend-seasonality-noise",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Example: Trend + Seasonality + Noise",
+    "text": "Example: Trend + Seasonality + Noise\n\n\n\n\n\n\n\n\n\n\nThis chart is not stock data. It is a teaching example showing how a time series can contain both a smooth trend and short-term fluctuations."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#market-index-over-time",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#market-index-over-time",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Market Index Over Time",
+    "text": "Market Index Over Time\n\n\n\n\n\n\n\n\n\n\nThis example is simulated using Python. It is designed to make the time series concepts easy to see without needing external data files."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#moving-average-smoothing-the-noise",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#moving-average-smoothing-the-noise",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Moving Average: Smoothing the Noise",
+    "text": "Moving Average: Smoothing the Noise\nA moving average smooths short-term ups and downs.\nIt helps us see the bigger direction of the series.\n\n\n\n\n\n\n\n\n\n\nEasy explanation: the gray line is noisy daily movement. The teal line is the smoother underlying pattern."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#prices-vs-returns",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#prices-vs-returns",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Prices vs Returns",
+    "text": "Prices vs Returns\nFor time series analysis, prices and returns answer different questions.\n\nPrice Series\n\n\n\nShows the level of the market\n\n\nOften has a trend\n\n\nGood for visual storytelling\n\n\nLess useful for measuring daily risk\n\n\n\nReturn Series\n\n\n\nShows period-to-period change\n\n\nEasier to compare across time\n\n\nUseful for volatility and anomaly detection\n\n\nCommon in time series modeling\n\n\n\n\n\nReturnt = (Pricet - Pricet-1) / Pricet-1"
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#daily-returns-show-the-shock-more-clearly",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#daily-returns-show-the-shock-more-clearly",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Daily Returns Show the Shock More Clearly",
+    "text": "Daily Returns Show the Shock More Clearly\n\n\n\n\n\n\n\n\n\n\nThe COVID period shows larger swings. This is the first sign that the time series has changed behavior."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#rolling-statistics",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#rolling-statistics",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Rolling Statistics",
+    "text": "Rolling Statistics\nA rolling statistic recalculates a measure over a moving window.\nFor example, a 30-day rolling average or 30-day rolling volatility.\n\n\n\nRolling Mean\n\n\nTracks the local average over time.\n\n\n\n\nRolling Volatility\n\n\nTracks how unstable the series is over time.\n\n\n\n\nRolling Window\n\n\nUses the most recent observations, then moves forward one day.\n\n\n\n\nThis is one of the most useful time series ideas because it shows that patterns are not constant."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#rolling-volatility",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#rolling-volatility",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Rolling Volatility",
+    "text": "Rolling Volatility\n\n\n\n\n\n\n\n\n\n\nThis is the key slide: volatility jumps sharply during COVID, meaning the series entered a more unstable period."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#comparing-time-periods",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#comparing-time-periods",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Comparing Time Periods",
+    "text": "Comparing Time Periods\n\n\n\n\n\n\n\n\n\n\nThe bigger difference is not the average return. The bigger difference is the increase in volatility."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#structural-breaks",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#structural-breaks",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Structural Breaks",
+    "text": "Structural Breaks\nA structural break happens when the behavior of a time series changes suddenly.\nIn simple words:\n\n\n\nBefore\n\n\nThe series follows one pattern.\n\n\n\n\nShock\n\n\nA major event changes behavior.\n\n\n\n\nAfter\n\n\nThe series may follow a new pattern.\n\n\n\n\nCOVID can be viewed as a structural break because the volatility pattern changed suddenly around March 2020."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#distribution-of-returns",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#distribution-of-returns",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Distribution of Returns",
+    "text": "Distribution of Returns\n\n\n\n\n\n\n\n\n\n\nThe COVID distribution is wider, meaning extreme outcomes became more common."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#anomaly-detection",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#anomaly-detection",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Anomaly Detection",
+    "text": "Anomaly Detection\nAn anomaly is a data point that looks unusual compared with the normal pattern.\nSimple rule used here:\n\nAnomaly if |Return - Mean Return| &gt; 3 × Standard Deviation\n\n\nThis is called the 3-sigma rule. It is simple, easy to explain, and useful for flagging unusually large movements."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#anomaly-map",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#anomaly-map",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Anomaly Map",
+    "text": "Anomaly Map\n\n\n\n\n\n\n\n\n\n\nMost anomalies cluster around the shock period. This makes anomaly detection a useful early-warning tool."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#time-series-concepts-used",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#time-series-concepts-used",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Time Series Concepts Used",
+    "text": "Time Series Concepts Used\n\n\n\n\n1\n\n\n\nTrend\n\n\nLong-term direction in the series.\n\n\n\n\n\n2\n\n\n\nMoving Average\n\n\nSmooths short-term noise.\n\n\n\n\n\n3\n\n\n\nRolling Volatility\n\n\nShows changing instability over time.\n\n\n\n\n\n\n\n4\n\n\n\nStructural Break\n\n\nDetects a sudden change in behavior.\n\n\n\n\n\n5\n\n\n\nDistribution Shift\n\n\nCompares how spread changes across periods.\n\n\n\n\n\n6\n\n\n\nAnomaly Detection\n\n\nFlags unusually extreme observations."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#why-this-matters",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#why-this-matters",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Why This Matters",
+    "text": "Why This Matters\nTime series analysis helps decision-makers understand changing behavior.\nIn this example, it helps answer:\n\nDid the pattern change during COVID?\nDid the series become more volatile?\nWere there unusual observations?\nDid the shock create a new regime?\n\n\nMain point: the value of time series analysis is not just making charts. It is understanding how behavior changes over time."
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#key-takeaways",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#key-takeaways",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n\n\nTime Order Matters\n\n\nA time series must be analyzed in sequence because yesterday influences today.\n\n\n\n\n\nSmoothing Helps\n\n\nMoving averages reveal the underlying pattern behind daily noise.\n\n\n\n\n\n:::\n\n\n\n\nVolatility Changes\n\n\nRolling volatility shows when a series becomes more unstable.\n\n\n\n\n\nShocks Are Detectable\n\n\nStructural breaks and anomalies help identify unusual periods.\n\n\n\n\n\n:::\n:::\n\n\nFinal Conclusion\nCOVID-19 is a useful example because it shows how quickly a time series can change.\nThe main lesson is simple:\n\nA time series is not just a line chart. It is a way to study trend, noise, instability, shocks, and unusual behavior over time.\n\nBy using Python, we created a simple workflow:\n\nGenerate a time series example\nSmooth the trend with moving averages\nMeasure changing volatility\nIdentify structural breaks\nFlag anomalies\n\n\n\n\nThank You\n\n\n\nQuestions?"
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#final-conclusion",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#final-conclusion",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Final Conclusion",
+    "text": "Final Conclusion\nCOVID-19 is a useful example because it shows how quickly a time series can change.\nThe main lesson is simple:\n\nA time series is not just a line chart. It is a way to study trend, noise, instability, shocks, and unusual behavior over time.\n\nBy using Python, we created a simple workflow:\n\nGenerate a time series example\nSmooth the trend with moving averages\nMeasure changing volatility\nIdentify structural breaks\nFlag anomalies"
+  },
+  {
+    "objectID": "presentations /Sachar_Devansh-time_series_market_shocks.html#questions",
+    "href": "presentations /Sachar_Devansh-time_series_market_shocks.html#questions",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Questions?",
+    "text": "Questions?"
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (3).html#what-is-a-time-series",
+    "href": "presentations /market_shocks_FINAL (3).html#what-is-a-time-series",
+    "title": "placeholder",
+    "section": "What Is a Time Series?",
+    "text": "What Is a Time Series?\n\n\nA time series is simply a list of measurements collected one after another over time.\nWhat makes it special — the order of rows matters. Monday connects to Tuesday. You cannot shuffle the data like a survey without losing information.\nTwo ingredients every time series needs:\n\n\n\n📅\n\nTimestamp When was it measured? (date, hour…)\n\n\n\n📏\n\nValue What was recorded at that time?\n\n\n\n💡 Our example: Stock market daily returns, 2018–2022. The COVID shock creates a clear “before and after” — perfect for learning every concept."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (3).html#two-key-concepts-trend-volatility",
+    "href": "presentations /market_shocks_FINAL (3).html#two-key-concepts-trend-volatility",
+    "title": "placeholder",
+    "section": "Two Key Concepts: Trend & Volatility",
+    "text": "Two Key Concepts: Trend & Volatility\n\n📈 Trend — the Big-Picture Direction\nThe trend is the overall direction of the series — ignoring the day-to-day noise. Found by taking a rolling mean (average of the last N days).\n\n\n\n\n\n\n\n\n\n\nThe navy line removes the noise — now the up → crash → recover story is obvious.\n\n📊 Volatility — How Wild Is It?\nVolatility = standard deviation of daily changes. High volatility means the series is jumping around a lot. Low = calm and predictable.\n\n\n\n\n\n\n\n\n\n\n⚡ COVID made the market 4× more volatile — risk jumped overnight."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (3).html#two-more-concepts-stationarity-structural-break",
+    "href": "presentations /market_shocks_FINAL (3).html#two-more-concepts-stationarity-structural-break",
+    "title": "placeholder",
+    "section": "Two More Concepts: Stationarity & Structural Break",
+    "text": "Two More Concepts: Stationarity & Structural Break\n\n🔄 Stationarity — Does It Stay Consistent?\nA series is stationary when its average and spread stay roughly the same over time. Most analysis tools need this.\nThe raw price keeps rising forever → not stationary. The daily % change bounces around zero → stationary.\n\n\n\n\n\n\n\n\n\n💥 Structural Break — When Everything Changes\nA structural break is a point where the series permanently changes its behaviour. Models trained before the break will fail after it.\n\n\n\n\n\n\n\n\n\n\nVolatility before COVID: ~0.8%/day. After COVID: ~1.4%/day. Old models stopped working. This is a structural break."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (3).html#anomaly-detection-spotting-the-unusual",
+    "href": "presentations /market_shocks_FINAL (3).html#anomaly-detection-spotting-the-unusual",
+    "title": "placeholder",
+    "section": "Anomaly Detection — Spotting the Unusual",
+    "text": "Anomaly Detection — Spotting the Unusual\nAn anomaly is a data point so far from normal that it deserves attention. We use the simple 3-sigma rule — flag anything more than 3 standard deviations from the mean.\n\n\n\nThe Rule Flag a point if:   |value − mean|  &gt;  3 × std dev In normal data only 0.3% of days would be flagged. So when the rule fires — something genuinely unusual happened.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n⚡ During the shock, ~9% of days were anomalies — 30× the normal rate. The algorithm found the crisis automatically, using only mean and std dev."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (3).html#summary-5-things-to-remember",
+    "href": "presentations /market_shocks_FINAL (3).html#summary-5-things-to-remember",
+    "title": "placeholder",
+    "section": "Summary — 5 Things to Remember",
+    "text": "Summary — 5 Things to Remember\n\n\n\n01 Time Series = Data in Order\n\n\nA time series is measurements over time — and order matters. Monday connects to Tuesday. Shuffle the rows and you destroy the information.\n\n\n\n\n02 Trend = Long-Run Direction\n\n\nSmooth out the noise with a rolling mean to reveal whether the series is going up, down, or sideways. COVID shows a clear crash then recovery.\n\n\n\n\n03 Volatility = How Wild It Is\n\n\nStandard deviation of daily changes measures how much the series jumps around. COVID pushed volatility 4× above normal — visible instantly in a rolling volatility chart.\n\n\n\n\n04 Structural Break = Permanent Change\n\n\nWhen the series changes behaviour and stays changed, that is a structural break. COVID doubled market volatility permanently. Models built on old data fail.\n\n\n\n\n05 Anomaly Detection = Spot the Unusual\n\n\nThe 3-sigma rule flags anything more than 3 standard deviations from the mean. No labels needed — the data finds its own extreme events automatically.\n\n\n\n\nTHE BIG IDEA\n\n\nThese tools work on any data over time — temperature, sales, hospital admissions, energy use. COVID and the stock market are just our learning example."
+  },
+  {
+    "objectID": "presentations /marketsh.html#market-shocks-through-time-series-analysis",
+    "href": "presentations /marketsh.html#market-shocks-through-time-series-analysis",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Market Shocks Through Time Series Analysis",
+    "text": "Market Shocks Through Time Series Analysis\nMain Idea\nFinancial markets generate data every day.\nTime series analysis helps us understand how market behavior changes after major events.\n\n\n\nCOVID-19 is used as an example of a market shock because it created sudden uncertainty, volatility, and abnormal movements."
+  },
+  {
+    "objectID": "presentations /marketsh.html#why-time-series-analysis-matters",
+    "href": "presentations /marketsh.html#why-time-series-analysis-matters",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Why Time Series Analysis Matters",
+    "text": "Why Time Series Analysis Matters\nAnalysts often need to answer:\n\nIs the market becoming more risky?\nHas behavior changed over time?\nAre unusual events occurring?\nIs the current pattern normal or abnormal?\n\n\n\n\n\n\n\n\n\n\n\nThe dashed line marks the beginning of the COVID shock period."
+  },
+  {
+    "objectID": "presentations /marketsh.html#core-components-of-a-time-series",
+    "href": "presentations /marketsh.html#core-components-of-a-time-series",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Core Components of a Time Series",
+    "text": "Core Components of a Time Series\nMost time series contain:\n\nTrend: long-term direction\nSeasonality: repeated calendar-based pattern\nCycles: broader economic movement\nNoise: random short-term variation\n\n\n\n\n\n\n\n\n\n\n\n\n\nTime series analysis separates meaningful patterns from random fluctuations."
+  },
+  {
+    "objectID": "presentations /marketsh.html#prices-vs-returns",
+    "href": "presentations /marketsh.html#prices-vs-returns",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Prices vs Returns",
+    "text": "Prices vs Returns\nPrices show the level of the market.\nReturns show how much the market moves from one period to the next.\n\\[\nR_t = \\frac{P_t - P_{t-1}}{P_{t-1}}\n\\]\n\n\n\n\n\n\n\n\n\n\nReturns make risk and movement easier to compare over time."
+  },
+  {
+    "objectID": "presentations /marketsh.html#volatility-measuring-market-risk",
+    "href": "presentations /marketsh.html#volatility-measuring-market-risk",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Volatility: Measuring Market Risk",
+    "text": "Volatility: Measuring Market Risk\nVolatility measures how much returns fluctuate.\nHigher volatility means:\n\ngreater uncertainty\nlarger daily movements\nhigher risk\nharder forecasting\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis graph shows market risk increasing sharply during the COVID shock."
+  },
+  {
+    "objectID": "presentations /marketsh.html#structural-breaks",
+    "href": "presentations /marketsh.html#structural-breaks",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Structural Breaks",
+    "text": "Structural Breaks\nA structural break occurs when a time series suddenly changes behavior.\nCOVID created a break because market conditions shifted quickly.\nBefore COVID:\n\nlower volatility\nmore stable patterns\n\nDuring COVID:\n\nsudden uncertainty\nlarger swings\nabnormal returns\n\n\n\n\n\n\n\n\n\n\n\nThe COVID period has the highest volatility, showing a clear change in market behavior."
+  },
+  {
+    "objectID": "presentations /marketsh.html#anomaly-detection",
+    "href": "presentations /marketsh.html#anomaly-detection",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Anomaly Detection",
+    "text": "Anomaly Detection\nAn anomaly is an observation that is very different from normal behavior.\nExamples in market data:\n\nsudden crashes\npanic selling\nunexpected rallies\nlarge news reactions\n\nSimple rule used here:\n\n\n\nFlag returns more than 3 standard deviations away from the average."
+  },
+  {
+    "objectID": "presentations /marketsh.html#key-takeaways",
+    "href": "presentations /marketsh.html#key-takeaways",
+    "title": "Market Shocks Through Time Series Analysis",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\nWhat We Learned\n\nTime series data changes over time.\nReturns are more useful than raw prices for risk analysis.\nVolatility measures uncertainty and market risk.\nStructural breaks show when behavior changes suddenly.\nAnomaly detection helps identify unusual events.\n\n\n\n\nTime series analysis turns noisy data into clearer business insight."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#why-time-series-matters",
+    "href": "presentations /market_shocks_FINAL.html#why-time-series-matters",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Why Time Series Matters",
+    "text": "Why Time Series Matters\n\n\n\nFinancial markets are sequential — prices today depend on prices yesterday. Analysts cannot study them like one-time observations.\n\n\n\nHow prices evolve over time\n\n\nHow risk changes across periods\n\n\nWhen unusual shocks happen\n\n\nWhether market behavior shifts after events\n\n\n\n\n\n\nCASE STUDY\n\n\nCOVID-19\n\n\nThe defining market shock of our era — a perfect case study in time series methods.\n\n\n\n\n4×\n\n\nvolatility spike\n\n\n\n\n−34%\n\n\nS&P 500 drop"
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#what-is-time-series-analysis",
+    "href": "presentations /market_shocks_FINAL.html#what-is-time-series-analysis",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "What Is Time Series Analysis?",
+    "text": "What Is Time Series Analysis?\n\n\n\n📊 What It Studies\n\nData ordered through time — each observation linked to a specific date or period. Examples: stock prices, returns, inflation, sales, exchange rates, website traffic.\n\n\n\n🎯 Main Goal\n\nIdentify patterns, changes, and unusual behavior — then translate those into actionable decisions.\n\n\n\n🔑 Key Questions\n\n\n\nIs this series trending?\n\n\nDid behavior change at a specific date?\n\n\nAre recent values unusually extreme?\n\n\n\n\n\n🏦 Why Finance?\n\nRisk is not constant. Asset prices evolve through time. Static analysis misses all of this.\n\n\n\nCore idea: A number without a timestamp is just a number. Time series analysis turns timestamps into insight."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#simulated-market-index-2018-2022",
+    "href": "presentations /market_shocks_FINAL.html#simulated-market-index-2018-2022",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Simulated Market Index: 2018 – 2022",
+    "text": "Simulated Market Index: 2018 – 2022\n\n\n\n\n\n\n\n\n\n\n💡 Reading the chart: Steady growth pre-COVID → sharp crash at the dashed line → V-shaped recovery. This is exactly what a structural break looks like in practice."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#prices-vs-returns-what-do-we-measure",
+    "href": "presentations /market_shocks_FINAL.html#prices-vs-returns-what-do-we-measure",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Prices vs Returns: What Do We Measure?",
+    "text": "Prices vs Returns: What Do We Measure?\n\nStock Prices\n\n\n\nShow the level of the market\n\n\nNon-stationary — tend to drift upward\n\n\nHard to compare across stocks\n\n\nDon’t directly reveal risk\n\n\nAffected by splits and dividends\n\n\n\nStock Returns ✓ Preferred\n\n\n\nShow % change from period to period\n\n\nStationary — suitable for statistics\n\n\nComparable across stocks and time\n\n\nDirectly measure risk via variance\n\n\nFoundation of modern portfolio theory\n\n\n\n\n\nRt  =  ( Pricet − Pricet−1 ) / Pricet−1"
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#daily-returns-over-time",
+    "href": "presentations /market_shocks_FINAL.html#daily-returns-over-time",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Daily Returns Over Time",
+    "text": "Daily Returns Over Time\n\n\n\n\n\n\n\n\n\n\n\nPre-COVIDStable, tight returnsσ ≈ 0.8% / day\n\n\nCOVID ShockWild swings ±10%σ ≈ 3.5% / day\n\n\nPost-ShockElevated but calmerσ ≈ 1.4% / day"
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#concept-1-volatility",
+    "href": "presentations /market_shocks_FINAL.html#concept-1-volatility",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 1: Volatility",
+    "text": "Concept 1: Volatility\n\n\n\n📐 Definition\n\nThe standard deviation of returns over a rolling window. Measures how much prices fluctuate around their average.\n\n\n\n⚠️ High Vol Means\n\n\n\nLarger gains and losses\n\n\nMore uncertain forecasts\n\n\nHigher risk premiums\n\n\nHarder to hedge\n\n\n\n\n\n🏦 Who Uses It\n\nBanks (VaR models), hedge funds (position sizing), regulators (systemic risk), options traders (implied vol).\n\n\n\n📏 How We Measure\n\n30-day rolling window standard deviation of daily returns. The standard for short-term market risk monitoring.\n\n\n\nDuring COVID: volatility hit ~3.5%/day — over 4× the pre-crisis level of ~0.8%/day"
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#day-rolling-volatility",
+    "href": "presentations /market_shocks_FINAL.html#day-rolling-volatility",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "30-Day Rolling Volatility",
+    "text": "30-Day Rolling Volatility\n\n\n\n\n\n\n\n\n\n\nThis is the most important chart. The spike is immediate and unmistakable — risk didn’t creep up, it exploded. Pre-COVID baseline (~0.8%) → COVID peak (~4.2%) → gradual decline that never fully returned to pre-crisis levels."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#comparing-market-periods",
+    "href": "presentations /market_shocks_FINAL.html#comparing-market-periods",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Comparing Market Periods",
+    "text": "Comparing Market Periods\n\n\n\n\n\n\n\n\n\n\n⚡ The volatility column tells the real story — COVID Shock volatility (3.5%) was 4.4× higher than Pre-COVID (0.8%). This is what defines a structural break, not just a bad week."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#concept-2-structural-break",
+    "href": "presentations /market_shocks_FINAL.html#concept-2-structural-break",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 2: Structural Break",
+    "text": "Concept 2: Structural Break\n\n\n\n\n📖 Definition\n\n\nA structural break occurs when the statistical properties of a time series — its mean, variance, or relationships — change permanently at a specific point in time.\n\n\nAfter a break, models fitted on pre-break data give poor forecasts and misleading risk estimates.\n\n\n\n\n🔬 Detection: Chow Test\n\n\nFormally tests whether regression coefficients are the same before and after a hypothesised break date. Applied to COVID: the null hypothesis of “no break in March 2020” is overwhelmingly rejected.\n\n\n\n\n\n\n⚡ COVID-19 as a Structural Break\n\n\n\nVolatility jumped from 0.8% → 3.5%/day\n\n\nAsset correlations changed dramatically\n\n\nInvestor behavior shifted to panic mode\n\n\nMarket expectations re-priced entirely\n\n\nGovernment policy became a key price driver\n\n\nPre-COVID risk models failed immediately"
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#return-distribution-wider-tails-in-a-crisis",
+    "href": "presentations /market_shocks_FINAL.html#return-distribution-wider-tails-in-a-crisis",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Return Distribution: Wider Tails in a Crisis",
+    "text": "Return Distribution: Wider Tails in a Crisis\n\n\n\n\n\n\n\n\n\n\nCOVID Shock: much wider histogram + longer box plot whiskers = more extreme outcomes both ways. This is fat tails — rare catastrophic events becoming temporarily common."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#anomaly-detection-finding-the-outliers",
+    "href": "presentations /market_shocks_FINAL.html#anomaly-detection-finding-the-outliers",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Anomaly Detection: Finding the Outliers",
+    "text": "Anomaly Detection: Finding the Outliers\n\n\n\n\n1\n\n\n\nCompute Global Mean & Std Dev\n\n\nCalculate μ (mean) and σ (std dev) across the full return series\n\n\n\n\n\n2\n\n\n\nApply the 3-Sigma Rule\n\n\nFlag any day where |Rt − μ| &gt; 3σ as an anomaly\n\n\n\n\n\n3\n\n\n\nIdentify & Investigate\n\n\nExamine flagged dates — most will cluster near the COVID shock window\n\n\n\n\nAnomaly if:   |Rt − μ|  &gt;  3σ"
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#anomaly-map-where-did-they-occur",
+    "href": "presentations /market_shocks_FINAL.html#anomaly-map-where-did-they-occur",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Anomaly Map: Where Did They Occur?",
+    "text": "Anomaly Map: Where Did They Occur?\n\n\n\n\n\n\n\n\n\n\n⚡ ~79% of all detected anomalies fall within the COVID Shock window, which accounts for only ~8% of total trading days. This is time series analysis working exactly as intended."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#why-this-matters-for-business",
+    "href": "presentations /market_shocks_FINAL.html#why-this-matters-for-business",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Why This Matters for Business",
+    "text": "Why This Matters for Business\n\n\n\n🏦 Banks & Risk Managers\n\nRecalibrate Value-at-Risk models after vol spikes. Pre-COVID models dramatically underestimated tail risk during the shock.\n\n\n\n📈 Investors\n\nRebalance using rolling volatility as a signal. High-vol regimes call for defensive allocations and hedging strategies.\n\n\n\n🏭 CFOs & Firms\n\nPlan working capital around elevated uncertainty. Structural breaks can persist months before markets normalise.\n\n\n\n🔍 Analysts\n\nAnomaly detection as an early-warning system. Flagging 3-sigma events gives decision-makers critical lead time.\n\n\n\nCore message: Market analytics is not only about predicting prices — it is about measuring, monitoring, and communicating risk in a constantly changing world."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#key-takeaways",
+    "href": "presentations /market_shocks_FINAL.html#key-takeaways",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n01 Returns Over Prices\n\n\nLog returns are stationary, comparable, and risk-revealing. Always analyse returns for financial time series — never raw price levels.\n\n\n\n\n02 Volatility = Risk\n\n\nThe 4× spike in rolling volatility during COVID is the clearest, most actionable signal in the data. Volatility regimes are real and measurable.\n\n\n\n\n03 Structural Breaks Are Real\n\n\nCOVID-19 created a genuine regime change. Models trained on pre-crisis data failed immediately. Detecting the break date is step one.\n\n\n\n\n04 Simple Rules Work\n\n\nA 3-sigma anomaly rule flagged ~79% of extreme events in only 8% of the time window. Powerful signals don’t always require complex models."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL.html#final-conclusion",
+    "href": "presentations /market_shocks_FINAL.html#final-conclusion",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Final Conclusion",
+    "text": "Final Conclusion\n\n\nCOVID-19 showed that markets can shift quickly and completely during major events. Time series analysis gives us the tools to see those shifts clearly, measure them precisely, and respond intelligently.\n\n\nBy studying returns rather than prices, measuring rolling volatility, identifying structural breaks, and flagging anomalies — analysts gain a real decision-making edge.\n\n\n\n\nReturns\n\n\nover raw prices\n\n\n\n\nVolatility\n\n\nas the risk signal\n\n\n\n\nDecisions\n\n\nnot just charts\n\n\n\n\nDevansh Sachar  ·  MGTF 406 — Behavioral Finance  ·  Rady School of Management, UC San Diego  ·  May 2026"
   },
   {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Customer Segmentation using Machine Learning\n\n\nClustering-based segmentation on large-scale customer data\n\n\n\n\n\n\nMay 27, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Customer Segmentation using Machine Learning\n\n\nClustering-based segmentation on large-scale customer data\n\n\n\n\n\n\nJun 8, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "resume.html",
@@ -26,6 +369,62 @@
     "title": "What UCSD MSBA Students Actually Want to Learn",
     "section": "",
     "text": "import pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.optimize import minimize\nfrom scipy.special import logsumexp\n\nplt.rcParams['figure.figsize'] = (10,6)\n\n\nIntroduction\nThis project analyzes student preferences for UCSD MSBA courses using MaxDiff survey data.\nIn each survey task, respondents selected:\n\nThe course they most wanted to take\nThe course they least wanted to take\n\nThis approach produces stronger preference signals than traditional rating scales.\nThe analysis compares three methods:\n\nCounts Analysis\nMultinomial Logit (MNL)\nSimple Bayesian Approximation\n\n\n\nLoad the Data\n\nchoices = pd.read_csv('maxdiff_design_and_choices.csv')\nlabels = pd.read_csv('maxdiff_item_labels.csv')\n\nlabels = labels.iloc[:, :2]\nlabels.columns = ['Item', 'Label']\n\nchoices.head()\n\n\n\n\n\n\n\n\nRecord ID\nTask\nPosition\nItem\nResponse\n\n\n\n\n0\n69fb85fbd66b452e6decf4f7\n1\n1\n5\n0\n\n\n1\n69fb85fbd66b452e6decf4f7\n1\n2\n7\n1\n\n\n2\n69fb85fbd66b452e6decf4f7\n1\n3\n4\n0\n\n\n3\n69fb85fbd66b452e6decf4f7\n1\n4\n1\n-1\n\n\n4\n69fb85fbd66b452e6decf4f7\n2\n1\n8\n-1\n\n\n\n\n\n\n\n\n\nDataset Overview\n\nN = choices['Record ID'].nunique()\nT = choices['Task'].nunique()\nK = choices['Item'].nunique()\n\noverview = pd.DataFrame({\n    'Metric': [\n        'Respondents',\n        'Tasks per Respondent',\n        'Total Items'\n    ],\n    'Value': [\n        N,\n        T,\n        K\n    ]\n})\n\noverview\n\n\n\n\n\n\n\n\nMetric\nValue\n\n\n\n\n0\nRespondents\n85\n\n\n1\nTasks per Respondent\n15\n\n\n2\nTotal Items\n11\n\n\n\n\n\n\n\n\n\nCounts Analysis\nThe counts method calculates:\n\\[\nPreference Score = \\%Best - \\%Worst\n\\]\n\nbest_counts = choices[\n    choices['Response'] == 1\n].groupby('Item').size()\n\nworst_counts = choices[\n    choices['Response'] == -1\n].groupby('Item').size()\n\nshown_counts = choices.groupby('Item').size()\n\ncounts = pd.DataFrame({\n    'Shown': shown_counts,\n    'Best': best_counts,\n    'Worst': worst_counts\n}).fillna(0)\n\ncounts['Pct_Best'] = (\n    counts['Best'] / counts['Shown']\n)\n\ncounts['Pct_Worst'] = (\n    counts['Worst'] / counts['Shown']\n)\n\ncounts['Preference_Score'] = (\n    counts['Pct_Best'] - counts['Pct_Worst']\n)\n\ncounts = counts.reset_index()\n\ncounts = counts.merge(\n    labels,\n    on='Item'\n)\n\ncounts = counts.sort_values(\n    'Preference_Score',\n    ascending=False\n)\n\ncounts\n\n\n\n\n\n\n\n\nItem\nShown\nBest\nWorst\nPct_Best\nPct_Worst\nPreference_Score\nLabel\n\n\n\n\n8\n9\n330\n199\n12.0\n0.603030\n0.036364\n0.566667\nMGTA 495 Marketing Analytics (Spring with Yavo...\n\n\n4\n5\n327\n143\n55.0\n0.437309\n0.168196\n0.269113\nMGTA 453 Business Analytics (Fall with August)\n\n\n6\n7\n335\n155\n71.0\n0.462687\n0.211940\n0.250746\nMGTA 455 Customer Analytics (Winter with Nijs)\n\n\n3\n4\n338\n122\n60.0\n0.360947\n0.177515\n0.183432\nMGTA 452 Large Data (Fall with Hansen)\n\n\n7\n8\n330\n124\n69.0\n0.375758\n0.209091\n0.166667\nMGTA 454 Capstone Project (Spring with Advisor)\n\n\n1\n2\n340\n111\n56.0\n0.326471\n0.164706\n0.161765\nMGTA 464 SQL (Summer with Nijs)\n\n\n9\n10\n334\n74\n55.0\n0.221557\n0.164671\n0.056886\nMGTA 457 Biz. Intelligence Systems (Fall with ...\n\n\n0\n1\n332\n76\n90.0\n0.228916\n0.271084\n-0.042169\nMGTA 403 AI Math, Prog., & Analytics (Summer w...\n\n\n2\n3\n326\n75\n101.0\n0.230061\n0.309816\n-0.079755\nMGTA 451 Marketing/Finance/Operations (Summer ...\n\n\n5\n6\n323\n61\n111.0\n0.188854\n0.343653\n-0.154799\nMGTA 444 Analytics Consulting (Winter with Pet...\n\n\n\n\n\n\n\n\n\nCounts Visualization\n\nplt.figure(figsize=(12,7))\n\nplt.barh(\n    counts['Label'],\n    counts['Preference_Score']\n)\n\nplt.xlabel('Preference Score')\nplt.ylabel('Course')\nplt.title('MaxDiff Preference Scores')\n\nplt.gca().invert_yaxis()\n\nplt.show()\n\n\n\n\n\n\n\n\n\n\nMultinomial Logit (MNL)\nThe MNL model estimates utility values for each course.\n\nchoice_tasks = []\n\nfor (rid, task), grp in choices.groupby(\n    ['Record ID','Task']\n):\n\n    offered = grp['Item'].tolist()\n\n    chosen = grp.loc[\n        grp['Response'] == 1,\n        'Item'\n    ].values[0]\n\n    choice_tasks.append({\n        'offered': offered,\n        'chosen': chosen\n    })\n\n\n\nLog Likelihood Function\n\ndef neg_log_likelihood(beta_free):\n\n    beta = np.concatenate(([0], beta_free))\n\n    ll = 0\n\n    for obs in choice_tasks:\n\n        offered = [i-1 for i in obs['offered']]\n\n        chosen = obs['chosen'] - 1\n\n        utilities = beta[offered]\n\n        denom = logsumexp(utilities)\n\n        chosen_utility = beta[chosen]\n\n        ll += chosen_utility - denom\n\n    return -ll\n\n\n\nEstimate MNL Model\n\ninitial = np.zeros(K-1)\n\nresult = minimize(\n    neg_log_likelihood,\n    initial,\n    method='BFGS'\n)\n\nbeta_hat = np.concatenate(([0], result.x))\n\nmnl_results = pd.DataFrame({\n    'Item': range(1, K+1),\n    'Utility': beta_hat\n})\n\nmnl_results = mnl_results.merge(\n    labels,\n    on='Item'\n)\n\nmnl_results = mnl_results.sort_values(\n    'Utility',\n    ascending=False\n)\n\nmnl_results\n\n\n\n\n\n\n\n\nItem\nUtility\nLabel\n\n\n\n\n8\n9\n1.828954\nMGTA 495 Marketing Analytics (Spring with Yavo...\n\n\n6\n7\n1.254747\nMGTA 455 Customer Analytics (Winter with Nijs)\n\n\n4\n5\n1.155985\nMGTA 453 Business Analytics (Fall with August)\n\n\n7\n8\n0.862520\nMGTA 454 Capstone Project (Spring with Advisor)\n\n\n3\n4\n0.762707\nMGTA 452 Large Data (Fall with Hansen)\n\n\n1\n2\n0.552881\nMGTA 464 SQL (Summer with Nijs)\n\n\n2\n3\n0.047010\nMGTA 451 Marketing/Finance/Operations (Summer ...\n\n\n0\n1\n0.000000\nMGTA 403 AI Math, Prog., & Analytics (Summer w...\n\n\n9\n10\n-0.163201\nMGTA 457 Biz. Intelligence Systems (Fall with ...\n\n\n5\n6\n-0.303555\nMGTA 444 Analytics Consulting (Winter with Pet...\n\n\n\n\n\n\n\n\n\nMNL Visualization\n\nplt.figure(figsize=(12,7))\n\nplt.barh(\n    mnl_results['Label'],\n    mnl_results['Utility']\n)\n\nplt.xlabel('Estimated Utility')\nplt.ylabel('Course')\n\nplt.title('MNL Utility Estimates')\n\nplt.gca().invert_yaxis()\n\nplt.show()\n\n\n\n\n\n\n\n\n\n\nSimple Bayesian Approximation\nA lightweight simulation approach is used instead of a full Bayesian sampler.\n\nnp.random.seed(42)\n\nsimulations = []\n\nfor i in range(50):\n\n    simulated_beta = beta_hat + np.random.normal(\n        0,\n        0.05,\n        len(beta_hat)\n    )\n\n    simulations.append(simulated_beta)\n\nsimulations = np.array(simulations)\n\nposterior_means = simulations.mean(axis=0)\n\nbayes_results = pd.DataFrame({\n    'Item': range(1, K+1),\n    'Posterior_Mean': posterior_means\n})\n\nbayes_results = bayes_results.merge(\n    labels,\n    on='Item'\n)\n\nbayes_results = bayes_results.sort_values(\n    'Posterior_Mean',\n    ascending=False\n)\n\nbayes_results\n\n\n\n\n\n\n\n\nItem\nPosterior_Mean\nLabel\n\n\n\n\n8\n9\n1.817595\nMGTA 495 Marketing Analytics (Spring with Yavo...\n\n\n6\n7\n1.256299\nMGTA 455 Customer Analytics (Winter with Nijs)\n\n\n4\n5\n1.155966\nMGTA 453 Business Analytics (Fall with August)\n\n\n7\n8\n0.856468\nMGTA 454 Capstone Project (Spring with Advisor)\n\n\n3\n4\n0.767076\nMGTA 452 Large Data (Fall with Hansen)\n\n\n1\n2\n0.548399\nMGTA 464 SQL (Summer with Nijs)\n\n\n2\n3\n0.043793\nMGTA 451 Marketing/Finance/Operations (Summer ...\n\n\n0\n1\n0.004321\nMGTA 403 AI Math, Prog., & Analytics (Summer w...\n\n\n9\n10\n-0.156887\nMGTA 457 Biz. Intelligence Systems (Fall with ...\n\n\n5\n6\n-0.308277\nMGTA 444 Analytics Consulting (Winter with Pet...\n\n\n\n\n\n\n\n\n\nBayesian Visualization\n\nplt.figure(figsize=(12,7))\n\nplt.barh(\n    bayes_results['Label'],\n    bayes_results['Posterior_Mean']\n)\n\nplt.xlabel('Posterior Mean Utility')\nplt.ylabel('Course')\n\nplt.title('Bayesian Utility Estimates')\n\nplt.gca().invert_yaxis()\n\nplt.show()\n\n\n\n\n\n\n\n\n\n\nComparison of Methods\n\ncomparison = counts[\n    ['Label','Preference_Score']\n].merge(\n    mnl_results[\n        ['Label','Utility']\n    ],\n    on='Label'\n).merge(\n    bayes_results[\n        ['Label','Posterior_Mean']\n    ],\n    on='Label'\n)\n\ncomparison\n\n\n\n\n\n\n\n\nLabel\nPreference_Score\nUtility\nPosterior_Mean\n\n\n\n\n0\nMGTA 495 Marketing Analytics (Spring with Yavo...\n0.566667\n1.828954\n1.817595\n\n\n1\nMGTA 453 Business Analytics (Fall with August)\n0.269113\n1.155985\n1.155966\n\n\n2\nMGTA 455 Customer Analytics (Winter with Nijs)\n0.250746\n1.254747\n1.256299\n\n\n3\nMGTA 452 Large Data (Fall with Hansen)\n0.183432\n0.762707\n0.767076\n\n\n4\nMGTA 454 Capstone Project (Spring with Advisor)\n0.166667\n0.862520\n0.856468\n\n\n5\nMGTA 464 SQL (Summer with Nijs)\n0.161765\n0.552881\n0.548399\n\n\n6\nMGTA 457 Biz. Intelligence Systems (Fall with ...\n0.056886\n-0.163201\n-0.156887\n\n\n7\nMGTA 403 AI Math, Prog., & Analytics (Summer w...\n-0.042169\n0.000000\n0.004321\n\n\n8\nMGTA 451 Marketing/Finance/Operations (Summer ...\n-0.079755\n0.047010\n0.043793\n\n\n9\nMGTA 444 Analytics Consulting (Winter with Pet...\n-0.154799\n-0.303555\n-0.308277\n\n\n\n\n\n\n\n\n\nDiscussion\nAll three methods produce broadly similar rankings, suggesting that the survey contains a strong preference signal.\nThe counts approach is simple and intuitive, while the MNL model provides statistically grounded utility estimates.\nThe Bayesian approximation produces similar rankings while incorporating small amounts of uncertainty around the MNL estimates.\nOverall, students appear to strongly prefer technically oriented and career-focused analytics courses.\n\n\nConclusion\nThis project demonstrated how MaxDiff survey data can be analyzed using:\n\nCounts Analysis\nMultinomial Logit Modeling\nBayesian Approximation\n\nThe results show that students consistently prefer highly practical and analytics-focused courses within the UCSD MSBA curriculum."
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "",
+    "text": "Understanding which brand attributes drive customer satisfaction is a central challenge in market research. When predictors are correlated — as brand perceptions typically are — a single metric can give a misleading picture. Key drivers analysis addresses this by applying multiple complementary methods, each of which handles shared variance differently.\nThis report analyses a customer satisfaction survey (n = 2,553 respondents, 10 brands). The outcome is overall satisfaction (1–5 scale) and nine binary brand attributes serve as predictors.\n\n\n\nAttribute\nMeaning\n\n\n\n\nTrustworthy\nThe brand is trustworthy\n\n\nBuild Quality\nHigh build quality\n\n\nDifferentiates\nStands out from competitors\n\n\nEasy to Use\nEasy to use\n\n\nAppealing\nVisually appealing\n\n\nRewarding\nRewarding to own\n\n\nPopular\nWidely used / popular\n\n\nGood Service\nGood customer service\n\n\nPositive Impact\nMakes a positive impact"
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html#introduction",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html#introduction",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "",
+    "text": "Understanding which brand attributes drive customer satisfaction is a central challenge in market research. When predictors are correlated — as brand perceptions typically are — a single metric can give a misleading picture. Key drivers analysis addresses this by applying multiple complementary methods, each of which handles shared variance differently.\nThis report analyses a customer satisfaction survey (n = 2,553 respondents, 10 brands). The outcome is overall satisfaction (1–5 scale) and nine binary brand attributes serve as predictors.\n\n\n\nAttribute\nMeaning\n\n\n\n\nTrustworthy\nThe brand is trustworthy\n\n\nBuild Quality\nHigh build quality\n\n\nDifferentiates\nStands out from competitors\n\n\nEasy to Use\nEasy to use\n\n\nAppealing\nVisually appealing\n\n\nRewarding\nRewarding to own\n\n\nPopular\nWidely used / popular\n\n\nGood Service\nGood customer service\n\n\nPositive Impact\nMakes a positive impact"
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html#data-overview",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html#data-overview",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "Data Overview",
+    "text": "Data Overview"
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html#variable-importance-methods",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html#variable-importance-methods",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "Variable Importance Methods",
+    "text": "Variable Importance Methods\nSix methods are used. Each captures a different facet of the relationship between brand attributes and satisfaction:\n\n\n\n\n\n\n\nMethod\nWhat it measures\n\n\n\n\nPearson Correlation\nRaw bivariate association (ignores other predictors)\n\n\nStandardized β\nOLS coefficient after z-scoring all variables\n\n\nDrop-one (Usefulness)\nLoss in R² when a predictor is removed\n\n\nShapley Values\nAverage marginal R² contribution across all predictor coalitions\n\n\nJohnson’s Relative Weights\nOrthogonalized decomposition of R² — sums exactly to R²\n\n\nRandom Forest Gini\nMean decrease in node impurity across 500 trees"
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html#results",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html#results",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "Results",
+    "text": "Results\n\nVariable Importance Table\n\n\n\n\n\n\n\nAttribute\nPearson r\nStd. β\nDrop-one ΔR²\nShapley\nJohnson RW\nRF Gini\nAvg Rank\n\n\n\n\nTrustworthy\n0.256\n0.116\n0.0082\n0.0216\n0.0130\n0.1523\n2.0\n\n\nPositive Impact\n0.255\n0.128\n0.0112\n0.0236\n0.0117\n0.1396\n2.3\n\n\nGood Service\n0.251\n0.088\n0.0047\n0.0184\n0.0141\n0.1361\n2.7\n\n\nEasy to Use\n0.213\n0.022\n0.0003\n0.0093\n0.0128\n0.0973\n5.2\n\n\nAppealing\n0.208\n0.034\n0.0007\n0.0092\n0.0124\n0.0847\n5.5\n\n\nBuild Quality\n0.192\n0.020\n0.0003\n0.0072\n0.0135\n0.0997\n5.8\n\n\nRewarding\n0.195\n0.005\n0.0000\n0.0068\n0.0133\n0.1055\n6.5\n\n\nDifferentiates\n0.185\n0.028\n0.0006\n0.0073\n0.0091\n0.0896\n6.7\n\n\nPopular\n0.171\n0.017\n0.0002\n0.0056\n0.0091\n0.0953\n8.3\n\n\n\n\n\n\nFull-model R² = 0.109 — the nine attributes jointly explain 10.9% of the variance in satisfaction. Shapley values and Johnson’s Relative Weights each sum to this R².\n\n\n\nImportance by Method (Normalized)\n\n\n\n\n\n\n\n\n\n\n\nRank Heatmap"
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html#discussion",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html#discussion",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "Discussion",
+    "text": "Discussion\nDespite using different assumptions and algorithms, the six methods converge strongly on the same top drivers:\n\nTop drivers (ranked 1–3 across methods): Trustworthy, Good Service, and Positive Impact\nWeaker drivers (ranked 7–9): Differentiates, Popular, and Build Quality\n\nWhy methods can disagree:\n\nPearson r ignores multicollinearity and inflates the apparent importance of correlated attributes.\nStandardized β penalises correlated predictors heavily — a variable may get a near-zero coefficient even if it is substantively important.\nShapley values and Johnson’s Relative Weights distribute shared variance fairly across correlated predictors, making them the most theoretically principled linear methods.\nRandom Forest Gini additionally captures non-linear relationships and attribute interactions.\n\nThe convergence of five independent methods on the same top three drivers gives strong confidence that trust, service, and positive impact are genuine priority areas for improving customer satisfaction."
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html#medium-challenge-custom-shapley-implementation",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html#medium-challenge-custom-shapley-implementation",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "Medium Challenge: Custom Shapley Implementation",
+    "text": "Medium Challenge: Custom Shapley Implementation\nShapley values are grounded in cooperative game theory. Each predictor’s importance equals its average marginal contribution to R² across every possible subset of the other predictors:\n\\[\\phi_j = \\sum_{S \\subseteq P \\setminus \\{j\\}} \\frac{|S|!\\,(p-|S|-1)!}{p!}\\bigl[v(S \\cup \\{j\\}) - v(S)\\bigr]\\]\nThe function below implements this from scratch — no external packages beyond NumPy.\n\ndef shapley_linear_r2(X: np.ndarray, y: np.ndarray) -&gt; np.ndarray:\n    \"\"\"\n    Shapley values for OLS using R² as the value function.\n\n    Enumerates all 2^p predictor subsets exactly.\n    Sum of returned values equals the full-model R².\n    \"\"\"\n    n, p = X.shape\n\n    def v(subset):\n        if not subset:\n            return 0.0\n        Xs    = X[:, list(subset)]\n        coef  = np.linalg.lstsq(np.column_stack([np.ones(n), Xs]), y, rcond=None)[0]\n        y_hat = np.column_stack([np.ones(n), Xs]) @ coef\n        return 1 - np.sum((y - y_hat)**2) / np.sum((y - y.mean())**2)\n\n    phi = np.zeros(p)\n    for i in range(p):\n        others = [j for j in range(p) if j != i]\n        sv = 0.0\n        for size in range(p):\n            w = factorial(size) * factorial(p - size - 1) / factorial(p)\n            for subset in combinations(others, size):\n                sv += w * (v(set(subset) | {i}) - v(set(subset)))\n        phi[i] = sv\n    return phi\n\n\n\n\n\n\n\n\nTable 1: Verification: max absolute difference = 2.43e-17 | Sum of custom Shapley = 0.109012 (R² = 0.109012)\n\n\n\n\n\nAttribute\nShapley (main)\nShapley (custom)\nDifference\n\n\n\n\nTrustworthy\n0.021611\n0.021611\n2.08e-17\n\n\nBuild Quality\n0.007191\n0.007191\n2.43e-17\n\n\nDifferentiates\n0.007291\n0.007291\n1.39e-17\n\n\nEasy to Use\n0.009288\n0.009288\n2.08e-17\n\n\nAppealing\n0.009161\n0.009161\n1.73e-18\n\n\nRewarding\n0.006840\n0.006840\n1.21e-17\n\n\nPopular\n0.005642\n0.005642\n1.56e-17\n\n\nGood Service\n0.018405\n0.018405\n2.43e-17\n\n\nPositive Impact\n0.023582\n0.023582\n6.94e-18"
+  },
+  {
+    "objectID": "blogs/variable-importance/hw5_key_drivers (2).html#hard-challenge-shapley-values-for-logistic-regression-bic",
+    "href": "blogs/variable-importance/hw5_key_drivers (2).html#hard-challenge-shapley-values-for-logistic-regression-bic",
+    "title": "Key Drivers Analysis of Customer Satisfaction",
+    "section": "Hard Challenge: Shapley Values for Logistic Regression (BIC)",
+    "text": "Hard Challenge: Shapley Values for Logistic Regression (BIC)\nFor binary satisfaction outcomes a logistic regression is more appropriate than OLS. We binarise satisfaction as satisfied = rating ≥ 4 and use the Bayesian Information Criterion as the fit metric. Since lower BIC is better, the value function is \\(v(S) = \\text{BIC}_{\\text{null}} - \\text{BIC}(S)\\) — a positive value means the predictor subset improves over the null model.\n\ndef logit_bic(X_sub: np.ndarray, y_b: np.ndarray) -&gt; float:\n    \"\"\"BIC of a logistic regression. Pass empty array for the null model.\"\"\"\n    nb = len(y_b)\n    if X_sub.shape[1] == 0:\n        ph = y_b.mean()\n        ll = (y_b * np.log(ph + 1e-15) + (1 - y_b) * np.log(1 - ph + 1e-15)).sum()\n        k  = 1\n    else:\n        clf = LogisticRegression(max_iter=500, solver=\"lbfgs\", C=1e6)\n        clf.fit(X_sub, y_b)\n        pr  = clf.predict_proba(X_sub)[:, 1]\n        ll  = (y_b * np.log(pr + 1e-15) + (1 - y_b) * np.log(1 - pr + 1e-15)).sum()\n        k   = X_sub.shape[1] + 1\n    return k * np.log(nb) - 2 * ll\n\n\ndef shapley_logit_bic(X: np.ndarray, y_b: np.ndarray) -&gt; np.ndarray:\n    \"\"\"Shapley values for logistic regression using –ΔBIC as value function.\"\"\"\n    n, p     = X.shape\n    bic_null = logit_bic(np.empty((n, 0)), y_b)\n\n    def v(subset):\n        if not subset:\n            return 0.0\n        return bic_null - logit_bic(X[:, list(subset)], y_b)\n\n    phi = np.zeros(p)\n    for i in range(p):\n        others = [j for j in range(p) if j != i]\n        sv = 0.0\n        for size in range(p):\n            w = factorial(size) * factorial(p - size - 1) / factorial(p)\n            for subset in combinations(others, size):\n                sv += w * (v(set(subset) | {i}) - v(set(subset)))\n        phi[i] = sv\n    return phi\n\n\n\n\n\n\n\n\nTable 2: Logistic regression BIC-based Shapley values | Null BIC = 3545.5 | Full BIC = 3343.8 | ΔBIC = 201.7\n\n\n\n\n\nAttribute\nShapley (–ΔBIC)\n% of ΔBIC\n\n\n\n\nPositive Impact\n59.329\n29.4%\n\n\nTrustworthy\n35.368\n17.5%\n\n\nGood Service\n34.800\n17.3%\n\n\nDifferentiates\n18.000\n8.9%\n\n\nEasy to Use\n14.170\n7.0%\n\n\nAppealing\n13.363\n6.6%\n\n\nBuild Quality\n12.438\n6.2%\n\n\nRewarding\n11.086\n5.5%\n\n\nPopular\n3.155\n1.6%\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalysis in Python · scikit-learn · numpy · matplotlib · Shapley values via exact enumeration (2⁹ = 512 coalitions) · Random Forest: 500 trees, random_state=42"
   },
   {
     "objectID": "blogs/ab-testing/index.html",
@@ -88,7 +487,7 @@
     "href": "blogs/ab-testing/index.html#the-t-test-as-a-regression",
     "title": "A/B Testing a Call to Action",
     "section": "The T-Test as a Regression",
-    "text": "The T-Test as a Regression\n\nimport statsmodels.api as sm\n\nY = np.concatenate([A, B])\nD = np.concatenate([np.ones(n), np.zeros(n)])\n\nX = sm.add_constant(D)\nmodel = sm.OLS(Y, X).fit()\n\nprint(model.summary())\n\n                            OLS Regression Results                            \n==============================================================================\nDep. Variable:                      y   R-squared:                       0.002\nModel:                            OLS   Adj. R-squared:                  0.002\nMethod:                 Least Squares   F-statistic:                     4.570\nDate:                Wed, 27 May 2026   Prob (F-statistic):             0.0327\nTime:                        15:03:37   Log-Likelihood:                -991.64\nNo. Observations:                2000   AIC:                             1987.\nDf Residuals:                    1998   BIC:                             1998.\nDf Model:                           1                                         \nCovariance Type:            nonrobust                                         \n==============================================================================\n                 coef    std err          t      P&gt;|t|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          0.1780      0.013     14.161      0.000       0.153       0.203\nx1             0.0380      0.018      2.138      0.033       0.003       0.073\n==============================================================================\nOmnibus:                      434.378   Durbin-Watson:                   1.932\nProb(Omnibus):                  0.000   Jarque-Bera (JB):              777.046\nSkew:                           1.518   Prob(JB):                    1.85e-169\nKurtosis:                       3.320   Cond. No.                         2.62\n==============================================================================\n\nNotes:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nRegression gives the same result as the A/B test."
+    "text": "The T-Test as a Regression\n\nimport statsmodels.api as sm\n\nY = np.concatenate([A, B])\nD = np.concatenate([np.ones(n), np.zeros(n)])\n\nX = sm.add_constant(D)\nmodel = sm.OLS(Y, X).fit()\n\nprint(model.summary())\n\n                            OLS Regression Results                            \n==============================================================================\nDep. Variable:                      y   R-squared:                       0.002\nModel:                            OLS   Adj. R-squared:                  0.002\nMethod:                 Least Squares   F-statistic:                     4.570\nDate:                Mon, 08 Jun 2026   Prob (F-statistic):             0.0327\nTime:                        14:49:47   Log-Likelihood:                -991.64\nNo. Observations:                2000   AIC:                             1987.\nDf Residuals:                    1998   BIC:                             1998.\nDf Model:                           1                                         \nCovariance Type:            nonrobust                                         \n==============================================================================\n                 coef    std err          t      P&gt;|t|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          0.1780      0.013     14.161      0.000       0.153       0.203\nx1             0.0380      0.018      2.138      0.033       0.003       0.073\n==============================================================================\nOmnibus:                      434.378   Durbin-Watson:                   1.932\nProb(Omnibus):                  0.000   Jarque-Bera (JB):              777.046\nSkew:                           1.518   Prob(JB):                    1.85e-169\nKurtosis:                       3.320   Cond. No.                         2.62\n==============================================================================\n\nNotes:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nRegression gives the same result as the A/B test."
   },
   {
     "objectID": "blogs/ab-testing/index.html#the-problem-with-peeking",
@@ -193,7 +592,7 @@
     "href": "blogs/blueprinty-poisson/index.html#poisson-regression",
     "title": "Poisson Regression and Maximum Likelihood Estimation",
     "section": "Poisson Regression",
-    "text": "Poisson Regression\nThe simple Poisson model assumes every firm has the same expected patent rate \\(\\lambda\\). That assumption is unrealistic because firms differ in age, region, and customer status.\nPoisson regression allows the expected patent rate to vary across firms:\n\\[\nY_i \\sim \\text{Poisson}(\\lambda_i)\n\\]\nwith:\n\\[\n\\lambda_i = \\exp(X_i'\\beta)\n\\]\nWe use the exponential function because patent rates must always remain positive, while the linear predictor \\(X_i'\\beta\\) can take any real value.\n\nConstructing the Design Matrix\n\n\nCode\nblueprinty[\"age_squared\"] = blueprinty[\"age\"] ** 2\n\nregion_dummies = pd.get_dummies(\n    blueprinty[\"region\"],\n    prefix=\"region\",\n    drop_first=True\n)\n\nX = pd.concat(\n    [\n        pd.Series(1, index=blueprinty.index, name=\"intercept\"),\n        blueprinty[[\"age\", \"age_squared\", \"iscustomer\"]],\n        region_dummies\n    ],\n    axis=1\n)\n\nX = X.astype(float)\nY = blueprinty[\"patents\"].values\n\nX.head()\n\n\n\n\n\n\n\n\n\nintercept\nage\nage_squared\niscustomer\nregion_Northeast\nregion_Northwest\nregion_South\nregion_Southwest\n\n\n\n\n0\n1.0\n32.5\n1056.25\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n1\n1.0\n37.5\n1406.25\n0.0\n0.0\n0.0\n0.0\n1.0\n\n\n2\n1.0\n27.0\n729.00\n1.0\n0.0\n1.0\n0.0\n0.0\n\n\n3\n1.0\n24.5\n600.25\n0.0\n1.0\n0.0\n0.0\n0.0\n\n\n4\n1.0\n37.0\n1369.00\n0.0\n0.0\n0.0\n0.0\n1.0\n\n\n\n\n\n\n\nThe first column of the design matrix is an intercept consisting of all ones. I also include age squared because the relationship between firm age and patenting activity is unlikely to be perfectly linear.\nOne region category is omitted automatically to avoid perfect multicollinearity with the intercept.\n\n\nCoding the Poisson Regression Log-Likelihood\n\n\nCode\ndef poisson_regression_loglikelihood(beta, y, X):\n    eta = X @ beta\n    lam = np.exp(eta)\n\n    ll = np.sum(-lam + y * eta - gammaln(y + 1))\n    return ll\n\n\n\n\nEstimating the Model with Numerical Optimization\n\n\nCode\ndef negative_poisson_regression_loglikelihood(beta, y, X):\n    return -poisson_regression_loglikelihood(beta, y, X)\n\nstarting_values = np.zeros(X.shape[1])\n\npoisson_result = minimize(\n    negative_poisson_regression_loglikelihood,\n    x0=starting_values,\n    args=(Y, X.values),\n    method=\"BFGS\"\n)\n\nbeta_hat = poisson_result.x\n\nhessian_inverse = poisson_result.hess_inv\nstandard_errors = np.sqrt(np.diag(hessian_inverse))\n\nmle_results = pd.DataFrame({\n    \"Variable\": X.columns,\n    \"Coefficient\": beta_hat,\n    \"Std. Error\": standard_errors\n})\n\nmle_results[\"Coefficient\"] = mle_results[\"Coefficient\"].round(4)\nmle_results[\"Std. Error\"] = mle_results[\"Std. Error\"].round(4)\n\nmle_results\n\n\n/tmp/ipykernel_61639/4243091348.py:3: RuntimeWarning: overflow encountered in exp\n  lam = np.exp(eta)\n/opt/base-uv/.venv/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:86: RuntimeWarning: overflow encountered in reduce\n  return ufunc.reduce(obj, axis, dtype, out, **passkwargs)\n/opt/base-uv/.venv/lib/python3.13/site-packages/scipy/optimize/_numdiff.py:686: RuntimeWarning: invalid value encountered in subtract\n  df = [f_eval - f0 for f_eval in f_evals]\n/tmp/ipykernel_61639/4243091348.py:3: RuntimeWarning: overflow encountered in exp\n  lam = np.exp(eta)\n\n\n\n\n\n\n\n\n\nVariable\nCoefficient\nStd. Error\n\n\n\n\n0\nintercept\n0.0\n1.0\n\n\n1\nage\n0.0\n1.0\n\n\n2\nage_squared\n0.0\n1.0\n\n\n3\niscustomer\n0.0\n1.0\n\n\n4\nregion_Northeast\n0.0\n1.0\n\n\n5\nregion_Northwest\n0.0\n1.0\n\n\n6\nregion_South\n0.0\n1.0\n\n\n7\nregion_Southwest\n0.0\n1.0\n\n\n\n\n\n\n\nThe table above shows the coefficients estimated directly by maximizing the Poisson regression log-likelihood. The standard errors are computed from the inverse Hessian returned by the optimizer.\n\n\nComparing Against statsmodels\n\n\nCode\npoisson_glm = sm.GLM(\n    Y,\n    X,\n    family=sm.families.Poisson()\n)\n\nglm_result = poisson_glm.fit()\n\nglm_table = pd.DataFrame({\n    \"Variable\": X.columns,\n    \"GLM Coefficient\": glm_result.params,\n    \"GLM Std. Error\": glm_result.bse\n})\n\nglm_table[\"GLM Coefficient\"] = glm_table[\"GLM Coefficient\"].round(4)\nglm_table[\"GLM Std. Error\"] = glm_table[\"GLM Std. Error\"].round(4)\n\nglm_table\n\n\n\n\n\n\n\n\n\nVariable\nGLM Coefficient\nGLM Std. Error\n\n\n\n\nintercept\nintercept\n-0.5089\n0.1832\n\n\nage\nage\n0.1486\n0.0139\n\n\nage_squared\nage_squared\n-0.0030\n0.0003\n\n\niscustomer\niscustomer\n0.2076\n0.0309\n\n\nregion_Northeast\nregion_Northeast\n0.0292\n0.0436\n\n\nregion_Northwest\nregion_Northwest\n-0.0176\n0.0538\n\n\nregion_South\nregion_South\n0.0566\n0.0527\n\n\nregion_Southwest\nregion_Southwest\n0.0506\n0.0472\n\n\n\n\n\n\n\nThe estimates from numerical optimization and statsmodels should match closely. Any small differences in standard errors come from numerical approximations and differences in how the Hessian is estimated.\n\n\nInterpreting the Results\n\n\nCode\ncustomer_coef = glm_result.params[\"iscustomer\"]\ncustomer_rate_ratio = np.exp(customer_coef)\n\npd.DataFrame({\n    \"Quantity\": [\"Customer Coefficient\", \"Customer Incidence Rate Ratio\"],\n    \"Value\": [customer_coef, customer_rate_ratio]\n}).round(4)\n\n\n\n\n\n\n\n\n\nQuantity\nValue\n\n\n\n\n0\nCustomer Coefficient\n0.2076\n\n\n1\nCustomer Incidence Rate Ratio\n1.2307\n\n\n\n\n\n\n\nThe coefficient on iscustomer is positive, suggesting that Blueprinty customers tend to receive more patents than otherwise similar non-customers.\nBecause the Poisson model is exponential, coefficients are interpreted multiplicatively rather than additively. Exponentiating the customer coefficient gives the incidence rate ratio.\nThe estimate implies that Blueprinty customers are expected to receive more patents than comparable non-customers, holding age and region constant.\nThe age coefficient captures the relationship between firm age and patent activity, while the age-squared coefficient allows that relationship to bend rather than remain perfectly linear. The regional coefficients adjust for differences in patent rates across regions.\nOverall, the signs and magnitudes of the coefficients appear economically sensible."
+    "text": "Poisson Regression\nThe simple Poisson model assumes every firm has the same expected patent rate \\(\\lambda\\). That assumption is unrealistic because firms differ in age, region, and customer status.\nPoisson regression allows the expected patent rate to vary across firms:\n\\[\nY_i \\sim \\text{Poisson}(\\lambda_i)\n\\]\nwith:\n\\[\n\\lambda_i = \\exp(X_i'\\beta)\n\\]\nWe use the exponential function because patent rates must always remain positive, while the linear predictor \\(X_i'\\beta\\) can take any real value.\n\nConstructing the Design Matrix\n\n\nCode\nblueprinty[\"age_squared\"] = blueprinty[\"age\"] ** 2\n\nregion_dummies = pd.get_dummies(\n    blueprinty[\"region\"],\n    prefix=\"region\",\n    drop_first=True\n)\n\nX = pd.concat(\n    [\n        pd.Series(1, index=blueprinty.index, name=\"intercept\"),\n        blueprinty[[\"age\", \"age_squared\", \"iscustomer\"]],\n        region_dummies\n    ],\n    axis=1\n)\n\nX = X.astype(float)\nY = blueprinty[\"patents\"].values\n\nX.head()\n\n\n\n\n\n\n\n\n\nintercept\nage\nage_squared\niscustomer\nregion_Northeast\nregion_Northwest\nregion_South\nregion_Southwest\n\n\n\n\n0\n1.0\n32.5\n1056.25\n0.0\n0.0\n0.0\n0.0\n0.0\n\n\n1\n1.0\n37.5\n1406.25\n0.0\n0.0\n0.0\n0.0\n1.0\n\n\n2\n1.0\n27.0\n729.00\n1.0\n0.0\n1.0\n0.0\n0.0\n\n\n3\n1.0\n24.5\n600.25\n0.0\n1.0\n0.0\n0.0\n0.0\n\n\n4\n1.0\n37.0\n1369.00\n0.0\n0.0\n0.0\n0.0\n1.0\n\n\n\n\n\n\n\nThe first column of the design matrix is an intercept consisting of all ones. I also include age squared because the relationship between firm age and patenting activity is unlikely to be perfectly linear.\nOne region category is omitted automatically to avoid perfect multicollinearity with the intercept.\n\n\nCoding the Poisson Regression Log-Likelihood\n\n\nCode\ndef poisson_regression_loglikelihood(beta, y, X):\n    eta = X @ beta\n    lam = np.exp(eta)\n\n    ll = np.sum(-lam + y * eta - gammaln(y + 1))\n    return ll\n\n\n\n\nEstimating the Model with Numerical Optimization\n\n\nCode\ndef negative_poisson_regression_loglikelihood(beta, y, X):\n    return -poisson_regression_loglikelihood(beta, y, X)\n\nstarting_values = np.zeros(X.shape[1])\n\npoisson_result = minimize(\n    negative_poisson_regression_loglikelihood,\n    x0=starting_values,\n    args=(Y, X.values),\n    method=\"BFGS\"\n)\n\nbeta_hat = poisson_result.x\n\nhessian_inverse = poisson_result.hess_inv\nstandard_errors = np.sqrt(np.diag(hessian_inverse))\n\nmle_results = pd.DataFrame({\n    \"Variable\": X.columns,\n    \"Coefficient\": beta_hat,\n    \"Std. Error\": standard_errors\n})\n\nmle_results[\"Coefficient\"] = mle_results[\"Coefficient\"].round(4)\nmle_results[\"Std. Error\"] = mle_results[\"Std. Error\"].round(4)\n\nmle_results\n\n\n/tmp/ipykernel_92110/4243091348.py:3: RuntimeWarning: overflow encountered in exp\n  lam = np.exp(eta)\n/opt/base-uv/.venv/lib/python3.13/site-packages/numpy/_core/fromnumeric.py:86: RuntimeWarning: overflow encountered in reduce\n  return ufunc.reduce(obj, axis, dtype, out, **passkwargs)\n/opt/base-uv/.venv/lib/python3.13/site-packages/scipy/optimize/_numdiff.py:686: RuntimeWarning: invalid value encountered in subtract\n  df = [f_eval - f0 for f_eval in f_evals]\n/tmp/ipykernel_92110/4243091348.py:3: RuntimeWarning: overflow encountered in exp\n  lam = np.exp(eta)\n\n\n\n\n\n\n\n\n\nVariable\nCoefficient\nStd. Error\n\n\n\n\n0\nintercept\n0.0\n1.0\n\n\n1\nage\n0.0\n1.0\n\n\n2\nage_squared\n0.0\n1.0\n\n\n3\niscustomer\n0.0\n1.0\n\n\n4\nregion_Northeast\n0.0\n1.0\n\n\n5\nregion_Northwest\n0.0\n1.0\n\n\n6\nregion_South\n0.0\n1.0\n\n\n7\nregion_Southwest\n0.0\n1.0\n\n\n\n\n\n\n\nThe table above shows the coefficients estimated directly by maximizing the Poisson regression log-likelihood. The standard errors are computed from the inverse Hessian returned by the optimizer.\n\n\nComparing Against statsmodels\n\n\nCode\npoisson_glm = sm.GLM(\n    Y,\n    X,\n    family=sm.families.Poisson()\n)\n\nglm_result = poisson_glm.fit()\n\nglm_table = pd.DataFrame({\n    \"Variable\": X.columns,\n    \"GLM Coefficient\": glm_result.params,\n    \"GLM Std. Error\": glm_result.bse\n})\n\nglm_table[\"GLM Coefficient\"] = glm_table[\"GLM Coefficient\"].round(4)\nglm_table[\"GLM Std. Error\"] = glm_table[\"GLM Std. Error\"].round(4)\n\nglm_table\n\n\n\n\n\n\n\n\n\nVariable\nGLM Coefficient\nGLM Std. Error\n\n\n\n\nintercept\nintercept\n-0.5089\n0.1832\n\n\nage\nage\n0.1486\n0.0139\n\n\nage_squared\nage_squared\n-0.0030\n0.0003\n\n\niscustomer\niscustomer\n0.2076\n0.0309\n\n\nregion_Northeast\nregion_Northeast\n0.0292\n0.0436\n\n\nregion_Northwest\nregion_Northwest\n-0.0176\n0.0538\n\n\nregion_South\nregion_South\n0.0566\n0.0527\n\n\nregion_Southwest\nregion_Southwest\n0.0506\n0.0472\n\n\n\n\n\n\n\nThe estimates from numerical optimization and statsmodels should match closely. Any small differences in standard errors come from numerical approximations and differences in how the Hessian is estimated.\n\n\nInterpreting the Results\n\n\nCode\ncustomer_coef = glm_result.params[\"iscustomer\"]\ncustomer_rate_ratio = np.exp(customer_coef)\n\npd.DataFrame({\n    \"Quantity\": [\"Customer Coefficient\", \"Customer Incidence Rate Ratio\"],\n    \"Value\": [customer_coef, customer_rate_ratio]\n}).round(4)\n\n\n\n\n\n\n\n\n\nQuantity\nValue\n\n\n\n\n0\nCustomer Coefficient\n0.2076\n\n\n1\nCustomer Incidence Rate Ratio\n1.2307\n\n\n\n\n\n\n\nThe coefficient on iscustomer is positive, suggesting that Blueprinty customers tend to receive more patents than otherwise similar non-customers.\nBecause the Poisson model is exponential, coefficients are interpreted multiplicatively rather than additively. Exponentiating the customer coefficient gives the incidence rate ratio.\nThe estimate implies that Blueprinty customers are expected to receive more patents than comparable non-customers, holding age and region constant.\nThe age coefficient captures the relationship between firm age and patent activity, while the age-squared coefficient allows that relationship to bend rather than remain perfectly linear. The regional coefficients adjust for differences in patent rates across regions.\nOverall, the signs and magnitudes of the coefficients appear economically sensible."
   },
   {
     "objectID": "blogs/blueprinty-poisson/index.html#the-effect-of-blueprintys-software",
@@ -285,5 +684,187 @@
     "title": "Devansh Sachar",
     "section": "📬 Let’s Connect",
     "text": "📬 Let’s Connect\n\n📧 dsachar@ucsd.edu\n💻 GitHub: rsm-dsachar\n🔗 LinkedIn"
+  },
+  {
+    "objectID": "presentations /ms4.html#what-is-a-time-series",
+    "href": "presentations /ms4.html#what-is-a-time-series",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "What Is a Time Series?",
+    "text": "What Is a Time Series?\n\n\nA time series is a sequence of values recorded at regular points in time — hourly, daily, monthly.\nWhat makes it different from a normal table: order matters. Monday connects to Tuesday. Shuffling the rows destroys the information.\n\n\n\n📅\n\nTimestamp\nWhen a visit, click, or campaign event happened.\n\n\n\n📏\n\nValue\nThe metric measured at that moment.\n\n\n\n💡 Our example: Stock market daily changes, 2018–2022. COVID-19 creates a clear “before, during, after” — perfect for seeing every concept.\n\n\nIn marketing analytics, time series helps you answer:\n\nIs traffic or campaign performance trending up or down?\nIs the behavior stable enough to make reliable forecasts?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n:::"
+  },
+  {
+    "objectID": "presentations /ms4.html#concept-1-trend-stationarity",
+    "href": "presentations /ms4.html#concept-1-trend-stationarity",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 1 — Trend & Stationarity",
+    "text": "Concept 1 — Trend & Stationarity\n\n📈 Trend — the Long-Run Direction\nThe trend is the overall direction after smoothing noise. We use a rolling mean — averaging the last N observations as we slide along the series.\n\n\n\n\n\n\n\n\n\n\n\n\nThe navy line removes noise — now up → crash → recover is obvious.\n\n🔄 Stationarity — Does It Stay Consistent?\nA series is stationary when its average and spread stay roughly stable over time. Most analysis tools require this. Raw prices drift up forever — not stationary. Daily % changes bounce near zero — stationary.\n\n\n\n\n\n\n\n\n\n\n\n\nFix: Use daily % change instead of the raw price level.\n\n\n:::"
+  },
+  {
+    "objectID": "presentations /ms4.html#concept-2-rolling-windows-volatility",
+    "href": "presentations /ms4.html#concept-2-rolling-windows-volatility",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 2 — Rolling Windows & Volatility",
+    "text": "Concept 2 — Rolling Windows & Volatility\n\n\n🪟 Rolling Windows\nA rolling window slides along the series recomputing a statistic using only the most recent N days. This turns a single number into a story over time.\n\n\n1\n\n\nPick window size (e.g. 30 days)\nHow far back do you want to look?\n\n\n\n\n2\n\n\nCompute mean or std dev\nFor just those N days\n\n\n\n\n3\n\n\nSlide forward one day, repeat\nYou now have a value for every date\n\n\n📊 Volatility = Rolling Std Dev\nVolatility = how much the series jumps around. Computed as the rolling standard deviation of daily changes.\n\n⚡ Rolling windows show when the series changed — not just that it changed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n:::"
+  },
+  {
+    "objectID": "presentations /ms4.html#concept-3-structural-break",
+    "href": "presentations /ms4.html#concept-3-structural-break",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 3 — Structural Break",
+    "text": "Concept 3 — Structural Break\nA structural break is when the series permanently shifts its behaviour at a specific point. Models trained before the break give wrong answers after it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n🎂 The Recipe Analogy\nYou are baking a cake. Everything works fine for 6 steps. Then at step 7, someone swaps sugar for salt — and tells nobody. Every step after that tastes wrong. Your old model of “this is correct” is now broken — because the underlying process permanently changed.\n\nA structural break is exactly that swap, happening in your data.\n\n\n🔍 How to confirm a break\nCompare the mean and std dev on each side of the suspected point. If they differ significantly — and the change persists — it is a structural break.\n\nIn our data: volatility went from ~0.77% → ~1.45% per day and never returned to the old level.\n\n\nAny model built on pre-COVID data now underestimates risk in the post-COVID world.\n\n\n\n:::"
+  },
+  {
+    "objectID": "presentations /ms4.html#concept-4-signal-momentum-anomaly-checks",
+    "href": "presentations /ms4.html#concept-4-signal-momentum-anomaly-checks",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 4 — Signal, Momentum & Anomaly Checks",
+    "text": "Concept 4 — Signal, Momentum & Anomaly Checks\n\n🔁 Autocorrelation — marketing momentum\nAutocorrelation measures whether today’s result still reflects yesterday’s performance. In marketing, this helps identify sustained campaign momentum rather than one-off noise.\n\nIf website traffic is high after an email blast, and the next day stays strong too, that means the series has momentum.\n\n\n\n\n\n\n\n\n\n\n\n\n\nDuring COVID, lag-1 is significant — panic had momentum. One bad day predicted the next. Before and after: more random, less memory.\n\n🚨 Anomaly Detection — 3-Sigma Rule\nFlag any point more than 3 standard deviations from the mean. In normal data only 0.3% of points qualify — so anything flagged is genuinely unusual.\n\nFlag if: |value − mean| &gt; 3 × std dev\n\n\n\n\n\n\n\n\n\n\n\n\n\n⚡ In marketing terms, these anomalies are sudden shifts from normal behavior — like campaign spikes or pandemic-driven traffic shocks. They flag when your model is no longer capturing the true signal.\n\n\n:::"
+  },
+  {
+    "objectID": "presentations /ms4.html#key-takeaways",
+    "href": "presentations /ms4.html#key-takeaways",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\nMarketing time series are ordered signals — sequence matters.\nUse changes or percentage returns to compare campaigns fairly.\nDetect shifts early with rolling measures and break analysis.\nAdapt models when structural breaks or anomalies appear.\n\n\n\n💡\nUse these concepts to spot meaningful patterns quickly: stable changes, regime shifts, momentum, and true anomalies. The same approach applies to any time-driven dataset, not just markets.\n\n:::"
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#the-business-question",
+    "href": "presentations /covid_stock_returns_python_only.html#the-business-question",
+    "title": "COVID Stock Market Returns",
+    "section": "1. The Business Question",
+    "text": "1. The Business Question\n\n\nA time series is data measured in order over time.\nFor this presentation, the question is simple:\n\nHow did COVID-19 change stock market behavior, and what can analytics teams learn from it?\n\nWe focus on four ideas that are easy to explain:\n\n\nTrendLong-run direction\n\n\nReturnsDaily gains or losses\n\n\nVolatilityRisk and uncertainty\n\n\nAnomaliesUnusual market days\n\n\n\nDataset source used in this file: Python fallback: S&P 500 style COVID return series. To use live S&P 500 data, set USE_LIVE_DATA = True in the first Python chunk."
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#prices-show-the-story-returns-show-the-reaction",
+    "href": "presentations /covid_stock_returns_python_only.html#prices-show-the-story-returns-show-the-reaction",
+    "title": "COVID Stock Market Returns",
+    "section": "2. Prices Show the Story, Returns Show the Reaction",
+    "text": "2. Prices Show the Story, Returns Show the Reaction\n\n\nPrices are useful for the big picture, but returns are better for analysis.\n\nPrice Shows the level of the market. It usually trends over time.\n\n\nReturn Shows the percentage change from one trading day to the next.\n\n\nReturn = (Today’s price - Yesterday’s price) / Yesterday’s price\n\n\nWhy it matters: managers, investors, and analysts usually care about returns because returns measure gain, loss, and risk."
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#covid-created-a-clear-market-shock",
+    "href": "presentations /covid_stock_returns_python_only.html#covid-created-a-clear-market-shock",
+    "title": "COVID Stock Market Returns",
+    "section": "3. COVID Created a Clear Market Shock",
+    "text": "3. COVID Created a Clear Market Shock\n\n\nA market shock is a sudden event that changes expectations.\nDuring the COVID period, investors reacted to:\n\nLockdowns and uncertainty\nBusiness closures\nPolicy responses\nVaccine and reopening expectations\n\n\n\n-74.4%drop in the crash window10.5%peak 30-day daily volatility10extreme return days flagged\n\n\n\nThe point is not just that the market fell. The bigger lesson is that the behavior of the time series changed."
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#volatility-clustering-big-moves-come-together",
+    "href": "presentations /covid_stock_returns_python_only.html#volatility-clustering-big-moves-come-together",
+    "title": "COVID Stock Market Returns",
+    "section": "4. Volatility Clustering: Big Moves Come Together",
+    "text": "4. Volatility Clustering: Big Moves Come Together\n\n\nOne important time series pattern is volatility clustering.\nThat means large movements tend to be followed by more large movements.\n\nBefore COVID: returns were smaller and calmer. During COVID: positive and negative swings happened back to back.\n\n\nThis is why risk teams track rolling volatility instead of looking only at average return."
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#rolling-volatility-measures-risk",
+    "href": "presentations /covid_stock_returns_python_only.html#rolling-volatility-measures-risk",
+    "title": "COVID Stock Market Returns",
+    "section": "5. Rolling Volatility Measures Risk",
+    "text": "5. Rolling Volatility Measures Risk\n\n\nRolling volatility calculates the standard deviation of returns over a moving window.\nHere we use a 30-trading-day window.\n\n\n0.71%pre-COVID daily volatility6.52%COVID shock volatility1.22%post-shock volatility\n\n\n\nSimple interpretation: the market became less predictable, so the risk of making a wrong forecast increased."
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#anomaly-detection-finds-extreme-days",
+    "href": "presentations /covid_stock_returns_python_only.html#anomaly-detection-finds-extreme-days",
+    "title": "COVID Stock Market Returns",
+    "section": "6. Anomaly Detection Finds Extreme Days",
+    "text": "6. Anomaly Detection Finds Extreme Days\n\n\nA simple way to identify unusual days is the 3-sigma rule.\n\nFlag a day if |return - average return| &gt; 3 × standard deviation\n\nThis works well for teaching because it is easy to explain:\n\nCalculate normal behavior\nDraw upper and lower limits\nFlag points outside those limits\n\n\nThe red dots are days where the market moved far more than normal."
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#biggest-return-days-tell-the-crisis-story",
+    "href": "presentations /covid_stock_returns_python_only.html#biggest-return-days-tell-the-crisis-story",
+    "title": "COVID Stock Market Returns",
+    "section": "7. Biggest Return Days Tell the Crisis Story",
+    "text": "7. Biggest Return Days Tell the Crisis Story\n\n\nExtreme days are useful because they turn a long time series into a short list of business events.\nInstead of asking people to read hundreds of rows, we highlight the days that need explanation.\n\nIn real stock data, these dates would be matched with news: lockdown announcements, central bank actions, fiscal stimulus, earnings warnings, and vaccine updates.\n\n\n\n\n\n\n\n\n\n\nDate\nDaily Return\n30-Day Volatility\n\n\n\n\n320\nMar 24, 2020\n+40.22%\n10.08%\n\n\n319\nMar 23, 2020\n-29.25%\n5.99%\n\n\n308\nMar 06, 2020\n-12.06%\n3.80%\n\n\n389\nJun 29, 2020\n+10.35%\n3.43%\n\n\n306\nMar 04, 2020\n-9.08%\n3.25%\n\n\n312\nMar 12, 2020\n-8.74%\n3.91%"
+  },
+  {
+    "objectID": "presentations /covid_stock_returns_python_only.html#forecasting-lesson-and-final-takeaways",
+    "href": "presentations /covid_stock_returns_python_only.html#forecasting-lesson-and-final-takeaways",
+    "title": "COVID Stock Market Returns",
+    "section": "8. Forecasting Lesson and Final Takeaways",
+    "text": "8. Forecasting Lesson and Final Takeaways\n\n\nForecasting after a shock is difficult because the future may not look like the past.\nA simple forecast uses recent average return and recent volatility.\n\nKey lesson: after COVID, uncertainty is as important as direction.\n\n\n\n01Use returns, not just prices\n\n\nReturns reveal gains, losses, risk, and market reaction.\n\n\n\n\n02Track rolling volatility\n\n\nVolatility shows when the market becomes unpredictable.\n\n\n\n\n03Flag anomalies early\n\n\nExtreme days can trigger deeper business analysis and risk controls.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinal message: time series analysis helps marketing and analytics teams convert messy daily market data into a simple story about trend, risk, shock, and recovery."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (4).html#what-is-a-time-series",
+    "href": "presentations /market_shocks_FINAL (4).html#what-is-a-time-series",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "What Is a Time Series?",
+    "text": "What Is a Time Series?\n\n\nA time series is a sequence of values recorded at regular points in time — daily, monthly, hourly, or any consistent interval.\nWhat makes it different from a normal data table: the order of rows matters. Monday is connected to Tuesday. You cannot shuffle the data without losing information.\nEvery time series has two parts:\n\n\n\n📅\n\nTimestamp When was it recorded?\n\n\n\n📏\n\nValue What was measured?\n\n\n\n💡 Our example: Stock market daily returns, 2018–2022. COVID-19 creates a visible “before, during, and after” — perfect for seeing every time series concept clearly."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (4).html#concept-1-trend-stationarity",
+    "href": "presentations /market_shocks_FINAL (4).html#concept-1-trend-stationarity",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 1 — Trend & Stationarity",
+    "text": "Concept 1 — Trend & Stationarity\n\n📈 Trend — the Long-Run Direction\nThe trend is the overall direction of the series after smoothing out noise. We find it using a rolling mean — averaging the last N observations as we slide along.\n\n\n\n\n\n\n\n\n\n\nThe navy line removes the noise — now the up → crash → recover direction is obvious.\n\n🔄 Stationarity — Does It Stay Consistent?\nA series is stationary when its mean and spread stay roughly stable over time. Almost every time series model requires this.\n\n\n\n\n\n\n\n\n\n\nThe fix: Use the daily % change instead of the raw level. Changes stay near zero — stationary. The rising price series is not."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (4).html#concept-2-rolling-windows-volatility",
+    "href": "presentations /market_shocks_FINAL (4).html#concept-2-rolling-windows-volatility",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 2 — Rolling Windows & Volatility",
+    "text": "Concept 2 — Rolling Windows & Volatility\n\n\n🪟 What Is a Rolling Window?\nA rolling window slides along the series and recomputes a statistic using only the most recent N observations. This turns a single summary number into a story over time.\n\n\n1\n\n\n\nPick a window size\n\n\ne.g. 30 days — how far back do you look?\n\n\n\n\n\n2\n\n\n\nCompute the statistic\n\n\nMean, std dev, sum — whatever you need\n\n\n\n\n\n3\n\n\n\nSlide forward one day, repeat\n\n\nYou now have a value for every date\n\n\n\n📊 Volatility = Rolling Std Dev\nVolatility measures how much the series jumps around day to day. We compute it as the rolling standard deviation of daily changes over the last 30 days.\n\n\n\n\n\n\n\n\n\n\n\n\n⚡ The rolling window turns one number into a timeline — you can see exactly when the series became risky, not just that it was risky overall."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (4).html#concept-3-structural-break-autocorrelation",
+    "href": "presentations /market_shocks_FINAL (4).html#concept-3-structural-break-autocorrelation",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 3 — Structural Break & Autocorrelation",
+    "text": "Concept 3 — Structural Break & Autocorrelation\n\n💥 Structural Break — When the Pattern Changes Permanently\nA structural break is a point where the series permanently shifts its behaviour. Models trained before the break will give wrong answers after it.\n\n\n\n\n\n\n\n\n\n\nVolatility nearly doubled and stayed there. Any model built on pre-COVID data now underestimates risk.\n\n🔁 Autocorrelation — Does the Past Predict the Future?\nAutocorrelation measures whether today’s value is related to yesterday’s. If yes, the series has memory — useful for forecasting.\n\n\n\n\n\n\n\n\n\n\nDuring the shock, lag-1 is significant — one bad day predicted the next. Panic has momentum. Before and after: far less memory, more random."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (4).html#concept-4-anomaly-detection",
+    "href": "presentations /market_shocks_FINAL (4).html#concept-4-anomaly-detection",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 4 — Anomaly Detection",
+    "text": "Concept 4 — Anomaly Detection\nAn anomaly is a data point so far from normal that it signals something genuinely unusual happened. We use the 3-sigma rule — the simplest detector that needs no labels, just the data’s own mean and spread.\n\n\n\n\nThe 3-Sigma Rule\n\nFlag a point if its distance from the mean is more than 3 standard deviations.\n\nFlag if: |value − mean| &gt; 3 × std dev\n\nIn normally distributed data, only 0.3% of points fall that far out — so anything flagged is genuinely rare.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n⚡ ~9% of COVID-period days were anomalies — 30× the normal rate of 0.3%. The rule found the crisis automatically using nothing but the data’s own statistics."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (4).html#key-takeaways",
+    "href": "presentations /market_shocks_FINAL (4).html#key-takeaways",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n01 Time Series = Ordered Data\n\n\nA time series is values recorded over time where order matters. Monday connects to Tuesday. Shuffle the rows and you destroy the information.\n\n\n\n\n02 Use Changes, Not Levels\n\n\nRaw values that drift upward forever are not stationary. Use % changes instead — they bounce around zero and work with most analysis tools.\n\n\n\n\n03 Rolling Windows Show When\n\n\nA rolling mean or rolling std dev turns one summary number into a timeline. You see exactly when the series changed — not just that it changed overall.\n\n\n\n\n04 Structural Breaks Need New Models\n\n\nWhen behaviour permanently changes, old models stop working. Detecting the break point is step one — then you retrain on the new regime.\n\n\n\n\n05 Autocorrelation = Memory\n\n\nIf today’s value is linked to yesterday’s, the series has memory. During COVID, panic had momentum — one bad day predicted the next.\n\n\n\n\n06 Simple Rules Detect Anomalies\n\n\nThe 3-sigma rule flagged 30× more anomalies during COVID using only mean and std dev — no labels, no complex model needed.\n\n\n\n\n💡\n\nThese tools work on any data over time — temperature, hospital admissions, website traffic, energy usage. COVID and the stock market are just our learning example."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (5).html#what-is-a-time-series",
+    "href": "presentations /market_shocks_FINAL (5).html#what-is-a-time-series",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "What Is a Time Series?",
+    "text": "What Is a Time Series?\n\n\nA time series is a sequence of values recorded at regular points in time — daily, monthly, hourly, or any consistent interval.\nWhat makes it different from a normal data table: the order of rows matters. Monday is connected to Tuesday. You cannot shuffle the data without losing information.\nEvery time series has two parts:\n\n\n\n📅\n\nTimestamp When was it recorded?\n\n\n\n📏\n\nValue What was measured?\n\n\n\n💡 Our example: Stock market daily returns, 2018–2022. COVID-19 creates a visible “before, during, and after” — perfect for seeing every time series concept clearly."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (5).html#concept-1-trend-stationarity",
+    "href": "presentations /market_shocks_FINAL (5).html#concept-1-trend-stationarity",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 1 — Trend & Stationarity",
+    "text": "Concept 1 — Trend & Stationarity\n\n📈 Trend — the Long-Run Direction\nThe trend is the overall direction of the series after smoothing out noise. We find it using a rolling mean — averaging the last N observations as we slide along.\n\n\n\n\n\n\n\n\n\n\nThe navy line removes the noise — now the up → crash → recover direction is obvious.\n\n🔄 Stationarity — Does It Stay Consistent?\nA series is stationary when its mean and spread stay roughly stable over time. Almost every time series model requires this.\n\n\n\n\n\n\n\n\n\n\nThe fix: Use the daily % change instead of the raw level. Changes stay near zero — stationary. The rising price series is not."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (5).html#concept-2-rolling-windows-volatility",
+    "href": "presentations /market_shocks_FINAL (5).html#concept-2-rolling-windows-volatility",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 2 — Rolling Windows & Volatility",
+    "text": "Concept 2 — Rolling Windows & Volatility\n\n\n🪟 What Is a Rolling Window?\nA rolling window slides along the series and recomputes a statistic using only the most recent N observations. This turns a single summary number into a story over time.\n\n\n1\n\n\n\nPick a window size\n\n\ne.g. 30 days — how far back do you look?\n\n\n\n\n\n2\n\n\n\nCompute the statistic\n\n\nMean, std dev, sum — whatever you need\n\n\n\n\n\n3\n\n\n\nSlide forward one day, repeat\n\n\nYou now have a value for every date\n\n\n\n📊 Volatility = Rolling Std Dev\nVolatility measures how much the series jumps around day to day. We compute it as the rolling standard deviation of daily changes over the last 30 days.\n\n\n\n\n\n\n\n\n\n\n\n\n⚡ The rolling window turns one number into a timeline — you can see exactly when the series became risky, not just that it was risky overall."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (5).html#concept-3-structural-break",
+    "href": "presentations /market_shocks_FINAL (5).html#concept-3-structural-break",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 3 — Structural Break",
+    "text": "Concept 3 — Structural Break\n\n💥 Structural Break — When the Pattern Changes Permanently\nA structural break is a point where the series permanently shifts its behaviour. Models trained before the break will give wrong answers after it.\n\n\n\n\n\n\n\n\n\n\nVolatility nearly doubled and stayed there. Any model built on pre-COVID data now underestimates risk.\n\n\n\n\n🎂 The Recipe Analogy\n\n\nYou are baking a cake. Everything works fine for 6 steps. Then at step 7, someone swaps sugar for salt — and tells nobody. Every step after that tastes wrong. Your old model of “this is correct” is now broken — because the underlying process permanently changed.\n\n\n\n\n🔍 How to confirm a break\n\n\nCompare the mean and std dev on each side of the suspected point. If they differ significantly — and the change persists — it is a structural break.\n\n\nIn our data: volatility went from ~0.77% → ~1.45% per day and never returned to the old level.\n\n\n\n\nAny model built on pre-COVID data now underestimates risk in the post-COVID world."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (5).html#concept-4-signal-momentum-anomaly-checks",
+    "href": "presentations /market_shocks_FINAL (5).html#concept-4-signal-momentum-anomaly-checks",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Concept 4 — Signal, Momentum & Anomaly Checks",
+    "text": "Concept 4 — Signal, Momentum & Anomaly Checks\n\n🔁 Autocorrelation — marketing momentum\nAutocorrelation measures whether today’s result still reflects yesterday’s performance. In marketing, this helps identify sustained campaign momentum rather than one-off noise.\n\nIf website traffic is high after an email blast, and the next day stays strong too, that means the series has momentum.\n\n\n\n\n\n\n\n\n\n\n\nDuring COVID, lag-1 is significant — one bad day predicted the next. Panic had momentum. Before and after: more random, less memory.\n\n🚨 Anomaly Detection — 3-Sigma Rule\nFlag any point more than three standard deviations from the mean. In normal data only 0.3% of points qualify — so anything flagged is genuinely unusual.\n\nFlag if: |value − mean| &gt; 3 × std dev\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n⚡ In marketing terms, these anomalies are sudden shifts from normal behavior — like campaign spikes or pandemic-driven traffic shocks. They flag when your model is no longer capturing the true signal."
+  },
+  {
+    "objectID": "presentations /market_shocks_FINAL (5).html#key-takeaways",
+    "href": "presentations /market_shocks_FINAL (5).html#key-takeaways",
+    "title": "Understanding Market Shocks Through Time Series Analysis",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\n\n\n01 Time Series = Ordered Data\n\n\nA time series is values recorded over time where order matters. Monday connects to Tuesday. Shuffle the rows and you destroy the information.\n\n\n\n\n02 Use Changes, Not Levels\n\n\nRaw values that drift upward forever are not stationary. Use % changes instead — they bounce around zero and work with most analysis tools.\n\n\n\n\n03 Rolling Windows Show When\n\n\nA rolling mean or rolling std dev turns one summary number into a timeline. You see exactly when the series changed — not just that it changed overall.\n\n\n\n\n04 Structural Breaks Need New Models\n\n\nWhen behaviour permanently changes, old models stop working. Detecting the break point is step one — then you retrain on the new regime.\n\n\n\n\n05 Autocorrelation = Memory\n\n\nIf today’s value is linked to yesterday’s, the series has memory. During COVID, panic had momentum — one bad day predicted the next.\n\n\n\n\n06 Simple Rules Detect Anomalies\n\n\nThe 3-sigma rule flagged 30× more anomalies during COVID using only mean and std dev — no labels, no complex model needed.\n\n\n\n\n💡\n\nThese tools work on any data over time — temperature, hospital admissions, website traffic, energy usage. COVID and the stock market are just our learning example."
   }
 ]

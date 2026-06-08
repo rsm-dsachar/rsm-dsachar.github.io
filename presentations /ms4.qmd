@@ -1,0 +1,372 @@
+---
+title: "Understanding Market Shocks Through Time Series Analysis"
+subtitle: "Using COVID-19 and the Stock Market to Learn Time Series"
+author: "Devansh Sachar"
+date: "2026-05-27"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    code-fold: false
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{css, echo=FALSE}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.card, .info, .warn, .dark, .slide-summary, .final-note {
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 10px 0;
+}
+.card-teal, .info { background: #ecfeff; border-left: 5px solid #0891b2; }
+.card-orange, .warn { background: #fff7ed; border-left: 5px solid #f97316; }
+.dark { background: #0f172a; color: white; }
+.slide-summary { background: #f8fafc; border-left: 5px solid #64748b; }
+.final-note { background: #fefce8; border-left: 5px solid #eab308; display: flex; gap: 10px; }
+.step { display: flex; gap: 12px; margin: 8px 0; }
+.step-n { font-weight: bold; font-size: 1.3em; min-width: 1.8em; }
+.reveal img { max-height: 420px; object-fit: contain; }
+```
+
+## What Is a Time Series?
+
+::: two-col
+<div>
+
+A **time series** is a sequence of values recorded at regular points in
+time --- hourly, daily, monthly.
+
+What makes it different from a normal table: **order matters.** Monday
+connects to Tuesday. Shuffling the rows destroys the information.
+
+::: {style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;"}
+::: {.card .card-teal style="padding:10px 12px;"}
+::: {style="font-size:1.2em;margin-bottom:3px;"}
+📅
+:::
+
+**Timestamp**\
+[When a visit, click, or campaign event
+happened.]{style="font-size:0.82em;color:#94A3B8;"}
+:::
+
+::: {.card .card-orange style="padding:10px 12px;"}
+::: {style="font-size:1.2em;margin-bottom:3px;"}
+📏
+:::
+
+**Value**\
+[The metric measured at that
+moment.]{style="font-size:0.82em;color:#94A3B8;"}
+:::
+:::
+
+::: info
+💡 **Our example:** Stock market daily changes, 2018--2022. COVID-19
+creates a clear "before, during, after" --- perfect for seeing every
+concept.
+:::
+
+::: slide-summary
+In marketing analytics, time series helps you answer:
+
+-   Is traffic or campaign performance trending up or down?
+-   Is the behavior stable enough to make reliable forecasts?
+:::
+
+</div>
+
+<div>
+
+::: {#a630ac2c .cell execution_count="2"}
+::: {.cell-output .cell-output-display}
+<div>
+
+<figure>
+<p><img src="ms4_files/figure-1.png" role="img" width="796"
+height="537" /></p>
+</figure>
+
+</div>
+:::
+:::
+
+</div>
+:::
+:::
+
+## Concept 1 --- Trend & Stationarity
+
+::: two-col
+### 📈 Trend --- the Long-Run Direction
+
+The **trend** is the overall direction after smoothing noise. We use a
+**rolling mean** --- averaging the last N observations as we slide along
+the series.
+
+::: {#5ca81f6f .cell execution_count="3"}
+::: {.cell-output .cell-output-display}
+<div>
+
+<figure>
+<p><img src="ms4_files/figure-2.png" role="img" width="744"
+height="368" /></p>
+</figure>
+
+</div>
+:::
+:::
+
+::: info
+The navy line removes noise --- now **up → crash → recover** is obvious.
+:::
+
+### 🔄 Stationarity --- Does It Stay Consistent?
+
+A series is **stationary** when its average and spread stay roughly
+stable over time. Most analysis tools require this. Raw prices drift up
+forever --- not stationary. Daily % changes bounce near zero ---
+stationary.
+
+::: {#d748d882 .cell execution_count="4"}
+::: {.cell-output .cell-output-display}
+<div>
+
+<figure>
+<p><img src="ms4_files/figure-3.png" role="img" width="744"
+height="395" /></p>
+</figure>
+
+</div>
+:::
+:::
+
+::: dark
+**Fix:** Use daily % change instead of the raw price level.
+:::
+:::
+:::
+
+## Concept 2 --- Rolling Windows & Volatility
+
+::: two-col
+<div>
+
+### 🪟 Rolling Windows
+
+A rolling window slides along the series recomputing a statistic using
+only the **most recent N days.** This turns a single number into a
+**story over time.**
+
+::: step
+::: step-n
+1
+:::
+
+::: step-b
+#### Pick window size (e.g. 30 days)
+
+How far back do you want to look?
+:::
+:::
+
+::: step
+::: step-n
+2
+:::
+
+::: step-b
+#### Compute mean or std dev
+
+For just those N days
+:::
+:::
+
+::: step
+::: step-n
+3
+:::
+
+::: step-b
+#### Slide forward one day, repeat
+
+You now have a value for every date
+:::
+:::
+
+### 📊 Volatility = Rolling Std Dev
+
+**Volatility** = how much the series jumps around. Computed as the
+rolling standard deviation of daily changes.
+
+::: warn
+⚡ Rolling windows show **when** the series changed --- not just that it
+changed.
+:::
+
+</div>
+
+<div>
+
+::: {#47ef3ccf .cell execution_count="5"}
+::: {.cell-output .cell-output-display}
+<div>
+
+<figure>
+<p><img src="ms4_files/figure-4.png" role="img" width="768"
+height="562" /></p>
+</figure>
+
+</div>
+:::
+:::
+
+</div>
+:::
+:::
+
+## Concept 3 --- Structural Break
+
+A **structural break** is when the series **permanently shifts** its
+behaviour at a specific point. Models trained before the break give
+wrong answers after it.
+
+::: two-col
+<div>
+
+::: {#86e79a99 .cell execution_count="6"}
+::: {.cell-output .cell-output-display}
+<div>
+
+<figure>
+<p><img src="ms4_files/figure-5.png" role="img" width="796"
+height="511" /></p>
+</figure>
+
+</div>
+:::
+:::
+
+</div>
+
+<div>
+
+::: {.card .card-orange style="margin-bottom:10px;"}
+### 🎂 The Recipe Analogy
+
+You are baking a cake. Everything works fine for 6 steps. Then at step
+7, someone **swaps sugar for salt** --- and tells nobody. Every step
+after that tastes wrong. Your old model of "this is correct" is now
+broken --- because the underlying process permanently changed.\
+\
+A structural break is exactly that swap, happening in your data.
+:::
+
+::: {.card .card-teal}
+### 🔍 How to confirm a break
+
+Compare the **mean and std dev** on each side of the suspected point. If
+they differ significantly --- and the change persists --- it is a
+structural break.\
+\
+In our data: volatility went from **\~0.77% → \~1.45% per day** and
+*never returned* to the old level.
+:::
+
+::: dark
+Any model built on pre-COVID data now **underestimates risk** in the
+post-COVID world.
+:::
+
+</div>
+:::
+:::
+
+## Concept 4 --- Signal, Momentum & Anomaly Checks
+
+::: two-col
+### 🔁 Autocorrelation --- marketing momentum {#autocorrelation-does-the-past-predict-the-future}
+
+**Autocorrelation** measures whether today's result still reflects
+yesterday's performance. In marketing, this helps identify sustained
+campaign momentum rather than one-off noise.
+
+::: info
+If website traffic is high after an email blast, and the next day stays
+strong too, that means the series has momentum.
+:::
+
+::: {#3c37654e .cell execution_count="7"}
+::: {.cell-output .cell-output-display}
+<div>
+
+<figure>
+<p><img src="ms4_files/figure-6.png" role="img" width="766"
+height="390" /></p>
+</figure>
+
+</div>
+:::
+:::
+
+::: info
+During COVID, **lag-1 is significant** --- panic had momentum. One bad
+day predicted the next. Before and after: more random, less memory.
+:::
+
+### 🚨 Anomaly Detection --- 3-Sigma Rule
+
+Flag any point more than **3 standard deviations** from the mean. In
+normal data only 0.3% of points qualify --- so anything flagged is
+genuinely unusual.
+
+::: {.formula style="font-size:0.88em;"}
+Flag if: \|value − mean\| \> 3 × std dev
+:::
+
+::: {#4a921f92 .cell execution_count="8"}
+::: {.cell-output .cell-output-display}
+<div>
+
+<figure>
+<p><img src="ms4_files/figure-7.png" role="img" width="770"
+height="407" /></p>
+</figure>
+
+</div>
+:::
+:::
+
+::: warn
+⚡ In marketing terms, these anomalies are sudden shifts from normal
+behavior --- like campaign spikes or pandemic-driven traffic shocks.
+They flag when your model is no longer capturing the true signal.
+:::
+:::
+:::
+
+## Key Takeaways
+
+::: slide-summary
+-   Marketing time series are ordered signals --- sequence matters.
+-   Use changes or percentage returns to compare campaigns fairly.
+-   Detect shifts early with rolling measures and break analysis.
+-   Adapt models when structural breaks or anomalies appear.
+:::
+
+::: final-note
+💡
+
+Use these concepts to spot meaningful patterns quickly: stable changes,
+regime shifts, momentum, and true anomalies. The same approach applies
+to any time-driven dataset, not just markets.
+:::
+:::

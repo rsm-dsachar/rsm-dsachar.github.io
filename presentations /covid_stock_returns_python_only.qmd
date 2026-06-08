@@ -1,0 +1,680 @@
+---
+title: "COVID Stock Market Returns"
+subtitle: "Time Series Analysis with Python"
+author: "Devansh Sachar"
+date: "June 2026"
+
+jupyter: python3
+
+format:
+  revealjs:
+    embed-resources: true
+    width: 1400
+    height: 788
+    margin: 0.06
+    center: false
+    slide-number: c/t
+    transition: fade
+    transition-speed: fast
+    controls: true
+    progress: true
+    theme: simple
+    footer: "Devansh Sachar · MGTF 406 · Rady School of Management, UC San Diego"
+    include-in-header:
+      text: |
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        :root {
+          --teal:#0D9488; --teal2:#14B8A6; --teallt:#CCFBF1;
+          --navy:#1A3A5C; --dark:#0D1B2A;
+          --orange:#F97316; --amber:#FBBF24;
+          --green:#22C55E; --red:#EF4444;
+          --lgray:#F1F5F9; --mgray:#94A3B8; --dgray:#334155;
+        }
+
+        .reveal { font-family:'Inter','Calibri','Segoe UI',sans-serif; font-size:21px; color:var(--dgray); }
+        .reveal .slides section { text-align:left; padding:0 12px; box-sizing:border-box; }
+        .reveal .title-slide { display:none !important; }
+
+        .reveal h2 {
+          font-family:'Inter','Calibri',sans-serif; color:var(--navy); font-weight:800;
+          font-size:1.5em; text-align:left; text-transform:none; letter-spacing:-0.02em;
+          border:none; text-shadow:none; border-bottom:3px solid var(--teal);
+          padding-bottom:6px; margin-bottom:16px;
+        }
+        .reveal h3 { color:var(--teal); font-weight:700; font-size:1.0em; margin-bottom:6px; text-transform:none; border:none; text-shadow:none; }
+
+        .reveal p  { line-height:1.65; margin-bottom:0.45em; }
+        .reveal ul,.reveal ol { margin-left:1.3em; line-height:1.9; }
+        .reveal li { margin-bottom:0.22em; }
+        .reveal strong { color:var(--navy); }
+
+        .reveal .progress span   { background:var(--teal) !important; }
+        .reveal .slide-number    { font-size:13px; color:var(--mgray); background:transparent; }
+        .reveal .footer          { font-size:12px; color:var(--mgray); }
+        .reveal .controls button { color:var(--teal) !important; }
+
+        .reveal .cell-output img,.reveal .output img {
+          max-height:390px; max-width:100%; display:block; margin:4px auto;
+          border-radius:6px; box-shadow:0 2px 12px rgba(0,0,0,0.10);
+        }
+
+        .two-col   { display:grid; grid-template-columns:1fr 1fr;     gap:18px; margin-top:10px; }
+        .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:10px; }
+        .four-col  { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; margin-top:10px; }
+
+        .card { background:white; border:1px solid #E2E8F0; border-radius:8px; padding:14px 18px; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+        .card-teal   { border-left:5px solid var(--teal)   !important; }
+        .card-orange { border-left:5px solid var(--orange) !important; }
+        .card-green  { border-left:5px solid var(--green)  !important; }
+        .card-red    { border-left:5px solid var(--red)    !important; }
+
+        .dcard { background:var(--navy); border:1px solid var(--teal); border-radius:8px; padding:16px 18px; }
+        .dcard h3   { color:var(--teal2) !important; margin-top:0; }
+        .dcard p,.dcard li { color:#CBD5E1 !important; font-size:0.88em; line-height:1.65; }
+
+        .info  { background:var(--teallt); border:1px solid var(--teal);   border-radius:6px; padding:10px 16px; margin-top:10px; font-size:0.88em; color:var(--navy); }
+        .warn  { background:#FEF3C7;       border:1px solid var(--orange); border-radius:6px; padding:10px 16px; margin-top:10px; font-size:0.88em; color:#92400E; }
+        .dark  { background:var(--navy);   border-radius:6px; padding:10px 18px; margin-top:10px; font-size:0.88em; color:white; }
+
+        .metric { background:white; border:1px solid #E2E8F0; border-radius:10px; padding:14px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+        .metric .n { font-size:2.0em; font-weight:900; line-height:1; color:var(--navy); }
+        .metric .l { font-size:0.72em; color:var(--mgray); margin-top:6px; line-height:1.35; }
+
+        .tk   { background:white; border:1px solid #E2E8F0; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+        .tk-h { padding:7px 14px; display:flex; align-items:center; gap:10px; }
+        .tk-n { font-size:1.4em; font-weight:900; color:var(--amber); }
+        .tk-t { font-weight:700; color:white; font-size:0.9em; }
+        .tk-b { padding:9px 14px; font-size:0.84em; color:var(--dgray); line-height:1.55; }
+
+        table { font-size:0.78em !important; }
+        .teal   { color:var(--teal);   font-weight:700; }
+        .orange { color:var(--orange); font-weight:700; }
+        .green  { color:var(--green);  font-weight:700; }
+        .red    { color:var(--red);    font-weight:700; }
+        </style>
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+#| include: false
+import warnings
+warnings.filterwarnings("ignore")
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from IPython.display import display, HTML
+
+plt.rcParams.update({
+    "figure.facecolor":"#F1F5F9", "axes.facecolor":"#F1F5F9",
+    "axes.spines.top":False, "axes.spines.right":False,
+    "axes.edgecolor":"#CBD5E1", "axes.labelcolor":"#334155",
+    "axes.labelsize":12, "xtick.labelsize":10, "ytick.labelsize":10,
+    "xtick.color":"#94A3B8", "ytick.color":"#94A3B8",
+    "lines.linewidth":2.2, "font.family":"DejaVu Sans",
+    "grid.color":"#E2E8F0", "grid.linewidth":0.7,
+    "legend.fontsize":10, "legend.framealpha":0.92,
+    "legend.edgecolor":"#E2E8F0", "figure.dpi":130,
+})
+
+TEAL="#0D9488"; TEAL2="#14B8A6"; ORANGE="#F97316"; GREEN="#22C55E"
+NAVY="#1A3A5C"; RED="#EF4444"; GRAY="#94A3B8"; LGRAY="#E2E8F0"
+
+START = "2019-01-01"
+END = "2021-12-31"
+COVID_START = pd.Timestamp("2020-02-19")
+COVID_TROUGH = pd.Timestamp("2020-03-23")
+COVID_END = pd.Timestamp("2020-06-30")
+
+USE_LIVE_DATA = False
+# Set USE_LIVE_DATA = True if yfinance is installed and internet is available.
+# This deck is Python-only either way. The fallback keeps the file easy to render in class.
+
+def make_fallback_data():
+    np.random.seed(406)
+    dates = pd.date_range(START, END, freq="B")
+    rows = []
+    price = 100.0
+    for d in dates:
+        if d < COVID_START:
+            mu, sig = 0.00055, 0.0075
+        elif d <= COVID_TROUGH:
+            mu, sig = -0.020, 0.040
+        elif d <= COVID_END:
+            mu, sig = 0.006, 0.030
+        else:
+            mu, sig = 0.00075, 0.012
+        r = np.random.normal(mu, sig)
+        price *= (1 + r)
+        rows.append([d, price])
+    out = pd.DataFrame(rows, columns=["Date", "Close"])
+    # Force a recognizable COVID crash and rebound shape without needing internet.
+    out.loc[out["Date"].between(COVID_START, COVID_TROUGH), "Close"] *= np.linspace(1.00, 0.70, out["Date"].between(COVID_START, COVID_TROUGH).sum())
+    out.loc[out["Date"].between(COVID_TROUGH, COVID_END), "Close"] *= np.linspace(0.72, 1.05, out["Date"].between(COVID_TROUGH, COVID_END).sum())
+    return out
+
+def load_data():
+    if USE_LIVE_DATA:
+        try:
+            import yfinance as yf
+            raw = yf.download("^GSPC", start=START, end="2022-01-01", progress=False, auto_adjust=False)
+            if raw is not None and len(raw) > 500:
+                close = raw["Adj Close"] if "Adj Close" in raw.columns else raw["Close"]
+                if isinstance(close, pd.DataFrame):
+                    close = close.iloc[:, 0]
+                out = close.reset_index()
+                out.columns = ["Date", "Close"]
+                out["Date"] = pd.to_datetime(out["Date"])
+                return out, "Yahoo Finance: S&P 500 (^GSPC)"
+        except Exception:
+            pass
+    return make_fallback_data(), "Python fallback: S&P 500 style COVID return series"
+
+df, source_name = load_data()
+df = df.dropna().sort_values("Date").reset_index(drop=True)
+df["Return"] = df["Close"].pct_change()
+df["ReturnPct"] = df["Return"] * 100
+df["Index100"] = 100 * df["Close"] / df["Close"].iloc[0]
+df["RollingMean"] = df["ReturnPct"].rolling(20).mean()
+df["RollingVol"] = df["ReturnPct"].rolling(30).std()
+df["MA90"] = df["Index100"].rolling(90).mean()
+df["Peak"] = df["Index100"].cummax()
+df["Drawdown"] = (df["Index100"] / df["Peak"] - 1) * 100
+
+pre = df[df["Date"] < COVID_START].copy()
+shock = df[df["Date"].between(COVID_START, COVID_END)].copy()
+post = df[df["Date"] > COVID_END].copy()
+
+crash_window = df[df["Date"].between(COVID_START, COVID_TROUGH)].copy()
+crash_return = (crash_window["Index100"].iloc[-1] / crash_window["Index100"].iloc[0] - 1) * 100
+peak_vol = df["RollingVol"].max()
+peak_vol_date = df.loc[df["RollingVol"].idxmax(), "Date"]
+pre_vol = pre["ReturnPct"].std()
+shock_vol = shock["ReturnPct"].std()
+post_vol = post["ReturnPct"].std()
+
+mean_r = df["ReturnPct"].mean()
+std_r = df["ReturnPct"].std()
+df["Anomaly"] = (df["ReturnPct"] - mean_r).abs() > 3 * std_r
+anomalies = df[df["Anomaly"]].copy()
+
+top_moves = df.dropna(subset=["ReturnPct"]).assign(abs_move=lambda x: x["ReturnPct"].abs()).nlargest(6, "abs_move")
+top_table = top_moves[["Date", "ReturnPct", "RollingVol"]].copy()
+top_table["Date"] = top_table["Date"].dt.strftime("%b %d, %Y")
+top_table["ReturnPct"] = top_table["ReturnPct"].map(lambda x: f"{x:+.2f}%")
+top_table["RollingVol"] = top_table["RollingVol"].map(lambda x: f"{x:.2f}%" if pd.notnull(x) else "")
+top_table.columns = ["Date", "Daily Return", "30-Day Volatility"]
+
+# Simple forecast from the last 60 trading days. This is intentionally simple for teaching.
+forecast_days = 45
+last = df.dropna(subset=["Return"]).tail(60)
+mu = last["Return"].mean()
+sigma = last["Return"].std()
+future_dates = pd.bdate_range(df["Date"].max() + pd.offsets.BDay(1), periods=forecast_days)
+last_index = df["Index100"].iloc[-1]
+base = last_index * np.cumprod(np.repeat(1 + mu, forecast_days))
+upper = last_index * np.cumprod(np.repeat(1 + mu + 1.96 * sigma, forecast_days))
+lower = last_index * np.cumprod(np.repeat(1 + mu - 1.96 * sigma, forecast_days))
+fc = pd.DataFrame({"Date":future_dates, "Forecast":base, "Lower":lower, "Upper":upper})
+
+
+def metric_grid(items):
+    cards = []
+    for value, label, color in items:
+        cards.append(f"<div class='metric'><div class='n {color}'>{value}</div><div class='l'>{label}</div></div>")
+    return "<div class='three-col' style='margin-top:14px;'>" + "".join(cards) + "</div>"
+
+def setup_date_axis(ax):
+    ax.xaxis.set_major_locator(mdates.YearLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+    ax.grid(axis="y")
+
+```
+
+## {visibility="hidden"}
+
+<div style="
+  position:absolute; inset:0;
+  background: linear-gradient(135deg, #0D1B2A 60%, #1A3A5C 100%);
+  display:flex; flex-direction:column; justify-content:center;
+  padding: 0 70px;
+  box-sizing:border-box;
+">
+
+  <div style="position:absolute; top:0; left:0; width:100%; height:6px; background:var(--teal);"></div>
+
+  <div style="
+    position:absolute; right:0; top:0; bottom:0; width:360px;
+    background:linear-gradient(180deg,#0D9488 0%,#1A3A5C 100%);
+    opacity:0.18;
+  "></div>
+
+  <p style="color:var(--teal2); font-size:0.82em; font-weight:700; letter-spacing:3px; margin:0 0 16px; text-transform:uppercase;">
+    Marketing Analytics · Time Series
+  </p>
+
+  <h1 style="
+    color:white; font-size:3.0em; font-weight:900;
+    line-height:1.1; margin:0 0 18px; letter-spacing:-0.03em;
+    border:none; text-shadow:none;
+  ">
+    COVID-19 and<br>
+    <span style="color:var(--teal2);">Stock Market Returns</span>
+  </h1>
+
+  <p style="color:#94A3B8; font-size:1.15em; margin:0 0 32px; line-height:1.5;">
+    A simple time series story using prices, returns,<br>
+    rolling volatility, anomalies, and forecasting
+  </p>
+
+  <div style="width:80px; height:4px; background:var(--orange); border-radius:2px; margin-bottom:28px;"></div>
+
+  <p style="color:#64748B; font-size:0.88em; margin:0; line-height:1.8;">
+    <strong style="color:#94A3B8;">Devansh Sachar</strong> &nbsp;·&nbsp;
+    MGTF 406 &nbsp;·&nbsp; Rady School of Management, UC San Diego
+  </p>
+
+  <div style="
+    position:absolute; right:60px; top:50%; transform:translateY(-50%);
+    text-align:center; width:240px;
+  ">
+    <div style="background:rgba(13,148,136,0.15); border:1px solid var(--teal); border-radius:12px; padding:28px 20px;">
+      <div style="font-size:3.0em; font-weight:900; color:var(--teal2); line-height:1;">COVID</div>
+      <div style="color:#94A3B8; font-size:0.8em; margin-top:8px; line-height:1.5;">market shock window<br>Feb 2020 to Jun 2020</div>
+      <div style="margin:16px 0; height:1px; background:#1A3A5C;"></div>
+      <div style="font-size:2.4em; font-weight:900; color:var(--orange); line-height:1;">returns</div>
+      <div style="color:#94A3B8; font-size:0.8em; margin-top:8px; line-height:1.5;">daily percentage changes<br>tell the risk story</div>
+    </div>
+  </div>
+
+  <div style="position:absolute; bottom:0; left:0; width:100%; height:4px; background:linear-gradient(90deg, var(--teal), var(--orange));"></div>
+</div>
+
+---
+
+## 1. The Business Question
+
+::: {.two-col}
+::: {}
+
+A time series is data measured in order over time.
+
+For this presentation, the question is simple:
+
+<div class="dark">
+<strong>How did COVID-19 change stock market behavior, and what can analytics teams learn from it?</strong>
+</div>
+
+We focus on four ideas that are easy to explain:
+
+<div class="two-col" style="gap:10px; margin-top:12px;">
+<div class="card card-teal"><strong>Trend</strong><br><span style="font-size:0.85em;">Long-run direction</span></div>
+<div class="card card-orange"><strong>Returns</strong><br><span style="font-size:0.85em;">Daily gains or losses</span></div>
+<div class="card card-red"><strong>Volatility</strong><br><span style="font-size:0.85em;">Risk and uncertainty</span></div>
+<div class="card card-green"><strong>Anomalies</strong><br><span style="font-size:0.85em;">Unusual market days</span></div>
+</div>
+
+::: {.info}
+Dataset source used in this file: `Python fallback: S&P 500 style COVID return series`. To use live S&P 500 data, set `USE_LIVE_DATA = True` in the first Python chunk.
+:::
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.2, 4.3))
+ax.axvspan(COVID_START, COVID_END, color=ORANGE, alpha=0.12, label="COVID shock window")
+ax.plot(df["Date"], df["Index100"], color=TEAL, linewidth=2.3, label="Market index, Jan 2019 = 100")
+ax.plot(df["Date"], df["MA90"], color=NAVY, linewidth=2.7, label="90-day trend")
+ax.axvline(COVID_TROUGH, color=RED, linestyle="--", linewidth=1.8, label="Crash trough")
+setup_date_axis(ax)
+ax.set_ylabel("Index value")
+ax.set_title("A market index is a time series", fontsize=11, fontweight="bold", color=NAVY)
+ax.legend(loc="upper left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+## 2. Prices Show the Story, Returns Show the Reaction
+
+::: {.two-col}
+::: {}
+
+Prices are useful for the big picture, but returns are better for analysis.
+
+<div class="card card-teal" style="margin-bottom:12px;">
+<strong>Price</strong><br>
+Shows the level of the market. It usually trends over time.
+</div>
+
+<div class="card card-orange" style="margin-bottom:12px;">
+<strong>Return</strong><br>
+Shows the percentage change from one trading day to the next.
+</div>
+
+<div class="dark" style="font-size:0.95em;">
+Return = (Today's price - Yesterday's price) / Yesterday's price
+</div>
+
+::: {.info}
+Why it matters: managers, investors, and analysts usually care about returns because returns measure gain, loss, and risk.
+:::
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.2, 4.3))
+ax.axvspan(COVID_START, COVID_END, color=ORANGE, alpha=0.11)
+ax.plot(df["Date"], df["ReturnPct"], color=TEAL, linewidth=0.9, alpha=0.85)
+ax.axhline(0, color=NAVY, linestyle="--", linewidth=1.2)
+ax.axvline(COVID_TROUGH, color=RED, linestyle="--", linewidth=1.8)
+setup_date_axis(ax)
+ax.set_ylabel("Daily return (%)")
+ax.set_title("Daily returns reveal the market reaction", fontsize=11, fontweight="bold", color=NAVY)
+
+max_gain = df.loc[df["ReturnPct"].idxmax()]
+max_loss = df.loc[df["ReturnPct"].idxmin()]
+ax.scatter([max_gain["Date"], max_loss["Date"]], [max_gain["ReturnPct"], max_loss["ReturnPct"]], color=[GREEN, RED], s=65, zorder=5, edgecolors="white")
+ax.annotate(f"Largest loss\n{max_loss['ReturnPct']:.1f}%", xy=(max_loss["Date"], max_loss["ReturnPct"]), xytext=(COVID_START, max_loss["ReturnPct"]-3), color=RED, fontweight="bold", fontsize=9.5, arrowprops=dict(arrowstyle="->", color=RED))
+ax.annotate(f"Largest gain\n{max_gain['ReturnPct']:.1f}%", xy=(max_gain["Date"], max_gain["ReturnPct"]), xytext=(pd.Timestamp("2020-07-01"), max_gain["ReturnPct"]+2), color=GREEN, fontweight="bold", fontsize=9.5, arrowprops=dict(arrowstyle="->", color=GREEN))
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+## 3. COVID Created a Clear Market Shock
+
+::: {.two-col}
+::: {}
+
+A market shock is a sudden event that changes expectations.
+
+During the COVID period, investors reacted to:
+
+- Lockdowns and uncertainty
+- Business closures
+- Policy responses
+- Vaccine and reopening expectations
+
+```{python}
+display(HTML(metric_grid([
+    (f"{crash_return:.1f}%", "drop in the crash window", "red"),
+    (f"{peak_vol:.1f}%", "peak 30-day daily volatility", "orange"),
+    (f"{len(anomalies)}", "extreme return days flagged", "teal"),
+])))
+```
+
+::: {.warn}
+The point is not just that the market fell. The bigger lesson is that the behavior of the time series changed.
+:::
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.2, 4.4))
+ax.axvspan(COVID_START, COVID_END, color=ORANGE, alpha=0.12)
+ax.plot(df["Date"], df["Index100"], color=TEAL, linewidth=2.2)
+ax.fill_between(mdates.date2num(crash_window["Date"]), crash_window["Index100"].to_numpy(), crash_window["Index100"].iloc[0], color=RED, alpha=0.13)
+ax.axvline(COVID_START, color=ORANGE, linestyle="--", linewidth=1.6)
+ax.axvline(COVID_TROUGH, color=RED, linestyle="--", linewidth=1.8)
+ax.axvline(COVID_END, color=GREEN, linestyle="--", linewidth=1.6)
+setup_date_axis(ax)
+ax.set_ylabel("Index value")
+ax.set_title("Crash and rebound around the COVID shock", fontsize=11, fontweight="bold", color=NAVY)
+ax.annotate("Shock begins", xy=(COVID_START, df.loc[df["Date"].sub(COVID_START).abs().idxmin(), "Index100"]), xytext=(pd.Timestamp("2019-08-01"), df["Index100"].max()*0.95), color=ORANGE, fontweight="bold", fontsize=9.5, arrowprops=dict(arrowstyle="->", color=ORANGE))
+ax.annotate("Trough", xy=(COVID_TROUGH, df.loc[df["Date"].sub(COVID_TROUGH).abs().idxmin(), "Index100"]), xytext=(pd.Timestamp("2020-05-01"), df["Index100"].min()*0.92), color=RED, fontweight="bold", fontsize=9.5, arrowprops=dict(arrowstyle="->", color=RED))
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+## 4. Volatility Clustering: Big Moves Come Together
+
+::: {.two-col}
+::: {}
+
+One important time series pattern is volatility clustering.
+
+That means large movements tend to be followed by more large movements.
+
+<div class="card card-red" style="margin-top:12px;">
+<strong>Before COVID:</strong> returns were smaller and calmer.<br>
+<strong>During COVID:</strong> positive and negative swings happened back to back.
+</div>
+
+::: {.info}
+This is why risk teams track rolling volatility instead of looking only at average return.
+:::
+
+:::
+
+::: {}
+```{python}
+plot_df = df.dropna(subset=["ReturnPct"])
+colors = np.where(plot_df["ReturnPct"] >= 0, GREEN, RED)
+fig, ax = plt.subplots(figsize=(6.2, 4.4))
+ax.axvspan(COVID_START, COVID_END, color=ORANGE, alpha=0.10)
+ax.bar(plot_df["Date"], plot_df["ReturnPct"], color=colors, width=2.5, alpha=0.85)
+ax.axhline(0, color=NAVY, linewidth=1.0)
+setup_date_axis(ax)
+ax.set_ylabel("Daily return (%)")
+ax.set_title("Green and red bars show daily market swings", fontsize=11, fontweight="bold", color=NAVY)
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+## 5. Rolling Volatility Measures Risk
+
+::: {.two-col}
+::: {}
+
+Rolling volatility calculates the standard deviation of returns over a moving window.
+
+Here we use a 30-trading-day window.
+
+```{python}
+display(HTML(metric_grid([
+    (f"{pre_vol:.2f}%", "pre-COVID daily volatility", "teal"),
+    (f"{shock_vol:.2f}%", "COVID shock volatility", "red"),
+    (f"{post_vol:.2f}%", "post-shock volatility", "green"),
+])))
+```
+
+::: {.dark}
+Simple interpretation: the market became less predictable, so the risk of making a wrong forecast increased.
+:::
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.2, 4.4))
+ax.axvspan(COVID_START, COVID_END, color=ORANGE, alpha=0.11, label="COVID shock")
+ax.plot(df["Date"], df["RollingVol"], color=RED, linewidth=2.4, label="30-day rolling volatility")
+vol_df = df.dropna(subset=["RollingVol"])
+ax.fill_between(mdates.date2num(vol_df["Date"]), vol_df["RollingVol"].to_numpy(), color=RED, alpha=0.13)
+ax.axvline(peak_vol_date, color=NAVY, linestyle="--", linewidth=1.6)
+setup_date_axis(ax)
+ax.set_ylabel("Volatility (% per day)")
+ax.set_title("COVID made returns much more volatile", fontsize=11, fontweight="bold", color=NAVY)
+ax.annotate(f"Peak volatility\n{peak_vol:.1f}%", xy=(peak_vol_date, peak_vol), xytext=(pd.Timestamp("2020-09-01"), peak_vol*0.75), color=RED, fontweight="bold", fontsize=9.5, arrowprops=dict(arrowstyle="->", color=RED))
+ax.legend(loc="upper right")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+## 6. Anomaly Detection Finds Extreme Days
+
+::: {.two-col}
+::: {}
+
+A simple way to identify unusual days is the 3-sigma rule.
+
+<div class="dark" style="font-size:0.95em;">
+Flag a day if |return - average return| > 3 × standard deviation
+</div>
+
+This works well for teaching because it is easy to explain:
+
+- Calculate normal behavior
+- Draw upper and lower limits
+- Flag points outside those limits
+
+::: {.warn}
+The red dots are days where the market moved far more than normal.
+:::
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.2, 4.4))
+ax.axvspan(COVID_START, COVID_END, color=ORANGE, alpha=0.10)
+normal = df[~df["Anomaly"]]
+ax.plot(normal["Date"], normal["ReturnPct"], color=TEAL, linewidth=0.85, alpha=0.65, label="Normal day")
+ax.scatter(anomalies["Date"], anomalies["ReturnPct"], color=RED, s=60, zorder=5, edgecolors="white", linewidth=0.6, label="Anomaly")
+ax.axhline(mean_r + 3 * std_r, color=GRAY, linestyle=":", linewidth=1.5, label="3-sigma boundary")
+ax.axhline(mean_r - 3 * std_r, color=GRAY, linestyle=":", linewidth=1.5)
+ax.axhline(0, color=NAVY, linewidth=0.9, alpha=0.8)
+setup_date_axis(ax)
+ax.set_ylabel("Daily return (%)")
+ax.set_title("Anomaly detection on daily returns", fontsize=11, fontweight="bold", color=NAVY)
+ax.legend(loc="lower left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+## 7. Biggest Return Days Tell the Crisis Story
+
+::: {.two-col}
+::: {}
+
+Extreme days are useful because they turn a long time series into a short list of business events.
+
+Instead of asking people to read hundreds of rows, we highlight the days that need explanation.
+
+::: {.info}
+In real stock data, these dates would be matched with news: lockdown announcements, central bank actions, fiscal stimulus, earnings warnings, and vaccine updates.
+:::
+
+```{python}
+top_table
+```
+
+:::
+
+::: {}
+```{python}
+period_summary = pd.DataFrame({
+    "Period":["Pre-COVID", "COVID Shock", "Post-Shock"],
+    "Average Return":[pre["ReturnPct"].mean(), shock["ReturnPct"].mean(), post["ReturnPct"].mean()],
+    "Volatility":[pre["ReturnPct"].std(), shock["ReturnPct"].std(), post["ReturnPct"].std()],
+    "Anomaly Days":[
+        df[df["Date"] < COVID_START]["Anomaly"].sum(),
+        df[df["Date"].between(COVID_START, COVID_END)]["Anomaly"].sum(),
+        df[df["Date"] > COVID_END]["Anomaly"].sum()
+    ]
+})
+
+fig, ax = plt.subplots(figsize=(6.2, 4.2))
+x = np.arange(len(period_summary))
+w = 0.34
+ax.bar(x-w/2, period_summary["Average Return"], width=w, color=TEAL, label="Average daily return")
+ax.bar(x+w/2, period_summary["Volatility"], width=w, color=RED, label="Daily volatility")
+ax.set_xticks(x)
+ax.set_xticklabels(period_summary["Period"])
+ax.axhline(0, color=NAVY, linewidth=1.0)
+ax.set_ylabel("Percent")
+ax.set_title("COVID changed both return and risk", fontsize=11, fontweight="bold", color=NAVY)
+ax.legend(loc="upper left")
+ax.grid(axis="y")
+for i, v in enumerate(period_summary["Anomaly Days"]):
+    ax.text(i, max(period_summary["Volatility"].max(), period_summary["Average Return"].max())*0.85, f"{int(v)}\nanomaly\ndays", ha="center", color=NAVY, fontweight="bold", fontsize=9)
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+## 8. Forecasting Lesson and Final Takeaways
+
+::: {.two-col}
+::: {}
+
+Forecasting after a shock is difficult because the future may not look like the past.
+
+A simple forecast uses recent average return and recent volatility.
+
+<div class="card card-orange" style="margin-bottom:12px;">
+<strong>Key lesson:</strong> after COVID, uncertainty is as important as direction.
+</div>
+
+<div class="tk" style="margin-top:10px;">
+<div class="tk-h" style="background:#1A3A5C;"><span class="tk-n">01</span><span class="tk-t">Use returns, not just prices</span></div>
+<div class="tk-b">Returns reveal gains, losses, risk, and market reaction.</div>
+</div>
+
+<div class="tk" style="margin-top:10px;">
+<div class="tk-h" style="background:#0D9488;"><span class="tk-n">02</span><span class="tk-t">Track rolling volatility</span></div>
+<div class="tk-b">Volatility shows when the market becomes unpredictable.</div>
+</div>
+
+<div class="tk" style="margin-top:10px;">
+<div class="tk-h" style="background:#1A3A5C;"><span class="tk-n">03</span><span class="tk-t">Flag anomalies early</span></div>
+<div class="tk-b">Extreme days can trigger deeper business analysis and risk controls.</div>
+</div>
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.2, 4.4))
+hist = df.tail(180)
+ax.plot(hist["Date"], hist["Index100"], color=TEAL, linewidth=2.3, label="Historical index")
+ax.plot(fc["Date"], fc["Forecast"], color=NAVY, linewidth=2.4, label="Simple forecast")
+ax.fill_between(mdates.date2num(fc["Date"]), fc["Lower"].to_numpy(), fc["Upper"].to_numpy(), color=ORANGE, alpha=0.18, label="Uncertainty band")
+ax.axvline(df["Date"].max(), color=GRAY, linestyle="--", linewidth=1.4)
+ax.grid(axis="y")
+ax.set_ylabel("Index value")
+ax.set_title("Simple forecast: direction plus uncertainty", fontsize=11, fontweight="bold", color=NAVY)
+ax.legend(loc="upper left")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.dark}
+Final message: time series analysis helps marketing and analytics teams convert messy daily market data into a simple story about trend, risk, shock, and recovery.
+:::
+:::

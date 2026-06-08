@@ -1,0 +1,604 @@
+---
+title: "Understanding Market Shocks Through Time Series Analysis"
+subtitle: "Using COVID-19 and the Stock Market to Learn Time Series"
+author: "Devansh Sachar"
+date: "May 27, 2026"
+jupyter: python3
+
+format:
+  revealjs:
+    embed-resources: true
+    width: 1400
+    height: 788
+    margin: 0.06
+    center: false
+    slide-number: c/t
+    transition: fade
+    transition-speed: fast
+    controls: true
+    progress: true
+    theme: simple
+    include-in-header:
+      text: |
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+        :root {
+          --teal:#0D9488; --teal2:#14B8A6; --teallt:#CCFBF1;
+          --navy:#1A3A5C; --dark:#0D1B2A;
+          --orange:#F97316; --amber:#FBBF24;
+          --green:#22C55E; --red:#EF4444;
+          --lgray:#F1F5F9; --mgray:#94A3B8; --dgray:#334155;
+        }
+
+        .reveal {
+          font-family: 'Inter','Calibri','Segoe UI',sans-serif;
+          font-size: 21px; color: var(--dgray);
+        }
+
+        .reveal h1,.reveal h2,.reveal h3 {
+          font-family: 'Inter','Calibri',sans-serif;
+          color: var(--navy); font-weight: 800;
+          text-align: left; text-transform: none;
+          letter-spacing: -0.02em; border: none;
+          text-shadow: none; margin-bottom: 0.3em;
+        }
+        .reveal h2 {
+          font-size: 1.55em;
+          border-bottom: 3px solid var(--teal);
+          padding-bottom: 6px; margin-bottom: 18px;
+        }
+        .reveal h3 { font-size: 1.05em; color: var(--teal); font-weight: 700; margin-bottom: 8px; }
+
+        .reveal p  { line-height: 1.65; margin-bottom: 0.5em; }
+        .reveal ul,.reveal ol { margin-left: 1.3em; line-height: 1.85; }
+        .reveal li { margin-bottom: 0.22em; }
+        .reveal strong { color: var(--navy); }
+
+        .reveal .slides section { text-align: left; padding: 0 10px; box-sizing: border-box; }
+
+        /* no footer at all */
+        .reveal .footer { display: none !important; }
+
+        .reveal .progress span   { background: var(--teal) !important; }
+        .reveal .slide-number    { font-size: 13px; color: var(--mgray); background: transparent; }
+        .reveal .controls button { color: var(--teal) !important; }
+
+        /* title slide */
+        .reveal .title-slide { background: var(--dark) !important; }
+        .reveal .title-slide h1        { color:#fff !important; font-size:2.3em !important; border:none !important; }
+        .reveal .title-slide .subtitle { color:var(--teal2) !important; font-size:1.1em !important; }
+        .reveal .title-slide .author,
+        .reveal .title-slide .date     { color:var(--mgray) !important; font-size:0.88em !important; }
+
+        /* dark background slides */
+        section[data-background-color="#0D1B2A"] h2 { color:#fff !important; border-bottom-color:var(--teal) !important; }
+
+        /* figures */
+        .reveal .cell-output img, .reveal .output img {
+          max-height: 375px; max-width: 100%; display: block;
+          margin: 4px auto; border-radius: 6px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        }
+
+        /* grids */
+        .two-col   { display:grid; grid-template-columns:1fr 1fr;     gap:18px; margin-top:10px; }
+        .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:10px; }
+
+        /* white card */
+        .card { background:white; border:1px solid #E2E8F0; border-radius:8px; padding:14px 18px; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+        .card-teal   { border-left:5px solid var(--teal)   !important; }
+        .card-orange { border-left:5px solid var(--orange) !important; }
+        .card-green  { border-left:5px solid var(--green)  !important; }
+        .card-red    { border-left:5px solid var(--red)    !important; }
+        .card h3     { margin-top:0; }
+
+        /* dark navy card */
+        .dcard { background:var(--navy); border:1px solid var(--teal); border-radius:8px; padding:16px 18px; color:#CBD5E1; }
+        .dcard h3               { color:var(--teal2) !important; margin-top:0; font-size:0.95em; }
+        .dcard p, .dcard li     { color:#CBD5E1 !important; font-size:0.86em; line-height:1.65; }
+
+        /* callout boxes */
+        .info    { background:var(--teallt); border:1px solid var(--teal);   border-radius:6px; padding:10px 16px; margin-top:10px; font-size:0.88em; color:var(--navy); }
+        .warn    { background:#FEF3C7;       border:1px solid var(--orange); border-radius:6px; padding:10px 16px; margin-top:10px; font-size:0.88em; color:#92400E; }
+        .darkbar { background:var(--navy);   border-radius:6px; padding:10px 18px; margin-top:10px; font-size:0.88em; color:white; }
+
+        /* formula box */
+        .formula {
+          background:var(--navy); color:white; border-radius:6px;
+          padding:10px 20px; font-family:'Courier New',monospace;
+          font-size:1.05em; text-align:center; margin:12px 0;
+        }
+
+        /* numbered step */
+        .step    { display:flex; align-items:flex-start; gap:12px; margin-bottom:13px; }
+        .step-n  { background:var(--teal); color:white; border-radius:50%; width:30px; height:30px; min-width:30px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9em; }
+        .step-b h4 { margin:0 0 3px; font-size:0.95em; color:var(--navy); }
+        .step-b p  { margin:0; font-size:0.82em; color:var(--dgray); }
+
+        /* takeaway card */
+        .tcard     { background:white; border:1px solid #E2E8F0; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
+        .tcard-hdr { padding:8px 14px; display:flex; align-items:center; gap:10px; }
+        .tcard-num { font-size:1.5em; font-weight:900; color:var(--amber); }
+        .tcard-ttl { font-weight:700; color:white; font-size:0.92em; }
+        .tcard-bdy { padding:10px 14px; font-size:0.84em; color:var(--dgray); line-height:1.55; }
+
+        /* colour utils */
+        .teal   { color:var(--teal);   font-weight:700; }
+        .orange { color:var(--orange); font-weight:700; }
+        .green  { color:var(--green);  font-weight:700; }
+        .red    { color:var(--red);    font-weight:700; }
+        </style>
+
+execute:
+  echo: false
+  warning: false
+  message: false
+  enabled: true
+---
+
+```{python}
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ── Consistent chart theme ────────────────────────────────
+plt.rcParams.update({
+    "figure.facecolor":"#F1F5F9","axes.facecolor":"#F1F5F9",
+    "axes.spines.top":False,"axes.spines.right":False,
+    "axes.edgecolor":"#CBD5E1","axes.labelcolor":"#334155",
+    "axes.labelsize":12,"xtick.labelsize":10,"ytick.labelsize":10,
+    "xtick.color":"#94A3B8","ytick.color":"#94A3B8",
+    "lines.linewidth":2.2,"font.family":"DejaVu Sans",
+    "grid.color":"#E2E8F0","grid.linewidth":0.7,
+    "legend.fontsize":10,"legend.framealpha":0.92,
+    "legend.edgecolor":"#E2E8F0","figure.dpi":130,
+})
+
+TEAL="#0D9488"; ORANGE="#F97316"; GREEN="#22C55E"
+NAVY="#1A3A5C"; RED="#EF4444"; GRAY="#94A3B8"
+
+# ── Build dataset (same as original) ─────────────────────
+np.random.seed(42)
+dates = pd.date_range(start="2018-01-01", end="2022-12-31", freq="B")
+returns = []
+for d in dates:
+    if   d < pd.Timestamp("2020-03-01"):  returns.append(np.random.normal( 0.0004, 0.008))
+    elif d <= pd.Timestamp("2020-06-30"): returns.append(np.random.normal(-0.0008, 0.035))
+    else:                                  returns.append(np.random.normal( 0.0005, 0.014))
+
+df = pd.DataFrame({"Date": dates, "Return": returns})
+df["Price"]   = 100 * (1 + df["Return"]).cumprod()
+df["Trend"]   = df["Price"].rolling(90, center=True).mean()
+df["RolVol"]  = df["Return"].rolling(30).std()
+df["Period"]  = np.where(df["Date"] < "2020-03-01", "Pre-COVID",
+                np.where(df["Date"] <= "2020-06-30", "COVID Shock", "Post-Shock"))
+
+SHOCK = pd.Timestamp("2020-03-01")
+mean_r = df["Return"].mean()
+std_r  = df["Return"].std()
+df["Anomaly"] = abs(df["Return"] - mean_r) > 3 * std_r
+anomalies = df[df["Anomaly"]]
+```
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 1 — WHAT IS A TIME SERIES?
+     ═══════════════════════════════════════════ -->
+
+## What Is a Time Series?
+
+::: {.two-col}
+::: {}
+
+A **time series** is a sequence of values recorded at regular points in time — daily, monthly, hourly, or any consistent interval.
+
+What makes it different from a normal data table: **the order of rows matters.** Monday is connected to Tuesday. You cannot shuffle the data without losing information.
+
+**Every time series has two parts:**
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+<div class="card card-teal" style="padding:12px;">
+  <div style="font-size:1.3em;margin-bottom:4px;">📅</div>
+  <strong>Timestamp</strong><br>
+  <span style="font-size:0.85em;color:var(--dgray);">When was it recorded?</span>
+</div>
+<div class="card card-orange" style="padding:12px;">
+  <div style="font-size:1.3em;margin-bottom:4px;">📏</div>
+  <strong>Value</strong><br>
+  <span style="font-size:0.85em;color:var(--dgray);">What was measured?</span>
+</div>
+</div>
+
+::: {.info}
+💡 **Our example:** Stock market daily returns, 2018–2022. COVID-19 creates a visible "before, during, and after" — perfect for seeing every time series concept clearly.
+:::
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.2, 4.5))
+
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.12)
+ax.plot(df["Date"], df["Price"], color=TEAL, linewidth=2.0, label="Market Index")
+ax.axvline(SHOCK, color=ORANGE, linewidth=2.0, linestyle="--", label="COVID Shock begins")
+
+ax.annotate("Calm period\nSmall, regular changes",
+            xy=(pd.Timestamp("2019-01-01"), 116),
+            xytext=(pd.Timestamp("2018-03-01"), 130),
+            fontsize=9.5, color=TEAL, fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.3))
+ax.annotate("Sudden shock!\nHuge drop in weeks",
+            xy=(pd.Timestamp("2020-04-15"), 88),
+            xytext=(pd.Timestamp("2020-06-01"), 74),
+            fontsize=9.5, color=ORANGE, fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=ORANGE, lw=1.3))
+ax.annotate("Recovery\nMore turbulent than before",
+            xy=(pd.Timestamp("2021-07-01"), 150),
+            xytext=(pd.Timestamp("2021-09-01"), 128),
+            fontsize=9.5, color=GREEN, fontweight="bold",
+            arrowprops=dict(arrowstyle="->", color=GREEN, lw=1.3))
+
+ax.set_xlabel("Date"); ax.set_ylabel("Index Value (starts at 100)")
+ax.set_title("Stock Market Index — a classic time series", fontsize=11, fontweight="bold", color=NAVY)
+ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+:::
+:::
+
+---
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 2 — TREND & STATIONARITY
+     ═══════════════════════════════════════════ -->
+
+## Concept 1 — Trend & Stationarity
+
+::: {.two-col}
+::: {}
+
+### 📈 Trend — the Long-Run Direction
+
+The **trend** is the overall direction of the series after smoothing out noise. We find it using a **rolling mean** — averaging the last N observations as we slide along.
+
+```{python}
+fig, ax = plt.subplots(figsize=(5.8, 3.0))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.10)
+ax.plot(df["Date"], df["Price"], color=TEAL, linewidth=1.0, alpha=0.28, label="Daily (noisy)")
+ax.plot(df["Date"], df["Trend"], color=NAVY, linewidth=2.6, label="90-day rolling mean (trend)")
+ax.axvline(SHOCK, color=ORANGE, linewidth=1.8, linestyle="--")
+ax.set_ylabel("Value"); ax.set_xlabel("Date")
+ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.3)
+plt.show()
+```
+
+::: {.info}
+The navy line removes the noise — now the **up → crash → recover** direction is obvious.
+:::
+
+:::
+
+::: {}
+
+### 🔄 Stationarity — Does It Stay Consistent?
+
+A series is **stationary** when its mean and spread stay roughly stable over time. Almost every time series model requires this.
+
+```{python}
+fig, axes = plt.subplots(2, 1, figsize=(5.8, 3.2), sharex=True)
+
+axes[0].plot(df["Date"], df["Price"], color=RED, linewidth=1.5)
+axes[0].set_title("❌ Price level drifts — NOT stationary", fontsize=10, fontweight="bold", color=RED)
+axes[0].set_ylabel("Price"); axes[0].grid(axis="y")
+
+axes[1].plot(df["Date"], df["Return"]*100, color=TEAL, linewidth=0.85, alpha=0.85)
+axes[1].axhline(0, color=NAVY, linewidth=1.2, linestyle="--", label="Mean ≈ 0")
+axes[1].set_title("✅ Daily % change bounces near zero — stationary", fontsize=10, fontweight="bold", color=TEAL)
+axes[1].set_ylabel("Change (%)"); axes[1].set_xlabel("Date")
+axes[1].legend(fontsize=9); axes[1].grid(axis="y")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.darkbar}
+**The fix:** Use the **daily % change** instead of the raw level. Changes stay near zero — stationary. The rising price series is not.
+:::
+:::
+:::
+
+---
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3 — ROLLING WINDOWS & VOLATILITY
+     ═══════════════════════════════════════════ -->
+
+## Concept 2 — Rolling Windows & Volatility
+
+::: {.two-col}
+::: {}
+
+### 🪟 What Is a Rolling Window?
+
+A rolling window slides along the series and recomputes a statistic using only the **most recent N observations.** This turns a single summary number into a **story over time.**
+
+<div class="step"><div class="step-n">1</div><div class="step-b"><h4>Pick a window size</h4><p>e.g. 30 days — how far back do you look?</p></div></div>
+<div class="step"><div class="step-n">2</div><div class="step-b"><h4>Compute the statistic</h4><p>Mean, std dev, sum — whatever you need</p></div></div>
+<div class="step"><div class="step-n">3</div><div class="step-b"><h4>Slide forward one day, repeat</h4><p>You now have a value for every date</p></div></div>
+
+### 📊 Volatility = Rolling Std Dev
+
+**Volatility** measures how much the series jumps around day to day. We compute it as the **rolling standard deviation** of daily changes over the last 30 days.
+
+:::
+
+::: {}
+```{python}
+fig, axes = plt.subplots(2, 1, figsize=(5.8, 4.5), sharex=True)
+
+# Top: returns with rolling mean band
+roll_mean = df["Return"].rolling(30).mean() * 100
+roll_std  = df["Return"].rolling(30).std()  * 100
+axes[0].plot(df["Date"], df["Return"]*100, color=TEAL, linewidth=0.8, alpha=0.45, label="Daily change")
+axes[0].plot(df["Date"], roll_mean, color=NAVY, linewidth=1.8, label="30-day mean")
+axes[0].fill_between(df["Date"],
+                     roll_mean - roll_std, roll_mean + roll_std,
+                     alpha=0.18, color=NAVY, label="±1 std dev band")
+axes[0].axvline(SHOCK, color=ORANGE, linewidth=1.6, linestyle="--")
+axes[0].set_title("Rolling Mean ± Rolling Std Dev", fontsize=10, fontweight="bold", color=NAVY)
+axes[0].set_ylabel("Change (%)"); axes[0].legend(fontsize=8); axes[0].grid(axis="y")
+
+# Bottom: rolling volatility alone
+axes[1].axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.10)
+axes[1].plot(df["Date"], df["RolVol"]*100, color=RED, linewidth=2.2, label="30-day volatility")
+axes[1].fill_between(df["Date"], df["RolVol"]*100, alpha=0.12, color=RED)
+axes[1].axvline(SHOCK, color=ORANGE, linewidth=1.6, linestyle="--")
+pv  = (df["RolVol"]*100).max()
+pdt = df.loc[(df["RolVol"]*100).idxmax(), "Date"]
+axes[1].annotate(f"Peak ≈ {pv:.1f}% (4× normal)",
+                 xy=(pdt, pv), xytext=(pd.Timestamp("2021-01-01"), pv*0.82),
+                 fontsize=9, color=RED, fontweight="bold",
+                 arrowprops=dict(arrowstyle="->", color=RED, lw=1.3))
+axes[1].set_title("Rolling Volatility — when did the series become wild?", fontsize=10, fontweight="bold", color=NAVY)
+axes[1].set_ylabel("Volatility (%)"); axes[1].set_xlabel("Date")
+axes[1].legend(fontsize=8); axes[1].grid(axis="y")
+
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.warn}
+⚡ The rolling window turns one number into a timeline — you can see **exactly when** the series became risky, not just that it was risky overall.
+:::
+:::
+:::
+
+---
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4 — STRUCTURAL BREAK & AUTOCORRELATION
+     ═══════════════════════════════════════════ -->
+
+## Concept 3 — Structural Break & Autocorrelation
+
+::: {.two-col}
+::: {}
+
+### 💥 Structural Break — When the Pattern Changes Permanently
+
+A structural break is a point where the series **permanently shifts** its behaviour. Models trained before the break will give wrong answers after it.
+
+```{python}
+fig, ax = plt.subplots(figsize=(5.8, 3.1))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.12)
+ax.plot(df["Date"], df["RolVol"]*100, color=RED, linewidth=2.0)
+ax.axvline(SHOCK, color=ORANGE, linewidth=2.0, linestyle="--", label="Break point")
+
+pre_m  = df[df["Date"] < SHOCK]["RolVol"].mean() * 100
+post_m = df[df["Date"] > pd.Timestamp("2020-06-30")]["RolVol"].mean() * 100
+ax.axhline(pre_m,  xmax=0.47, color=TEAL,  linewidth=2.4, linestyle="-", label=f"Before avg: {pre_m:.2f}%")
+ax.axhline(post_m, xmin=0.53, color=GREEN, linewidth=2.4, linestyle="-", label=f"After avg:  {post_m:.2f}%")
+ax.set_ylabel("30-day Volatility (%)"); ax.set_xlabel("Date")
+ax.legend(fontsize=8); ax.grid(axis="y")
+ax.set_title("Volatility before vs after COVID — permanently different", fontsize=10, fontweight="bold", color=NAVY)
+fig.tight_layout(pad=0.3)
+plt.show()
+```
+
+::: {.darkbar}
+Volatility nearly **doubled and stayed there.** Any model built on pre-COVID data now underestimates risk.
+:::
+
+:::
+
+::: {}
+
+### 🔁 Autocorrelation — Does the Past Predict the Future?
+
+**Autocorrelation** measures whether today's value is related to yesterday's. If yes, the series has **memory** — useful for forecasting.
+
+```{python}
+fig, axes = plt.subplots(1, 3, figsize=(5.8, 3.4))
+
+periods_ac = [
+    ("Before\nCOVID",  df[df["Date"] < SHOCK]["Return"]),
+    ("During\nCOVID",  df[(df["Date"] >= SHOCK) & (df["Date"] <= "2020-06-30")]["Return"]),
+    ("After\nCOVID",   df[df["Date"] > "2020-06-30"]["Return"])
+]
+
+for ax, (label, series), col in zip(axes, periods_ac, [TEAL, ORANGE, GREEN]):
+    lags = range(1, min(16, len(series)//3))
+    acf_vals = [series.autocorr(lag=k) for k in lags]
+    ax.bar(list(lags), acf_vals, color=col, edgecolor="white", width=0.65, alpha=0.85)
+    ax.axhline(0, color="#334155", linewidth=1.0)
+    conf = 1.96 / len(series)**0.5
+    ax.axhline( conf, color=GRAY, linewidth=1.0, linestyle="--", alpha=0.7)
+    ax.axhline(-conf, color=GRAY, linewidth=1.0, linestyle="--", alpha=0.7)
+    ax.set_title(label, fontsize=10, fontweight="bold", color=col)
+    ax.set_xlabel("Lag (days)")
+    ax.set_ylabel("Correlation" if ax==axes[0] else "")
+    ax.set_ylim(-0.3, 0.5); ax.grid(axis="y")
+
+fig.suptitle("Autocorrelation of Daily Returns\n(bars past dashed lines = significant memory)",
+             fontsize=9.5, fontweight="bold", color=NAVY, y=1.02)
+fig.tight_layout(pad=0.5)
+plt.show()
+```
+
+::: {.info}
+During the shock, **lag-1 is significant** — one bad day predicted the next. Panic has momentum. Before and after: far less memory, more random.
+:::
+:::
+:::
+
+---
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 5 — ANOMALY DETECTION
+     ═══════════════════════════════════════════ -->
+
+## Concept 4 — Anomaly Detection
+
+An **anomaly** is a data point so far from normal that it signals something genuinely unusual happened. We use the **3-sigma rule** — the simplest detector that needs no labels, just the data's own mean and spread.
+
+::: {.two-col}
+::: {}
+
+<div class="card card-teal" style="margin-bottom:12px;">
+<h3>The 3-Sigma Rule</h3>
+Flag a point if its distance from the mean is more than 3 standard deviations.
+<div class="formula" style="font-size:0.9em; margin-top:10px;">
+Flag if: |value − mean| &gt; 3 × std dev
+</div>
+In normally distributed data, only **0.3%** of points fall that far out — so anything flagged is genuinely rare.
+</div>
+
+```{python}
+counts = [len(anomalies[anomalies["Period"]==p])
+          for p in ["Pre-COVID","COVID Shock","Post-Shock"]]
+total  = [len(df[df["Period"]==p])
+          for p in ["Pre-COVID","COVID Shock","Post-Shock"]]
+pct    = [c/t*100 for c,t in zip(counts,total)]
+
+fig, ax = plt.subplots(figsize=(5.5, 3.0))
+bars = ax.bar(["Before\nCOVID","COVID\nShock","After\nCOVID"],
+              pct, color=[TEAL,RED,GREEN], edgecolor="white", width=0.5)
+ax.axhline(0.3, color=GRAY, linewidth=1.4, linestyle="--", label="Expected: 0.3% normally")
+for bar, v, c in zip(bars, pct, counts):
+    ax.text(bar.get_x()+bar.get_width()/2, v+0.12,
+            f"{v:.1f}%\n({c} days)", ha="center",
+            fontsize=9.5, fontweight="bold", color=bar.get_facecolor())
+ax.set_title("% of Days Flagged as Anomaly", fontsize=10, fontweight="bold", color=NAVY)
+ax.set_ylabel("% of days"); ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.3)
+plt.show()
+```
+
+:::
+
+::: {}
+```{python}
+fig, ax = plt.subplots(figsize=(6.0, 4.6))
+ax.axvspan(SHOCK, pd.Timestamp("2020-06-30"), color=ORANGE, alpha=0.10, label="COVID Window")
+ax.plot(df[~df["Anomaly"]]["Date"], df[~df["Anomaly"]]["Return"]*100,
+        color=TEAL, linewidth=0.85, alpha=0.55, label="Normal day")
+ax.scatter(anomalies["Date"], anomalies["Return"]*100,
+           color=RED, s=50, zorder=5, edgecolors="white", linewidth=0.6,
+           label=f"Anomaly flagged (n={len(anomalies)})")
+ax.axhline((mean_r+3*std_r)*100, color=GRAY, linewidth=1.1, linestyle=":", alpha=0.8, label="±3σ boundary")
+ax.axhline((mean_r-3*std_r)*100, color=GRAY, linewidth=1.1, linestyle=":", alpha=0.8)
+ax.axhline(0, color="#CBD5E1", linewidth=0.8)
+ax.axvline(SHOCK, color=ORANGE, linewidth=1.8, linestyle="--")
+ax.set_xlabel("Date"); ax.set_ylabel("Daily Change (%)")
+ax.set_title("Where Anomalies Appear — red dots = flagged days",
+             fontsize=11, fontweight="bold", color=NAVY)
+ax.legend(fontsize=9); ax.grid(axis="y")
+fig.tight_layout(pad=0.4)
+plt.show()
+```
+
+::: {.warn}
+⚡ **~9% of COVID-period days were anomalies** — 30× the normal rate of 0.3%. The rule found the crisis automatically using nothing but the data's own statistics.
+:::
+:::
+:::
+
+---
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 — KEY TAKEAWAYS
+     ═══════════════════════════════════════════ -->
+
+## Key Takeaways
+
+::: {.two-col}
+
+<div class="tcard">
+<div class="tcard-hdr" style="background:#1A3A5C;">
+  <span class="tcard-num">01</span>
+  <span class="tcard-ttl">Time Series = Ordered Data</span>
+</div>
+<div class="tcard-bdy">
+A time series is values recorded over time where <strong>order matters.</strong> Monday connects to Tuesday. Shuffle the rows and you destroy the information.
+</div>
+</div>
+
+<div class="tcard">
+<div class="tcard-hdr" style="background:#0D9488;">
+  <span class="tcard-num">02</span>
+  <span class="tcard-ttl">Use Changes, Not Levels</span>
+</div>
+<div class="tcard-bdy">
+Raw values that drift upward forever are <strong>not stationary.</strong> Use % changes instead — they bounce around zero and work with most analysis tools.
+</div>
+</div>
+
+<div class="tcard">
+<div class="tcard-hdr" style="background:#1A3A5C;">
+  <span class="tcard-num">03</span>
+  <span class="tcard-ttl">Rolling Windows Show When</span>
+</div>
+<div class="tcard-bdy">
+A rolling mean or rolling std dev turns one summary number into a <strong>timeline.</strong> You see exactly when the series changed — not just that it changed overall.
+</div>
+</div>
+
+<div class="tcard">
+<div class="tcard-hdr" style="background:#0D9488;">
+  <span class="tcard-num">04</span>
+  <span class="tcard-ttl">Structural Breaks Need New Models</span>
+</div>
+<div class="tcard-bdy">
+When behaviour <strong>permanently changes,</strong> old models stop working. Detecting the break point is step one — then you retrain on the new regime.
+</div>
+</div>
+
+<div class="tcard">
+<div class="tcard-hdr" style="background:#1A3A5C;">
+  <span class="tcard-num">05</span>
+  <span class="tcard-ttl">Autocorrelation = Memory</span>
+</div>
+<div class="tcard-bdy">
+If today's value is linked to yesterday's, the series has <strong>memory.</strong> During COVID, panic had momentum — one bad day predicted the next.
+</div>
+</div>
+
+<div class="tcard">
+<div class="tcard-hdr" style="background:#0D9488;">
+  <span class="tcard-num">06</span>
+  <span class="tcard-ttl">Simple Rules Detect Anomalies</span>
+</div>
+<div class="tcard-bdy">
+The 3-sigma rule flagged <strong>30× more anomalies</strong> during COVID using only mean and std dev — no labels, no complex model needed.
+</div>
+</div>
+
+:::
+
+<div style="background:linear-gradient(135deg,#0D1B2A,#1A3A5C);border:1px solid #0D9488;border-radius:8px;padding:12px 20px;margin-top:14px;display:flex;align-items:center;gap:16px;">
+  <span style="font-size:1.6em;">💡</span>
+  <p style="color:#CBD5E1;margin:0;font-size:0.92em;line-height:1.6;">These tools work on <strong style="color:#14B8A6;">any data over time</strong> — temperature, hospital admissions, website traffic, energy usage. COVID and the stock market are just our learning example.</p>
+</div>

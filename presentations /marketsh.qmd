@@ -1,0 +1,325 @@
+---
+title: "Market Shocks Through Time Series Analysis"
+subtitle: "Understanding COVID-19, Volatility, and Market Risk"
+author: "Devansh Sachar"
+date: "May 2026"
+
+format:
+  revealjs:
+    theme: league
+    embed-resources: true
+    slide-number: true
+    transition: fade
+    controls: true
+    progress: true
+    center: false
+    width: 1400
+    height: 800
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+<style>
+.reveal {
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  color: #7dd3fc;
+  font-weight: 800;
+}
+
+.reveal p,
+.reveal li {
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.callout {
+  background: rgba(56, 189, 248, 0.15);
+  border-left: 6px solid #38bdf8;
+  padding: 18px 24px;
+  border-radius: 12px;
+  margin-top: 18px;
+}
+
+.small {
+  font-size: 0.72em;
+  color: #cbd5e1;
+}
+
+.reveal img {
+  border-radius: 14px;
+}
+</style>
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+
+plt.style.use("dark_background")
+
+dates = pd.date_range("2018-01-01", "2022-12-31", freq="B")
+
+returns = []
+
+for d in dates:
+    if d < pd.Timestamp("2020-03-01"):
+        returns.append(np.random.normal(0.0004, 0.008))
+    elif d <= pd.Timestamp("2020-06-30"):
+        returns.append(np.random.normal(-0.0012, 0.035))
+    else:
+        returns.append(np.random.normal(0.0005, 0.014))
+
+df = pd.DataFrame({
+    "Date": dates,
+    "Return": returns
+})
+
+df["Index"] = 100 * (1 + df["Return"]).cumprod()
+df["Rolling_Volatility"] = df["Return"].rolling(30).std()
+
+df["Period"] = np.where(
+    df["Date"] < "2020-03-01",
+    "Pre-COVID",
+    np.where(df["Date"] <= "2020-06-30", "COVID Shock", "Post-Shock")
+)
+
+mean_return = df["Return"].mean()
+std_return = df["Return"].std()
+df["Anomaly"] = abs(df["Return"] - mean_return) > 3 * std_return
+```
+
+## Market Shocks Through Time Series Analysis
+
+### Main Idea
+
+Financial markets generate data every day.
+
+Time series analysis helps us understand how market behavior changes after major events.
+
+<div class="callout">
+COVID-19 is used as an example of a market shock because it created sudden uncertainty, volatility, and abnormal movements.
+</div>
+
+---
+
+## Why Time Series Analysis Matters
+
+Analysts often need to answer:
+
+- Is the market becoming more risky?
+- Has behavior changed over time?
+- Are unusual events occurring?
+- Is the current pattern normal or abnormal?
+
+```{python}
+plt.figure(figsize=(11, 5.2))
+plt.plot(df["Date"], df["Index"], linewidth=2.5, color="#38bdf8")
+plt.axvline(pd.Timestamp("2020-03-01"), linestyle="--", linewidth=2, color="#facc15")
+plt.title("Illustrative Market Index: 2018 to 2022", fontsize=17)
+plt.xlabel("Date")
+plt.ylabel("Index Level")
+plt.grid(alpha=0.25)
+plt.tight_layout()
+plt.show()
+```
+
+<div class="small">
+The dashed line marks the beginning of the COVID shock period.
+</div>
+
+---
+
+## Core Components of a Time Series
+
+Most time series contain:
+
+- **Trend:** long-term direction
+- **Seasonality:** repeated calendar-based pattern
+- **Cycles:** broader economic movement
+- **Noise:** random short-term variation
+
+```{python}
+x = np.arange(200)
+
+trend = 0.04 * x
+seasonality = 2 * np.sin(2 * np.pi * x / 40)
+noise = np.random.normal(0, 0.8, 200)
+
+series = trend + seasonality + noise
+
+plt.figure(figsize=(11, 5.2))
+plt.plot(x, series, color="#38bdf8", linewidth=2, label="Time Series")
+plt.plot(x, trend, color="#facc15", linewidth=2.5, label="Trend")
+plt.title("Trend + Seasonality + Noise", fontsize=17)
+plt.xlabel("Time")
+plt.ylabel("Value")
+plt.legend()
+plt.grid(alpha=0.25)
+plt.tight_layout()
+plt.show()
+```
+
+<div class="callout">
+Time series analysis separates meaningful patterns from random fluctuations.
+</div>
+
+---
+
+## Prices vs Returns
+
+Prices show the level of the market.
+
+Returns show how much the market moves from one period to the next.
+
+$$
+R_t = \frac{P_t - P_{t-1}}{P_{t-1}}
+$$
+
+```{python}
+plt.figure(figsize=(11, 5.2))
+plt.plot(df["Date"], df["Return"], linewidth=1.1, color="#93c5fd")
+plt.axvline(pd.Timestamp("2020-03-01"), linestyle="--", linewidth=2, color="#facc15")
+plt.title("Daily Market Returns", fontsize=17)
+plt.xlabel("Date")
+plt.ylabel("Daily Return")
+plt.grid(alpha=0.25)
+plt.tight_layout()
+plt.show()
+```
+
+<div class="small">
+Returns make risk and movement easier to compare over time.
+</div>
+
+---
+
+## Volatility: Measuring Market Risk
+
+Volatility measures how much returns fluctuate.
+
+Higher volatility means:
+
+- greater uncertainty
+- larger daily movements
+- higher risk
+- harder forecasting
+
+```{python}
+plt.figure(figsize=(11, 5.2))
+plt.plot(df["Date"], df["Rolling_Volatility"], linewidth=2.5, color="#22c55e")
+plt.axvline(pd.Timestamp("2020-03-01"), linestyle="--", linewidth=2, color="#facc15")
+plt.title("30-Day Rolling Volatility", fontsize=17)
+plt.xlabel("Date")
+plt.ylabel("Rolling Volatility")
+plt.grid(alpha=0.25)
+plt.tight_layout()
+plt.show()
+```
+
+<div class="callout">
+This graph shows market risk increasing sharply during the COVID shock.
+</div>
+
+---
+
+## Structural Breaks
+
+A structural break occurs when a time series suddenly changes behavior.
+
+COVID created a break because market conditions shifted quickly.
+
+Before COVID:
+
+- lower volatility
+- more stable patterns
+
+During COVID:
+
+- sudden uncertainty
+- larger swings
+- abnormal returns
+
+```{python}
+order = ["Pre-COVID", "COVID Shock", "Post-Shock"]
+volatility = df.groupby("Period")["Return"].std().loc[order]
+
+plt.figure(figsize=(9.5, 5.2))
+plt.bar(volatility.index, volatility.values, color=["#38bdf8", "#f97316", "#22c55e"])
+plt.title("Volatility by Market Period", fontsize=17)
+plt.xlabel("Period")
+plt.ylabel("Standard Deviation of Returns")
+plt.grid(axis="y", alpha=0.25)
+plt.tight_layout()
+plt.show()
+```
+
+<div class="small">
+The COVID period has the highest volatility, showing a clear change in market behavior.
+</div>
+
+---
+
+## Anomaly Detection
+
+An anomaly is an observation that is very different from normal behavior.
+
+Examples in market data:
+
+- sudden crashes
+- panic selling
+- unexpected rallies
+- large news reactions
+
+Simple rule used here:
+
+<div class="callout">
+Flag returns more than 3 standard deviations away from the average.
+</div>
+
+```{python}
+anomalies = df[df["Anomaly"]]
+
+plt.figure(figsize=(11, 5.2))
+plt.plot(df["Date"], df["Return"], linewidth=1, color="#94a3b8", label="Daily Return")
+plt.scatter(anomalies["Date"], anomalies["Return"], s=55, color="#ef4444", label="Anomaly")
+plt.axvline(pd.Timestamp("2020-03-01"), linestyle="--", linewidth=2, color="#facc15")
+plt.title("Simple Anomaly Detection in Market Returns", fontsize=17)
+plt.xlabel("Date")
+plt.ylabel("Daily Return")
+plt.legend()
+plt.grid(alpha=0.25)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Key Takeaways
+
+### What We Learned
+
+1. Time series data changes over time.
+
+2. Returns are more useful than raw prices for risk analysis.
+
+3. Volatility measures uncertainty and market risk.
+
+4. Structural breaks show when behavior changes suddenly.
+
+5. Anomaly detection helps identify unusual events.
+
+<div class="callout">
+Time series analysis turns noisy data into clearer business insight.
+</div>
+
+# Thank You

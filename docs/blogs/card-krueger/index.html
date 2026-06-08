@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-and-sample-construction" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-sample-construction">Data and Sample Construction</h2>
-<div id="a5f34643" class="cell" data-execution_count="1">
+<div id="e00df47e" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -295,7 +295,7 @@ Balanced panel: 384 stores
 <section id="summary-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h2>
 <p>Before estimating the treatment effect, it is important to verify that the two groups are comparable at baseline. The table below reports pre-treatment means for key variables by state.</p>
-<div id="557ddaa6" class="cell" data-execution_count="2">
+<div id="b3e66a6b" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Summary statistics (Table 2 analog) ───────────────────────────────────</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>chain_map <span class="op">=</span> {<span class="dv">1</span>: <span class="st">"BK"</span>, <span class="dv">2</span>: <span class="st">"KFC"</span>, <span class="dv">3</span>: <span class="st">"Roys"</span>, <span class="dv">4</span>: <span class="st">"Wendys"</span>}</span>
@@ -367,7 +367,7 @@ Balanced panel: 384 stores
 </div>
 </div>
 </div>
-<div id="49b0b94f" class="cell" data-execution_count="3">
+<div id="02e426a2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Chain composition by state ─────────────────────────────────────────────</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>chain_comp <span class="op">=</span> pd.crosstab(balanced[<span class="st">"nj"</span>], balanced[<span class="st">"chain_name"</span>], normalize<span class="op">=</span><span class="st">"index"</span>).<span class="bu">round</span>(<span class="dv">3</span>) <span class="op">*</span> <span class="dv">100</span></span>
@@ -413,7 +413,7 @@ Balanced panel: 384 stores
 <h2 class="anchored" data-anchor-id="main-analysis-difference-in-differences">Main Analysis: Difference-in-Differences</h2>
 <section id="comparison-of-means-table-3-analog" class="level3">
 <h3 class="anchored" data-anchor-id="comparison-of-means-table-3-analog">Comparison of Means (Table 3 Analog)</h3>
-<div id="8776b01e" class="cell" data-execution_count="4">
+<div id="656158a2" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Table 3: Means and DiD ────────────────────────────────────────────────</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> (</span>
@@ -467,7 +467,7 @@ Balanced panel: 384 stores
 </div>
 </div>
 </div>
-<div id="e138a5a4" class="cell" data-execution_count="5">
+<div id="7e7506e7" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── DiD estimate with t-test ──────────────────────────────────────────────</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>nj_demp <span class="op">=</span> balanced.loc[balanced[<span class="st">"nj"</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="st">"demp"</span>]</span>
@@ -490,7 +490,7 @@ p-value:       0.043</code></pre>
 <section id="regression-framework" class="level3">
 <h3 class="anchored" data-anchor-id="regression-framework">Regression Framework</h3>
 <p>A more formal approach estimates the same quantity via OLS. Reshaping the data into a panel and regressing FTE employment on a treatment indicator, a post-period indicator, and their interaction provides the DiD estimate with heteroskedasticity-robust standard errors.</p>
-<div id="272b38c2" class="cell" data-execution_count="6">
+<div id="e8dc667f" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Reshape to long panel ─────────────────────────────────────────────────</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>pre  <span class="op">=</span> balanced[[<span class="st">"sheet"</span>, <span class="st">"nj"</span>, <span class="st">"emptot"</span>, <span class="st">"chain"</span>, <span class="st">"co_owned"</span>]].copy()</span>
@@ -524,7 +524,7 @@ nj_x_post   2.750000  1.842828   1.492272  1.356279e-01  -0.861876   6.361876</c
 <section id="adding-controls" class="level3">
 <h3 class="anchored" data-anchor-id="adding-controls">Adding Controls</h3>
 <p>To assess sensitivity, the regression below adds chain fixed effects and an indicator for company-owned (vs.&nbsp;franchised) stores.</p>
-<div id="40ff4a6c" class="cell" data-execution_count="7">
+<div id="63a0985c" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Controlled regression ─────────────────────────────────────────────────</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>panel_ctrl <span class="op">=</span> panel.copy()</span>
@@ -554,7 +554,7 @@ chain_4    -1.181917  1.027149  -1.150677  2.498652e-01  -3.195092   0.831259</c
 </section>
 <section id="visualization" class="level2">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
-<div id="76cde03f" class="cell" data-execution_count="8">
+<div id="2414781e" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -569,7 +569,7 @@ chain_4    -1.181917  1.027149  -1.150677  2.498652e-01  -3.195092   0.831259</c
 <section id="robustness-check-excluding-closed-stores" class="level2">
 <h2 class="anchored" data-anchor-id="robustness-check-excluding-closed-stores">Robustness Check: Excluding Closed Stores</h2>
 <p>One concern is that coding closed stores as zero employment mechanically inflates the treatment effect if closures are concentrated in Pennsylvania. Below, the analysis is re-run after dropping stores that were permanently closed by Wave 2.</p>
-<div id="52b0e3b5" class="cell" data-execution_count="9">
+<div id="36927ad2" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Robustness: drop closed stores ────────────────────────────────────────</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>robust <span class="op">=</span> balanced[<span class="op">~</span>balanced[<span class="st">"closed"</span>]].copy()</span>

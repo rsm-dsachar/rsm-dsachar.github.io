@@ -1,0 +1,521 @@
+---
+title: "Key Drivers Analysis of Customer Satisfaction"
+author: "Devansh Sachar"
+date: 08 June
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "Contents"
+    theme: cosmo
+    highlight-style: github
+    df-print: kable
+    fig-align: center
+    fig-width: 9
+    fig-height: 6
+    embed-resources: true
+    page-layout: full
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import r2_score
+from itertools import combinations
+from math import factorial
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+import warnings
+warnings.filterwarnings("ignore")
+np.random.seed(42)
+
+# ── Data ───────────────────────────────────────────────────────────
+df = pd.read_csv("data_for_drivers_analysis.csv")
+
+outcome    = "satisfaction"
+predictors = ["trust", "build", "differs", "easy", "appealing",
+              "rewarding", "popular", "service", "impact"]
+
+labels = {
+    "trust":     "Trustworthy",
+    "build":     "Build Quality",
+    "differs":   "Differentiates",
+    "easy":      "Easy to Use",
+    "appealing": "Appealing",
+    "rewarding": "Rewarding",
+    "popular":   "Popular",
+    "service":   "Good Service",
+    "impact":    "Positive Impact",
+}
+
+X    = df[predictors].values
+y    = df[outcome].values
+n, p = X.shape
+
+# ── 1. Pearson correlations ────────────────────────────────────────
+pearson_r = np.array([np.corrcoef(X[:, j], y)[0, 1] for j in range(p)])
+
+# ── 2. Standardized beta ───────────────────────────────────────────
+X_std    = StandardScaler().fit_transform(X)
+y_std    = (y - y.mean()) / y.std()
+lr_full  = LinearRegression().fit(X_std, y_std)
+std_beta = lr_full.coef_
+r2_full  = r2_score(y_std, lr_full.predict(X_std))
+
+# ── 3. Drop-one usefulness ─────────────────────────────────────────
+drop_one = np.zeros(p)
+for j in range(p):
+    Xd          = np.delete(X, j, axis=1)
+    drop_one[j] = r2_full - r2_score(y, LinearRegression().fit(Xd, y).predict(Xd))
+
+# ── 4. Shapley values (linear, R²) ────────────────────────────────
+def r2_sub(X_arr, y_arr, idx):
+    if not idx:
+        return 0.0
+    Xs = X_arr[:, list(idx)]
+    return r2_score(y_arr, LinearRegression().fit(Xs, y_arr).predict(Xs))
+
+shapley_vals = np.zeros(p)
+for i in range(p):
+    others = [j for j in range(p) if j != i]
+    sv = 0.0
+    for size in range(p):
+        w = factorial(size) * factorial(p - size - 1) / factorial(p)
+        for subset in combinations(others, size):
+            sv += w * (r2_sub(X, y, list(subset) + [i]) - r2_sub(X, y, list(subset)))
+    shapley_vals[i] = sv
+
+# ── 5. Johnson's Relative Weights ─────────────────────────────────
+R_xx           = np.corrcoef(X_std.T)
+eigenvalues, V = np.linalg.eigh(R_xx)
+Z              = X_std @ V / np.sqrt(eigenvalues)
+beta_z         = Z.T @ y_std / n
+johnson_rw     = np.array([np.sum(V[j, :]**2 * beta_z**2) for j in range(p)])
+
+# ── 6. Random Forest Gini ─────────────────────────────────────────
+rf            = RandomForestRegressor(n_estimators=500, random_state=42, n_jobs=-1)
+rf.fit(X, y)
+rf_importance = rf.feature_importances_
+
+# ── Medium challenge: custom Shapley function ──────────────────────
+def shapley_linear_r2(X, y):
+    n, p = X.shape
+    def v(subset):
+        if not subset:
+            return 0.0
+        Xs    = X[:, list(subset)]
+        coef  = np.linalg.lstsq(np.column_stack([np.ones(n), Xs]), y, rcond=None)[0]
+        y_hat = np.column_stack([np.ones(n), Xs]) @ coef
+        return 1 - np.sum((y - y_hat)**2) / np.sum((y - y.mean())**2)
+    phi = np.zeros(p)
+    for i in range(p):
+        others = [j for j in range(p) if j != i]
+        sv = 0.0
+        for size in range(p):
+            w = factorial(size) * factorial(p - size - 1) / factorial(p)
+            for subset in combinations(others, size):
+                sv += w * (v(set(subset) | {i}) - v(set(subset)))
+        phi[i] = sv
+    return phi
+
+phi_custom = shapley_linear_r2(X, y)
+
+# ── Hard challenge: Shapley for logit with BIC ────────────────────
+y_bin = (y >= 4).astype(float)
+
+def logit_bic(X_sub, y_b):
+    nb = len(y_b)
+    if X_sub.shape[1] == 0:
+        ph  = y_b.mean()
+        ll  = (y_b * np.log(ph + 1e-15) + (1 - y_b) * np.log(1 - ph + 1e-15)).sum()
+        k   = 1
+    else:
+        clf   = LogisticRegression(max_iter=500, solver="lbfgs", C=1e6)
+        clf.fit(X_sub, y_b)
+        pr    = clf.predict_proba(X_sub)[:, 1]
+        ll    = (y_b * np.log(pr + 1e-15) + (1 - y_b) * np.log(1 - pr + 1e-15)).sum()
+        k     = X_sub.shape[1] + 1
+    return k * np.log(nb) - 2 * ll
+
+def shapley_logit_bic(X, y_b):
+    n, p     = X.shape
+    bic_null = logit_bic(np.empty((n, 0)), y_b)
+    def v(subset):
+        if not subset:
+            return 0.0
+        return bic_null - logit_bic(X[:, list(subset)], y_b)
+    phi = np.zeros(p)
+    for i in range(p):
+        others = [j for j in range(p) if j != i]
+        sv = 0.0
+        for size in range(p):
+            w = factorial(size) * factorial(p - size - 1) / factorial(p)
+            for subset in combinations(others, size):
+                sv += w * (v(set(subset) | {i}) - v(set(subset)))
+        phi[i] = sv
+    return phi
+
+phi_logit = shapley_logit_bic(X, y_bin)
+
+# ── Results table ──────────────────────────────────────────────────
+results = pd.DataFrame({
+    "Attribute":     [labels[p_] for p_ in predictors],
+    "Pearson r":     pearson_r,
+    "Std. β":        std_beta,
+    "Drop-one ΔR²":  drop_one,
+    "Shapley":       shapley_vals,
+    "Johnson RW":    johnson_rw,
+    "RF Gini":       rf_importance,
+})
+for col in results.columns[1:]:
+    results[f"Rank_{col}"] = results[col].rank(ascending=False).astype(int)
+
+rank_cols           = [c for c in results.columns if c.startswith("Rank_")]
+results["Avg Rank"] = results[rank_cols].mean(axis=1).round(1)
+results_sorted      = results.sort_values("Avg Rank")
+attr_order          = results_sorted["Attribute"].tolist()
+pred_order          = [p_ for a in attr_order for p_, l in labels.items() if l == a]
+```
+
+## Introduction
+
+Understanding *which* brand attributes drive customer satisfaction is a central challenge in market research. When predictors are correlated — as brand perceptions typically are — a single metric can give a misleading picture. **Key drivers analysis** addresses this by applying multiple complementary methods, each of which handles shared variance differently.
+
+This report analyses a customer satisfaction survey (`n = 2,553` respondents, 10 brands). The outcome is overall **satisfaction** (1–5 scale) and nine binary brand attributes serve as predictors.
+
+| Attribute | Meaning |
+|-----------|---------|
+| Trustworthy | The brand is trustworthy |
+| Build Quality | High build quality |
+| Differentiates | Stands out from competitors |
+| Easy to Use | Easy to use |
+| Appealing | Visually appealing |
+| Rewarding | Rewarding to own |
+| Popular | Widely used / popular |
+| Good Service | Good customer service |
+| Positive Impact | Makes a positive impact |
+
+---
+
+## Data Overview
+
+```{python}
+fig, axes = plt.subplots(1, 2, figsize=(11, 4))
+
+sat_counts = pd.Series(y).value_counts().sort_index()
+axes[0].bar(sat_counts.index, sat_counts.values, color="#4C72B0",
+            edgecolor="white", linewidth=0.6)
+axes[0].set_xlabel("Satisfaction Rating", fontsize=11)
+axes[0].set_ylabel("Count", fontsize=11)
+axes[0].set_title("Overall Satisfaction Distribution", fontsize=13, fontweight="bold")
+axes[0].set_xticks([1, 2, 3, 4, 5])
+for bar, cnt in zip(axes[0].patches, sat_counts.values):
+    axes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 15,
+                 f"{cnt:,}", ha="center", va="bottom", fontsize=9)
+
+attr_means = df[predictors].mean().rename(labels)
+bar_colors = ["#4C72B0" if v >= attr_means.mean() else "#C44E52" for v in attr_means]
+axes[1].barh(attr_means.index[::-1], attr_means.values[::-1],
+             color=bar_colors[::-1], edgecolor="white", linewidth=0.6)
+axes[1].set_xlabel("Proportion Endorsing Attribute", fontsize=11)
+axes[1].set_title("Attribute Prevalence", fontsize=13, fontweight="bold")
+axes[1].axvline(0.5, color="gray", linestyle="--", linewidth=0.8)
+axes[1].xaxis.set_major_formatter(mtick.PercentFormatter(xmax=1, decimals=0))
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Variable Importance Methods
+
+Six methods are used. Each captures a different facet of the relationship between brand attributes and satisfaction:
+
+| Method | What it measures |
+|--------|-----------------|
+| **Pearson Correlation** | Raw bivariate association (ignores other predictors) |
+| **Standardized β** | OLS coefficient after z-scoring all variables |
+| **Drop-one (Usefulness)** | Loss in R² when a predictor is removed |
+| **Shapley Values** | Average marginal R² contribution across all predictor coalitions |
+| **Johnson's Relative Weights** | Orthogonalized decomposition of R² — sums exactly to R² |
+| **Random Forest Gini** | Mean decrease in node impurity across 500 trees |
+
+---
+
+## Results
+
+### Variable Importance Table
+
+```{python}
+display_cols = ["Attribute", "Pearson r", "Std. β", "Drop-one ΔR²",
+                "Shapley", "Johnson RW", "RF Gini", "Avg Rank"]
+
+(results_sorted[display_cols]
+ .style
+ .format({
+     "Pearson r":    "{:.3f}",
+     "Std. β":       "{:.3f}",
+     "Drop-one ΔR²": "{:.4f}",
+     "Shapley":      "{:.4f}",
+     "Johnson RW":   "{:.4f}",
+     "RF Gini":      "{:.4f}",
+     "Avg Rank":     "{:.1f}",
+ })
+ .background_gradient(
+     subset=["Pearson r", "Std. β", "Drop-one ΔR²", "Shapley", "Johnson RW", "RF Gini"],
+     cmap="Blues")
+ .set_properties(**{"text-align": "center"})
+ .set_table_styles([
+     {"selector": "th", "props": [("text-align", "center"),
+                                   ("background-color", "#4C72B0"),
+                                   ("color", "white"),
+                                   ("font-weight", "bold")]},
+     {"selector": "td:first-child", "props": [("text-align", "left"),
+                                               ("font-weight", "bold")]},
+ ])
+ .hide(axis="index"))
+```
+
+> **Full-model R² = `{python} f"{r2_full:.3f}"`** — the nine attributes jointly explain `{python} f"{r2_full*100:.1f}"`% of the variance in satisfaction.
+> Shapley values and Johnson's Relative Weights each sum to this R².
+
+### Importance by Method (Normalized)
+
+```{python}
+def minmax(arr):
+    rng = arr.max() - arr.min()
+    return (arr - arr.min()) / rng if rng > 0 else arr
+
+methods = {
+    "Pearson r":     pearson_r,
+    "Std. β":        std_beta,
+    "Drop-one ΔR²":  drop_one,
+    "Shapley":       shapley_vals,
+    "Johnson RW":    johnson_rw,
+    "RF Gini":       rf_importance,
+}
+palette = ["#4C72B0", "#DD8452", "#55A868", "#C44E52", "#8172B2", "#937860"]
+
+fig, axes = plt.subplots(2, 3, figsize=(14, 8), constrained_layout=True)
+for ax, (name, vals), color in zip(axes.flat, methods.items(), palette):
+    norm  = minmax(vals)
+    reord = [norm[predictors.index(p_)] for p_ in pred_order]
+    bars  = ax.barh(attr_order[::-1], reord[::-1], color=color,
+                    edgecolor="white", linewidth=0.6, alpha=0.88)
+    ax.set_title(name, fontsize=12, fontweight="bold")
+    ax.set_xlim(0, 1.22)
+    ax.xaxis.set_visible(False)
+    ax.spines[["top", "right", "bottom"]].set_visible(False)
+    for bar, val in zip(bars, reord[::-1]):
+        ax.text(val + 0.02, bar.get_y() + bar.get_height()/2,
+                f"{val:.2f}", va="center", fontsize=8.5, color="#333")
+
+fig.suptitle("Variable Importance Across Six Methods (min-max normalized)",
+             fontsize=14, fontweight="bold")
+plt.show()
+```
+
+### Rank Heatmap
+
+```{python}
+rank_data      = results_sorted[rank_cols].values
+method_labels  = ["Pearson r", "Std. β", "Drop-one\nΔR²",
+                  "Shapley", "Johnson\nRW", "RF Gini"]
+
+fig, ax = plt.subplots(figsize=(10, 5.5))
+im = ax.imshow(rank_data, cmap="Blues_r", aspect="auto", vmin=1, vmax=p)
+ax.set_xticks(range(len(method_labels)))
+ax.set_xticklabels(method_labels, fontsize=10)
+ax.set_yticks(range(len(attr_order)))
+ax.set_yticklabels(attr_order, fontsize=10)
+ax.set_title("Rank Heatmap — Darker = More Important (Rank 1 = Top)",
+             fontsize=13, fontweight="bold", pad=12)
+
+for i in range(rank_data.shape[0]):
+    for j in range(rank_data.shape[1]):
+        r = rank_data[i, j]
+        ax.text(j, i, str(r), ha="center", va="center",
+                fontsize=11, fontweight="bold",
+                color="white" if r <= 3 else "#222")
+
+cbar = fig.colorbar(im, ax=ax, fraction=0.03, pad=0.02)
+cbar.set_label("Rank (lower = more important)", fontsize=9)
+cbar.ax.invert_yaxis()
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Discussion
+
+Despite using different assumptions and algorithms, the six methods **converge strongly** on the same top drivers:
+
+- **Top drivers** (ranked 1–3 across methods): **Trustworthy**, **Good Service**, and **Positive Impact**
+- **Weaker drivers** (ranked 7–9): **Differentiates**, **Popular**, and **Build Quality**
+
+**Why methods can disagree:**
+
+- **Pearson r** ignores multicollinearity and inflates the apparent importance of correlated attributes.
+- **Standardized β** penalises correlated predictors heavily — a variable may get a near-zero coefficient even if it is substantively important.
+- **Shapley values** and **Johnson's Relative Weights** distribute shared variance fairly across correlated predictors, making them the most theoretically principled linear methods.
+- **Random Forest Gini** additionally captures non-linear relationships and attribute interactions.
+
+The convergence of five independent methods on the same top three drivers gives strong confidence that **trust, service, and positive impact** are genuine priority areas for improving customer satisfaction.
+
+---
+
+## Medium Challenge: Custom Shapley Implementation
+
+Shapley values are grounded in cooperative game theory. Each predictor's importance equals its **average marginal contribution** to R² across every possible subset of the other predictors:
+
+$$\phi_j = \sum_{S \subseteq P \setminus \{j\}} \frac{|S|!\,(p-|S|-1)!}{p!}\bigl[v(S \cup \{j\}) - v(S)\bigr]$$
+
+The function below implements this from scratch — no external packages beyond NumPy.
+
+```{python}
+#| echo: true
+
+def shapley_linear_r2(X: np.ndarray, y: np.ndarray) -> np.ndarray:
+    """
+    Shapley values for OLS using R² as the value function.
+
+    Enumerates all 2^p predictor subsets exactly.
+    Sum of returned values equals the full-model R².
+    """
+    n, p = X.shape
+
+    def v(subset):
+        if not subset:
+            return 0.0
+        Xs    = X[:, list(subset)]
+        coef  = np.linalg.lstsq(np.column_stack([np.ones(n), Xs]), y, rcond=None)[0]
+        y_hat = np.column_stack([np.ones(n), Xs]) @ coef
+        return 1 - np.sum((y - y_hat)**2) / np.sum((y - y.mean())**2)
+
+    phi = np.zeros(p)
+    for i in range(p):
+        others = [j for j in range(p) if j != i]
+        sv = 0.0
+        for size in range(p):
+            w = factorial(size) * factorial(p - size - 1) / factorial(p)
+            for subset in combinations(others, size):
+                sv += w * (v(set(subset) | {i}) - v(set(subset)))
+        phi[i] = sv
+    return phi
+```
+
+```{python}
+verify = pd.DataFrame({
+    "Attribute":        [labels[p_] for p_ in predictors],
+    "Shapley (main)":   shapley_vals.round(6),
+    "Shapley (custom)": phi_custom.round(6),
+    "Difference":       np.abs(shapley_vals - phi_custom),
+})
+verify["Difference"] = np.abs(shapley_vals - phi_custom)
+(verify.style
+ .format({"Shapley (main)": "{:.6f}", "Shapley (custom)": "{:.6f}", "Difference": "{:.2e}"})
+ .hide(axis="index")
+ .set_caption(f"Verification: max absolute difference = {np.abs(shapley_vals - phi_custom).max():.2e} | "
+              f"Sum of custom Shapley = {phi_custom.sum():.6f} (R² = {r2_full:.6f})"))
+```
+
+---
+
+## Hard Challenge: Shapley Values for Logistic Regression (BIC)
+
+For binary satisfaction outcomes a **logistic regression** is more appropriate than OLS. We binarise satisfaction as *satisfied = rating ≥ 4* and use the **Bayesian Information Criterion** as the fit metric. Since lower BIC is better, the value function is $v(S) = \text{BIC}_{\text{null}} - \text{BIC}(S)$ — a positive value means the predictor subset improves over the null model.
+
+```{python}
+#| echo: true
+
+def logit_bic(X_sub: np.ndarray, y_b: np.ndarray) -> float:
+    """BIC of a logistic regression. Pass empty array for the null model."""
+    nb = len(y_b)
+    if X_sub.shape[1] == 0:
+        ph = y_b.mean()
+        ll = (y_b * np.log(ph + 1e-15) + (1 - y_b) * np.log(1 - ph + 1e-15)).sum()
+        k  = 1
+    else:
+        clf = LogisticRegression(max_iter=500, solver="lbfgs", C=1e6)
+        clf.fit(X_sub, y_b)
+        pr  = clf.predict_proba(X_sub)[:, 1]
+        ll  = (y_b * np.log(pr + 1e-15) + (1 - y_b) * np.log(1 - pr + 1e-15)).sum()
+        k   = X_sub.shape[1] + 1
+    return k * np.log(nb) - 2 * ll
+
+
+def shapley_logit_bic(X: np.ndarray, y_b: np.ndarray) -> np.ndarray:
+    """Shapley values for logistic regression using –ΔBIC as value function."""
+    n, p     = X.shape
+    bic_null = logit_bic(np.empty((n, 0)), y_b)
+
+    def v(subset):
+        if not subset:
+            return 0.0
+        return bic_null - logit_bic(X[:, list(subset)], y_b)
+
+    phi = np.zeros(p)
+    for i in range(p):
+        others = [j for j in range(p) if j != i]
+        sv = 0.0
+        for size in range(p):
+            w = factorial(size) * factorial(p - size - 1) / factorial(p)
+            for subset in combinations(others, size):
+                sv += w * (v(set(subset) | {i}) - v(set(subset)))
+        phi[i] = sv
+    return phi
+```
+
+```{python}
+bic_null = logit_bic(np.empty((n, 0)), y_bin)
+bic_full = logit_bic(X, y_bin)
+
+logit_df = pd.DataFrame({
+    "Attribute":        [labels[p_] for p_ in predictors],
+    "Shapley (–ΔBIC)":  phi_logit,
+    "% of ΔBIC":        phi_logit / phi_logit.sum() * 100,
+}).sort_values("Shapley (–ΔBIC)", ascending=False)
+
+(logit_df.style
+ .format({"Shapley (–ΔBIC)": "{:.3f}", "% of ΔBIC": "{:.1f}%"})
+ .background_gradient(subset=["Shapley (–ΔBIC)"], cmap="Blues")
+ .hide(axis="index")
+ .set_caption(f"Logistic regression BIC-based Shapley values | "
+              f"Null BIC = {bic_null:.1f} | Full BIC = {bic_full:.1f} | "
+              f"ΔBIC = {bic_null - bic_full:.1f}"))
+```
+
+```{python}
+fig, ax = plt.subplots(figsize=(9, 5))
+ls = logit_df.sort_values("Shapley (–ΔBIC)")
+colors_lr = ["#C44E52" if v < 0 else "#4C72B0" for v in ls["Shapley (–ΔBIC)"]]
+bars = ax.barh(ls["Attribute"], ls["Shapley (–ΔBIC)"],
+               color=colors_lr, edgecolor="white", linewidth=0.5, alpha=0.85)
+for bar, val in zip(bars, ls["Shapley (–ΔBIC)"]):
+    ax.text(val + (0.3 if val >= 0 else -0.3),
+            bar.get_y() + bar.get_height()/2,
+            f"{val:.2f}", va="center",
+            ha="left" if val >= 0 else "right",
+            fontsize=9, fontweight="bold")
+ax.axvline(0, color="gray", linewidth=0.8)
+ax.set_xlabel("Shapley Value (–ΔBIC)", fontsize=11)
+ax.set_title("Logistic Regression Shapley Values (BIC)\n"
+             "Outcome: Satisfied (rating ≥ 4) vs. Not Satisfied",
+             fontsize=12, fontweight="bold")
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+*Analysis in Python · `scikit-learn` · `numpy` · `matplotlib` · Shapley values via exact enumeration (2⁹ = 512 coalitions) · Random Forest: 500 trees, `random_state=42`*
