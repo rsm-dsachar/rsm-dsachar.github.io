@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devansh Sachar | Business Analyst</title>
+<meta name="description" content="Devansh Sachar, MS Business Analytics at UC San Diego. Data and business analyst with experience in telecom, banking and supply chain.">
+<meta property="og:title" content="Devansh Sachar | Business Analyst">
+<meta property="og:description" content="Finding where a business loses time and money, then building the model that catches it.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230E1E2F'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' text-anchor='middle' fill='%233CCFC1'%3EDS%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E1E2F;
+  --ink-panel:#16304A;
+  --paper:#F5F7F9;
+  --white:#FFFFFF;
+  --slate:#51627A;
+  --rule:#D5DCE4;
+  --teal:#0B7A75;
+  --teal-bright:#3CCFC1;
+  --amber:#E3A008;
+  --baseline:#8FA3BA;
+  --on-dark:#E8EEF4;
+  --on-dark-muted:#A9B8C9;
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --max:1120px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:var(--teal);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:2px}
+.on-dark :focus-visible{outline-color:var(--teal-bright)}
+strong{font-weight:650}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--white);color:var(--ink);padding:8px 14px;border-radius:4px;z-index:20;font-family:var(--f-display)}
+.skip:focus{left:12px}
+
+/* ---------- Navigation ---------- */
+.nav{position:sticky;top:0;z-index:10;background:var(--ink);color:var(--on-dark);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:60px}
+.brand{font-family:var(--f-display);font-weight:800;font-stretch:112%;letter-spacing:.01em;color:#fff;text-decoration:none;font-size:1.05rem}
+.nav ul{display:flex;align-items:center;gap:clamp(14px,2.4vw,28px);list-style:none;margin:0;padding:0;font-family:var(--f-display);font-size:.95rem;font-weight:500}
+.nav a{color:var(--on-dark);text-decoration:none}
+.nav a:hover{color:#fff;text-decoration:underline;text-underline-offset:6px}
+.nav .nav-cta{border:1px solid var(--teal-bright);color:var(--teal-bright);padding:6px 14px;border-radius:4px}
+.nav .nav-cta:hover{background:var(--teal-bright);color:var(--ink);text-decoration:none}
+.nav nav{min-width:0}
+@media (max-width:760px){
+  .nav .wrap{flex-wrap:wrap;gap:0 16px;padding-top:10px;padding-bottom:0}
+  .nav nav{order:3;flex:1 0 100%;max-width:100%}
+  .nav ul{overflow-x:auto;gap:20px;padding:10px 0 12px;white-space:nowrap}
+}
+
+/* ---------- Hero ---------- */
+.hero{background:var(--ink);color:var(--on-dark);padding:clamp(48px,8vw,104px) 0 clamp(56px,8vw,112px)}
+.hero .wrap{display:grid;gap:48px}
+@media (min-width:960px){.hero .wrap{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:72px}}
+.hero-line{font-family:var(--f-display);font-size:1.05rem;color:var(--on-dark-muted);margin:0 0 14px}
+.hero h1{font-family:var(--f-display);font-weight:800;font-stretch:112%;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.02em;color:#fff;margin:0 0 20px}
+.hero-claim{font-family:var(--f-display);font-weight:500;font-size:clamp(1.2rem,2.1vw,1.55rem);line-height:1.35;color:#fff;margin:0 0 20px;max-width:30ch}
+.hero-text{margin:0 0 32px;max-width:54ch;color:var(--on-dark)}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;font-family:var(--f-display);font-weight:600;font-size:.98rem;padding:11px 20px;border-radius:4px;text-decoration:none;border:1px solid rgba(255,255,255,.35);color:#fff}
+.btn:hover{border-color:#fff;text-decoration:none;background:rgba(255,255,255,.08)}
+.btn-primary{background:var(--teal-bright);border-color:var(--teal-bright);color:var(--ink)}
+.btn-primary:hover{background:#6CE0D4;border-color:#6CE0D4}
+
+/* Chart (the one memorable element) */
+.chart{margin:0;background:var(--ink-panel);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:26px 26px 22px}
+.chart figcaption{display:block;margin-bottom:22px}
+.chart-title{display:block;font-family:var(--f-display);font-weight:700;font-size:1.15rem;color:#fff;line-height:1.3}
+.chart-sub{display:block;font-family:var(--f-display);font-size:.9rem;color:var(--on-dark-muted);margin-top:2px}
+.bar-row{display:grid;grid-template-columns:minmax(92px,128px) 1fr 54px;align-items:center;gap:14px;margin-bottom:14px;font-family:var(--f-display);font-size:.95rem}
+.bar-label{color:var(--on-dark)}
+.bar-track{display:block;height:22px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.bar{display:block;height:100%;width:var(--w);border-radius:3px;transform-origin:left center;animation:grow .9s cubic-bezier(.2,.7,.2,1) .25s both}
+.bar-base{background:var(--baseline)}
+.bar-risk{background:var(--amber)}
+.bar-good{background:var(--teal)}
+.bar-val{font-weight:700;color:#fff;text-align:right;font-variant-numeric:tabular-nums}
+.chart-note{margin:18px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:.98rem;line-height:1.55;color:var(--on-dark)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* ---------- Sections ---------- */
+.section{padding:clamp(56px,8vw,96px) 0;border-top:1px solid var(--rule)}
+.section-first{border-top:0}
+.section .wrap{display:grid;gap:28px}
+@media (min-width:900px){.section .wrap{grid-template-columns:200px minmax(0,1fr);gap:48px}}
+.section h2{font-family:var(--f-display);font-weight:700;font-stretch:105%;font-size:1.65rem;line-height:1.15;margin:0;letter-spacing:-.005em}
+.lede{margin:0 0 14px;max-width:68ch}
+.lede:last-child{margin-bottom:0}
+
+/* Results ledger */
+.ledger{list-style:none;margin:0;padding:0}
+.ledger li{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;padding:24px 0;border-bottom:1px solid var(--rule)}
+.ledger li:first-child{padding-top:0}
+.ledger li:last-child{border-bottom:0;padding-bottom:0}
+@media (min-width:700px){.ledger li{grid-template-columns:200px minmax(0,1fr);gap:8px 32px;align-items:start}.ledger p{padding-top:.35em}}
+.fig{font-family:var(--f-display);font-weight:800;font-stretch:75%;font-size:clamp(2.2rem,4.2vw,3rem);line-height:1;letter-spacing:-.01em;color:var(--teal);font-variant-numeric:tabular-nums}
+.fig small{font-size:.5em;font-weight:700;margin-left:3px;letter-spacing:0}
+.ledger p{margin:0;max-width:62ch}
+.where{display:block;color:var(--slate);font-family:var(--f-display);font-size:.9rem;margin-top:6px}
+
+/* Experience and education */
+.job{display:grid;gap:10px 40px;padding:0 0 48px}
+.job:last-child{padding-bottom:0}
+@media (min-width:800px){.job{grid-template-columns:220px minmax(0,1fr)}}
+.job-meta h3{font-family:var(--f-display);font-weight:700;font-size:1.15rem;line-height:1.25;margin:0}
+.job-meta p{margin:3px 0 0;color:var(--slate);font-size:.95rem;line-height:1.45}
+.job-body ul{margin:0;padding:0;list-style:none}
+.job-body li{position:relative;padding-left:22px;margin:0 0 12px;max-width:70ch}
+.job-body li::before{content:"";position:absolute;left:0;top:.82em;width:9px;height:2px;background:var(--teal)}
+.more{margin-top:4px}
+.more summary{display:inline-block;cursor:pointer;font-family:var(--f-display);font-weight:600;font-size:.95rem;color:var(--teal);padding:4px 0;margin-bottom:10px}
+.more summary::-webkit-details-marker{display:none}
+.more summary:hover{text-decoration:underline;text-underline-offset:4px}
+.more .when-open{display:none}
+.more[open] .when-open{display:inline}
+.more[open] .when-closed{display:none}
+.degree{margin:0 0 10px;max-width:70ch}
+.degree-solo{margin:0}
+
+/* Projects */
+.project{display:grid;gap:24px 48px;padding:40px 0;border-top:1px solid var(--rule)}
+.project:first-child{border-top:0;padding-top:0}
+.project:last-child{padding-bottom:0}
+@media (min-width:1000px){.project{grid-template-columns:minmax(0,1fr) 310px;align-items:start}}
+.project h3{font-family:var(--f-display);font-weight:700;font-size:1.3rem;line-height:1.25;margin:0 0 4px}
+.project .when{font-family:var(--f-display);font-size:.9rem;color:var(--slate);margin:0}
+.project .stack{font-family:var(--f-display);font-size:.9rem;color:var(--slate);margin:0 0 16px}
+.project ul{margin:0;padding:0;list-style:none}
+.project li{position:relative;padding-left:22px;margin:0 0 12px;max-width:66ch}
+.project li::before{content:"";position:absolute;left:0;top:.82em;width:9px;height:2px;background:var(--teal)}
+.mini{margin:0;background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:18px 18px 14px}
+.mini figcaption{font-family:var(--f-display);font-weight:600;font-size:.92rem;line-height:1.35;margin-bottom:14px;color:var(--ink)}
+.mini .bar-row{grid-template-columns:92px 1fr 46px;gap:10px;margin-bottom:10px;font-size:.88rem}
+.mini .bar-label{color:var(--slate)}
+.mini .bar-track{background:#E9EEF3;height:18px}
+.mini .bar-val{color:var(--ink)}
+
+/* Skills */
+.skills{margin:0}
+.skills div{padding:0 0 22px;margin:0 0 22px;border-bottom:1px solid var(--rule)}
+.skills div:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.skills dt{font-family:var(--f-display);font-weight:700;font-size:1.02rem;margin:0 0 6px}
+.skills dd{margin:0;max-width:72ch;color:#27384B}
+
+/* Contact */
+.contact{background:var(--ink);color:var(--on-dark);padding:clamp(56px,8vw,96px) 0 32px}
+.contact .wrap{display:grid;gap:28px}
+@media (min-width:900px){.contact .wrap{grid-template-columns:200px minmax(0,1fr);gap:48px}}
+.contact h2{font-family:var(--f-display);font-weight:700;font-stretch:105%;font-size:1.65rem;line-height:1.15;margin:0;color:#fff}
+.contact p{margin:0 0 20px;max-width:56ch}
+.contact .email{display:inline-block;font-family:var(--f-display);font-weight:700;font-size:clamp(1.3rem,3vw,2rem);color:var(--teal-bright);text-decoration-thickness:2px;text-underline-offset:6px;word-break:break-word}
+.contact .email:hover{color:#6CE0D4}
+.contact-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.contact .foot{grid-column:1/-1;max-width:none;margin:40px 0 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-family:var(--f-display);font-size:.88rem;color:var(--on-dark-muted)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .bar{animation:none}
+}
+@media print{
+  .nav{position:static}
+  .bar{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav on-dark">
+  <div class="wrap">
+    <a class="brand" href="#top">Devansh Sachar</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="nav-cta" href="assets/resume.pdf">Résumé</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero on-dark" id="top">
+  <div class="wrap">
+    <div>
+      <p class="hero-line">MS Business Analytics at UC San Diego</p>
+      <h1>Devansh Sachar</h1>
+      <p class="hero-claim">I find where a business loses time and money, then build the model that catches it.</p>
+      <p class="hero-text">I work across AI, data and business, with experience in telecom, banking and supply chain. SQL, Python and statistical visualization are my everyday tools.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="assets/resume.pdf">Download résumé</a>
+        <a class="btn" href="mailto:devanshsachar47@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/devansh-sachar-081539198" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/rsm-dsachar" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <figure class="chart" aria-labelledby="chart-cap">
+      <figcaption id="chart-cap">
+        <span class="chart-title">Late-order rate across 2M orders</span>
+        <span class="chart-sub">Thermo Fisher Scientific capstone, 2026</span>
+      </figcaption>
+      <div class="bar-row">
+        <span class="bar-label">All orders</span>
+        <span class="bar-track" aria-hidden="true"><span class="bar bar-base" style="--w:38.2%"></span></span>
+        <span class="bar-val">19.1%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Business Unit UG</span>
+        <span class="bar-track" aria-hidden="true"><span class="bar bar-risk" style="--w:95.2%"></span></span>
+        <span class="bar-val">47.6%</span>
+      </div>
+      <p class="chart-note">Some factor combinations ran at 5.2x baseline risk. The Random Forest watchlist I built now flags high-risk orders at 59.3% precision.</p>
+    </figure>
+  </div>
+</section>
+
+<section class="section section-first" id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <div>
+      <p class="lede">I'm finishing my MS in Business Analytics at UC San Diego's Rady School of Management in December 2026, and I'm a teaching assistant for Real Estate Finance and Development.</p>
+      <p class="lede">Before UCSD, I spent close to three years as a data analyst at Bank of America in Gurugram, after internships at Ericsson and Evalueserve. That work covered cloud ETL pipelines, workflow automation, predictive models and the dashboards that business teams use to make decisions.</p>
+      <p class="lede">My most recent project was a capstone with Thermo Fisher Scientific, where I traced late orders across 2M records to the business units and factor combinations driving them, and built an early-warning model to catch them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results" aria-labelledby="results-h">
+  <div class="wrap">
+    <h2 id="results-h">Selected results</h2>
+    <ul class="ledger">
+      <li>
+        <span class="fig">59.3<small>%</small></span>
+        <p>Precision of the Random Forest early-warning model that flags high-risk orders. Each 1% fewer late orders saves an estimated ~$112M in revenue and ~$4.4M in shipping.<span class="where">Thermo Fisher Scientific capstone</span></p>
+      </li>
+      <li>
+        <span class="fig">+0.428</span>
+        <p>Correlation between the rebuilt risk score and customer satisfaction, up from +0.024. False alarms fell from ~30% to ~12%.<span class="where">Thermo Fisher Scientific capstone</span></p>
+      </li>
+      <li>
+        <span class="fig">72.4<small>%</small></span>
+        <p>Directional accuracy of the stock forecasting pipeline, up from 61.8% for a price-only model.<span class="where">Personal project</span></p>
+      </li>
+      <li>
+        <span class="fig">60<small>%</small></span>
+        <p>Drop in data latency after moving to Informatica and Google Cloud pipelines, giving near real-time KPI reporting for 60M+ global clients.<span class="where">Bank of America</span></p>
+      </li>
+      <li>
+        <span class="fig">3+<small>hrs</small></span>
+        <p>Saved every day across 7 departments and 250+ employees by automating data cleansing, validation and predictive modelling.<span class="where">Bank of America</span></p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="wrap">
+    <h2>Experience</h2>
+    <div>
+
+      <article class="job">
+        <div class="job-meta">
+          <h3>Thermo Fisher Scientific</h3>
+          <p>Business Analyst (Capstone Project)<br>San Diego, CA<br>Mar 2026 to Jun 2026</p>
+        </div>
+        <div class="job-body">
+          <ul>
+            <li>Diagnosed a <strong>19.1%</strong> On-Time-to-Promise (OTTP) miss rate across <strong>2M orders</strong> using SQL and statistical analysis, isolating risk in Business Unit UG (<strong>47.6%</strong>) and factor combinations at <strong>5.2x</strong> baseline risk.</li>
+            <li>Built a Random Forest early-warning model and daily watchlist dashboard flagging high-risk orders at <strong>59.3% precision</strong>; each 1% fewer late orders saves an estimated ~$112M revenue and ~$4.4M shipping.</li>
+            <li>Rebuilt a customer-experience risk score by consolidating 17 SQL KPIs into 6 risk indexes with SHAP explainability, lifting correlation with customer satisfaction from +0.024 to <strong>+0.428</strong> and cutting false alarms from ~30% to ~12%.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job">
+        <div class="job-meta">
+          <h3>Bank of America</h3>
+          <p>Data Analyst<br>Gurugram, India<br>Aug 2022 to Apr 2025</p>
+        </div>
+        <div class="job-body">
+          <ul>
+            <li>Automated data cleansing, validation, and predictive modelling in Alteryx (Intelligence Suite), Python, and SQL, saving <strong>3+ hours daily</strong> for 7 departments and 250+ employees through workflow automation.</li>
+            <li>Implemented Informatica cloud ETL pipelines and Google Cloud (GCP) solutions, cutting data latency by <strong>60%</strong> and enabling near real-time KPI reporting for <strong>60M+</strong> global clients.</li>
+            <li>Developed predictive models (logistic regression, neural networks) and LLM-enabled analytics on <strong>10M+</strong> records, cutting manual analysis effort by <strong>40%</strong> and workflow time from days to hours.</li>
+          </ul>
+          <details class="more">
+            <summary><span class="when-closed">Show 3 more</span><span class="when-open">Show fewer</span></summary>
+            <ul>
+              <li>Handled stakeholder management across 7 departments in an Agile environment (Jira) to gather requirements, build data quality and validation checks, and promote workflows with CI/CD release management.</li>
+              <li>Wrote optimized SQL and stored procedures to automate recurring reporting, and applied statistical analysis (ROI and incrementality) to measure the financial impact of programs and campaigns.</li>
+              <li>Leveraged LUMI to source, validate and analyze large-scale enterprise datasets, applying data quality checks and attention to data sensitivity to deliver reliable dashboards and insights for business stakeholders.</li>
+            </ul>
+          </details>
+        </div>
+      </article>
+
+      <article class="job">
+        <div class="job-meta">
+          <h3>Ericsson</h3>
+          <p>Intern<br>Gurugram, India<br>Feb 2022 to Apr 2022</p>
+        </div>
+        <div class="job-body">
+          <ul>
+            <li>Built Grafana dashboards and Python (Matplotlib) data visualizations to monitor network KPIs and spot latency and packet-loss patterns, supporting an <strong>8%</strong> improvement in global performance metrics.</li>
+            <li>Applied Apache Spark to ~<strong>1.5 TB/day</strong> of distributed traffic logs for near-real-time anomaly detection and fault prediction, reducing incident response time by <strong>25%</strong>.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="job">
+        <div class="job-meta">
+          <h3>Evalueserve</h3>
+          <p>Intern, Business Analytics Division<br>Gurugram, India<br>Jun 2021 to Aug 2021</p>
+        </div>
+        <div class="job-body">
+          <ul>
+            <li>Performed customer segmentation on <strong>2M+</strong> bank customer records using SQL, regression, and K-means clustering, increasing cross-sell campaign ROI by <strong>15%</strong> and lead conversion by <strong>12%</strong>.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <div>
+
+      <article class="project">
+        <div>
+          <h3>AI-Driven Stock Price Forecasting Pipeline</h3>
+          <p class="when">Oct 2026</p>
+          <p class="stack">Python, SQL, Snowflake, NLP</p>
+          <ul>
+            <li>Built a Snowflake pipeline in SQL and Python to process <strong>1.2M stock records</strong> and <strong>86,400 news articles</strong>, generating AI sentiment scores and technical indicators for price forecasting.</li>
+            <li>Improved directional accuracy from <strong>61.8% to 72.4%</strong> versus a price-only model, reduced mean absolute error by <strong>17.3%</strong>, and automated <strong>68%</strong> of manual data preparation.</li>
+          </ul>
+        </div>
+        <figure class="mini" aria-labelledby="mini-1">
+          <figcaption id="mini-1">Directional accuracy of the forecast</figcaption>
+          <div class="bar-row">
+            <span class="bar-label">Price only</span>
+            <span class="bar-track" aria-hidden="true"><span class="bar bar-base" style="--w:61.8%"></span></span>
+            <span class="bar-val">61.8%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">With news</span>
+            <span class="bar-track" aria-hidden="true"><span class="bar bar-good" style="--w:72.4%"></span></span>
+            <span class="bar-val">72.4%</span>
+          </div>
+        </figure>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>Financial and Weather Impact Data Integration Framework</h3>
+          <p class="when">Aug 2025</p>
+          <p class="stack">Python, Snowflake, PostgreSQL</p>
+          <ul>
+            <li>Integrated National Oceanic and Atmospheric Administration (NOAA) weather data with sales records to quantify weather-driven demand, identifying seasonal patterns that shifted revenue by up to <strong>12%</strong>.</li>
+            <li>Engineered a scalable Python and Snowflake ETL (Extract, Transform, Load) pipeline, reducing manual data handling by <strong>70%</strong>.</li>
+          </ul>
+        </div>
+        <figure class="mini" aria-labelledby="mini-2">
+          <figcaption id="mini-2">Manual data handling, before = 100</figcaption>
+          <div class="bar-row">
+            <span class="bar-label">Before</span>
+            <span class="bar-track" aria-hidden="true"><span class="bar bar-base" style="--w:100%"></span></span>
+            <span class="bar-val">100</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">With ETL</span>
+            <span class="bar-track" aria-hidden="true"><span class="bar bar-good" style="--w:30%"></span></span>
+            <span class="bar-val">30</span>
+          </div>
+        </figure>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <dl class="skills">
+      <div>
+        <dt>Technical tools</dt>
+        <dd>Python, SQL, PostgreSQL, VBA, Excel, Power Query, Tableau, Power BI, Looker, Grafana, Alteryx, Jira, Dashboards, KPI Reporting, Data Visualization</dd>
+      </div>
+      <div>
+        <dt>Analytics and machine learning</dt>
+        <dd>EDA, Statistical Analysis, Hypothesis Testing, A/B Testing, Predictive Modelling, Random Forest, Gradient Boosting (XGBoost), SHAP, Time-Series Forecasting, Anomaly Detection, K-Means Segmentation, Feature Engineering, NLP, LLM-Enabled Analytics</dd>
+      </div>
+      <div>
+        <dt>Data engineering and business</dt>
+        <dd>ETL/ELT Pipelines, CI/CD Pipelines, Release Management, Snowflake, dbt, Apache Airflow, Azure Databricks, Apache Spark, PySpark, Google Cloud (GCP), Informatica, Data Quality and Validation, Process Improvement, Workflow Automation, Stakeholder Management, Agile</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="education">
+  <div class="wrap">
+    <h2>Education</h2>
+    <div>
+      <article class="job">
+        <div class="job-meta">
+          <h3>UC San Diego</h3>
+          <p>Rady School of Management<br>Jul 2025 to Dec 2026</p>
+        </div>
+        <div class="job-body">
+          <p class="degree"><strong>Master of Science in Business Analytics</strong></p>
+          <ul>
+            <li>Relevant coursework: SQL and ETL, Customer Analytics using AI, Pricing Analytics, Python Programming</li>
+            <li>Teaching Assistant: Real Estate Finance and Development</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="job-meta">
+          <h3>Manipal University Jaipur</h3>
+          <p>India<br>Jul 2018 to Jul 2022</p>
+        </div>
+        <div class="job-body">
+          <p class="degree degree-solo"><strong>Bachelor of Engineering in Computer and Communication Engineering</strong></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="contact on-dark" id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <div>
+      <p>The fastest way to reach me is email. I'm based in San Diego, California.</p>
+      <a class="email" href="mailto:devanshsachar47@gmail.com">devanshsachar47@gmail.com</a>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="assets/resume.pdf">Download résumé</a>
+        <a class="btn" href="https://www.linkedin.com/in/devansh-sachar-081539198" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/rsm-dsachar" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <p class="foot">&copy; 2026 Devansh Sachar</p>
+  </div>
+</footer>
+
+</body>
+</html>
