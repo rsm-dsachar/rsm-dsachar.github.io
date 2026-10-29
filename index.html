@@ -120,25 +120,31 @@ ul{margin:0;padding:0;list-style:none}
 .chips li{font-family:var(--f-display);font-size:.82rem;font-weight:500;color:var(--text);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:5px 14px}
 .about .chips{margin-top:24px}
 
-/* Experience accordion */
-.exp-list{display:grid;gap:14px}
-.exp summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:4px 18px;padding:20px 24px;cursor:pointer;list-style:none}
-.exp summary::-webkit-details-marker{display:none}
-.badge{grid-row:1/3;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.2rem;color:#1A1206;background:var(--grad);box-shadow:0 10px 24px -10px rgba(255,140,70,.7)}
-.exp-role{display:block;font-family:var(--f-display);font-weight:600;font-size:1.08rem;line-height:1.3;color:#fff}
-.exp-co{display:block;color:var(--muted);font-size:.93rem}
-.exp-date{grid-row:1/3;grid-column:3;font-family:var(--f-display);font-size:.85rem;color:var(--muted);white-space:nowrap}
-.exp summary::after{content:"";grid-row:1/3;grid-column:4;width:10px;height:10px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);transition:transform .25s ease;margin:0 4px 4px 0}
-.exp[open] summary::after{transform:rotate(225deg);margin-bottom:-4px}
-.exp-body{padding:0 24px 24px 88px}
-.exp-body li{position:relative;padding-left:20px;margin:0 0 12px;max-width:72ch}
-.exp-body li::before{content:"";position:absolute;left:0;top:.78em;width:8px;height:8px;border-radius:50%;background:var(--grad)}
-.exp-body li:last-child{margin-bottom:0}
+/* Experience timeline */
+.timeline{position:relative;display:grid;gap:24px;padding:0 0 0 40px;margin:0;list-style:none}
+.timeline::before{content:"";position:absolute;left:13px;top:18px;bottom:18px;width:2px;background:linear-gradient(180deg,var(--gold),rgba(76,141,255,.55) 75%,transparent)}
+.tl-item{position:relative}
+.tl-item::before{content:"";position:absolute;left:-34px;top:34px;width:14px;height:14px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 5px rgba(255,170,80,.16),0 0 18px rgba(255,150,70,.8)}
+.tl-card{padding:26px 28px}
+.tl-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 18px;margin-bottom:18px}
+.badge{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;font-family:var(--f-display);font-weight:800;font-size:1.2rem;color:#1A1206;background:var(--grad);box-shadow:0 10px 24px -10px rgba(255,140,70,.7)}
+.badge img{display:none;max-width:100%;max-height:100%;object-fit:contain}
+.badge.has-logo{width:96px;height:56px;padding:8px 12px;background:#fff;box-shadow:0 10px 24px -12px rgba(0,0,0,.6)}
+.badge.has-logo img{display:block}
+.badge.has-logo .ltr{display:none}
+.tl-role{font-family:var(--f-display);font-weight:600;font-size:1.12rem;line-height:1.3;margin:0;color:#fff}
+.tl-co{margin:2px 0 0;color:var(--muted);font-size:.94rem}
+.tl-date{margin:0;font-family:var(--f-display);font-size:.85rem;color:var(--gold);white-space:nowrap}
+.tl-card ul li{position:relative;padding-left:20px;margin:0 0 12px;max-width:90ch}
+.tl-card ul li::before{content:"";position:absolute;left:0;top:.78em;width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.tl-card ul li:last-child{margin-bottom:0}
 @media (max-width:700px){
-  .exp summary{grid-template-columns:auto minmax(0,1fr) auto;padding:18px}
-  .exp-date{grid-row:auto;grid-column:2;margin-top:2px;white-space:normal}
-  .exp summary::after{grid-row:1/3;grid-column:3}
-  .exp-body{padding:0 18px 20px}
+  .timeline{padding-left:30px}
+  .timeline::before{left:8px}
+  .tl-item::before{left:-29px;top:30px;width:12px;height:12px}
+  .tl-card{padding:20px 18px}
+  .tl-head{grid-template-columns:auto minmax(0,1fr)}
+  .tl-date{grid-column:1/-1;white-space:normal}
 }
 
 /* Education */
@@ -265,61 +271,69 @@ ul{margin:0;padding:0;list-style:none}
 <section class="section" id="experience">
   <div class="wrap">
     <header class="sec-head"><p class="kicker gtext">My journey</p><h2>Work experience</h2></header>
-    <div class="exp-list">
+    <ol class="timeline">
 
-      <details class="glass exp" open>
-        <summary>
-          <span class="badge" aria-hidden="true">T</span>
-          <span class="exp-main"><span class="exp-role">Business Analyst (Capstone Project)</span><span class="exp-co">Thermo Fisher Scientific, San Diego, CA</span></span>
-          <span class="exp-date">Mar 2026 to Jun 2026</span>
-        </summary>
-        <div class="exp-body"><ul>
-          <li>Diagnosed a <strong>19.1%</strong> On-Time-to-Promise (OTTP) miss rate across <strong>2M orders</strong> using SQL and statistical analysis, isolating risk in Business Unit UG (<strong>47.6%</strong>) and factor combinations at <strong>5.2x</strong> baseline risk.</li>
-          <li>Built a Random Forest early-warning model and daily watchlist dashboard flagging high-risk orders at <strong>59.3% precision</strong>; each 1% fewer late orders saves an estimated ~$112M revenue and ~$4.4M shipping.</li>
-          <li>Rebuilt a customer-experience risk score by consolidating 17 SQL KPIs into 6 risk indexes with SHAP explainability, lifting correlation with customer satisfaction from +0.024 to <strong>+0.428</strong> and cutting false alarms from ~30% to ~12%.</li>
-        </ul></div>
-      </details>
+      <li class="tl-item">
+        <article class="glass tl-card">
+          <div class="tl-head">
+            <span class="badge" aria-hidden="true"><img src="assets/logos/thermo-fisher.png" alt=""><span class="ltr">T</span></span>
+            <div><h3 class="tl-role">Business Analyst (Capstone Project)</h3><p class="tl-co">Thermo Fisher Scientific, San Diego, CA</p></div>
+            <p class="tl-date">Mar 2026 to Jun 2026</p>
+          </div>
+          <ul>
+            <li>Diagnosed a <strong>19.1%</strong> On-Time-to-Promise (OTTP) miss rate across <strong>2M orders</strong> using SQL and statistical analysis, isolating risk in Business Unit UG (<strong>47.6%</strong>) and factor combinations at <strong>5.2x</strong> baseline risk.</li>
+            <li>Built a Random Forest early-warning model and daily watchlist dashboard flagging high-risk orders at <strong>59.3% precision</strong>; each 1% fewer late orders saves an estimated ~$112M revenue and ~$4.4M shipping.</li>
+            <li>Rebuilt a customer-experience risk score by consolidating 17 SQL KPIs into 6 risk indexes with SHAP explainability, lifting correlation with customer satisfaction from +0.024 to <strong>+0.428</strong> and cutting false alarms from ~30% to ~12%.</li>
+          </ul>
+        </article>
+      </li>
 
-      <details class="glass exp">
-        <summary>
-          <span class="badge" aria-hidden="true">B</span>
-          <span class="exp-main"><span class="exp-role">Data Analyst</span><span class="exp-co">Bank of America, Gurugram, India</span></span>
-          <span class="exp-date">Aug 2022 to Apr 2025</span>
-        </summary>
-        <div class="exp-body"><ul>
-          <li>Automated data cleansing, validation, and predictive modelling in Alteryx (Intelligence Suite), Python, and SQL, saving <strong>3+ hours daily</strong> for 7 departments and 250+ employees through workflow automation.</li>
-          <li>Implemented Informatica cloud ETL pipelines and Google Cloud (GCP) solutions, cutting data latency by <strong>60%</strong> and enabling near real-time KPI reporting for <strong>60M+</strong> global clients.</li>
-          <li>Developed predictive models (logistic regression, neural networks) and LLM-enabled analytics on <strong>10M+</strong> records, cutting manual analysis effort by <strong>40%</strong> and workflow time from days to hours.</li>
-          <li>Handled stakeholder management across 7 departments in an Agile environment (Jira) to gather requirements, build data quality and validation checks, and promote workflows with CI/CD release management.</li>
-          <li>Wrote optimized SQL and stored procedures to automate recurring reporting, and applied statistical analysis (ROI and incrementality) to measure the financial impact of programs and campaigns.</li>
-          <li>Leveraged LUMI to source, validate and analyze large-scale enterprise datasets, applying data quality checks and attention to data sensitivity to deliver reliable dashboards and insights for business stakeholders.</li>
-        </ul></div>
-      </details>
+      <li class="tl-item">
+        <article class="glass tl-card">
+          <div class="tl-head">
+            <span class="badge" aria-hidden="true"><img src="assets/logos/bank-of-america.png" alt=""><span class="ltr">B</span></span>
+            <div><h3 class="tl-role">Data Analyst</h3><p class="tl-co">Bank of America, Gurugram, India</p></div>
+            <p class="tl-date">Aug 2022 to Apr 2025</p>
+          </div>
+          <ul>
+            <li>Automated data cleansing, validation, and predictive modelling in Alteryx (Intelligence Suite), Python, and SQL, saving <strong>3+ hours daily</strong> for 7 departments and 250+ employees through workflow automation.</li>
+            <li>Implemented Informatica cloud ETL pipelines and Google Cloud (GCP) solutions, cutting data latency by <strong>60%</strong> and enabling near real-time KPI reporting for <strong>60M+</strong> global clients.</li>
+            <li>Developed predictive models (logistic regression, neural networks) and LLM-enabled analytics on <strong>10M+</strong> records, cutting manual analysis effort by <strong>40%</strong> and workflow time from days to hours.</li>
+            <li>Handled stakeholder management across 7 departments in an Agile environment (Jira) to gather requirements, build data quality and validation checks, and promote workflows with CI/CD release management.</li>
+            <li>Wrote optimized SQL and stored procedures to automate recurring reporting, and applied statistical analysis (ROI and incrementality) to measure the financial impact of programs and campaigns.</li>
+            <li>Leveraged LUMI to source, validate and analyze large-scale enterprise datasets, applying data quality checks and attention to data sensitivity to deliver reliable dashboards and insights for business stakeholders.</li>
+          </ul>
+        </article>
+      </li>
 
-      <details class="glass exp">
-        <summary>
-          <span class="badge" aria-hidden="true">E</span>
-          <span class="exp-main"><span class="exp-role">Intern</span><span class="exp-co">Ericsson, Gurugram, India</span></span>
-          <span class="exp-date">Feb 2022 to Apr 2022</span>
-        </summary>
-        <div class="exp-body"><ul>
-          <li>Built Grafana dashboards and Python (Matplotlib) data visualizations to monitor network KPIs and spot latency and packet-loss patterns, supporting an <strong>8%</strong> improvement in global performance metrics.</li>
-          <li>Applied Apache Spark to ~<strong>1.5 TB/day</strong> of distributed traffic logs for near-real-time anomaly detection and fault prediction, reducing incident response time by <strong>25%</strong>.</li>
-        </ul></div>
-      </details>
+      <li class="tl-item">
+        <article class="glass tl-card">
+          <div class="tl-head">
+            <span class="badge" aria-hidden="true"><img src="assets/logos/ericsson.png" alt=""><span class="ltr">E</span></span>
+            <div><h3 class="tl-role">Intern</h3><p class="tl-co">Ericsson, Gurugram, India</p></div>
+            <p class="tl-date">Feb 2022 to Apr 2022</p>
+          </div>
+          <ul>
+            <li>Built Grafana dashboards and Python (Matplotlib) data visualizations to monitor network KPIs and spot latency and packet-loss patterns, supporting an <strong>8%</strong> improvement in global performance metrics.</li>
+            <li>Applied Apache Spark to ~<strong>1.5 TB/day</strong> of distributed traffic logs for near-real-time anomaly detection and fault prediction, reducing incident response time by <strong>25%</strong>.</li>
+          </ul>
+        </article>
+      </li>
 
-      <details class="glass exp">
-        <summary>
-          <span class="badge" aria-hidden="true">E</span>
-          <span class="exp-main"><span class="exp-role">Intern, Business Analytics Division</span><span class="exp-co">Evalueserve, Gurugram, India</span></span>
-          <span class="exp-date">Jun 2021 to Aug 2021</span>
-        </summary>
-        <div class="exp-body"><ul>
-          <li>Performed customer segmentation on <strong>2M+</strong> bank customer records using SQL, regression, and K-means clustering, increasing cross-sell campaign ROI by <strong>15%</strong> and lead conversion by <strong>12%</strong>.</li>
-        </ul></div>
-      </details>
+      <li class="tl-item">
+        <article class="glass tl-card">
+          <div class="tl-head">
+            <span class="badge" aria-hidden="true"><span class="ltr">E</span></span>
+            <div><h3 class="tl-role">Intern, Business Analytics Division</h3><p class="tl-co">Evalueserve, Gurugram, India</p></div>
+            <p class="tl-date">Jun 2021 to Aug 2021</p>
+          </div>
+          <ul>
+            <li>Performed customer segmentation on <strong>2M+</strong> bank customer records using SQL, regression, and K-means clustering, increasing cross-sell campaign ROI by <strong>15%</strong> and lead conversion by <strong>12%</strong>.</li>
+          </ul>
+        </article>
+      </li>
 
-    </div>
+    </ol>
 
     <h3 class="sub" id="education">Education</h3>
     <div class="edu-grid">
@@ -470,6 +484,14 @@ ul{margin:0;padding:0;list-style:none}
     });
   });
   if(tabs.length){select(0,false);}
+
+  /* Show a company logo when its file exists, otherwise keep the lettered badge */
+  [].forEach.call(document.querySelectorAll('.badge img'),function(img){
+    function ok(){img.parentNode.classList.add('has-logo');}
+    function bad(){if(img.parentNode){img.parentNode.removeChild(img);}}
+    if(img.complete){if(img.naturalWidth>0){ok();}else{bad();}}
+    else{img.addEventListener('load',ok);img.addEventListener('error',bad);}
+  });
 
   /* Typing line in the hero */
   var el=document.getElementById('role');
